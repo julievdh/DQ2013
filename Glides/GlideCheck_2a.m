@@ -1,5 +1,5 @@
 % Import glide .csv 
-cd /Users/julievanderhoop/Documents/P6_NOPPTagDrag/DolphinQuest2013/Glides
+cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides
 A = importdata('UWC_Liho_290_2a.csv',',',2);
 ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
@@ -44,17 +44,17 @@ xlabel('Time (s)')
 
 %%
 % linear fit
-[rostrum_s, rostrum_i, rostrum_STAT] = myregr(rostrum(:,1), rostrum(:,4),0);
-rostrum_fit = rostrum_s.value*rostrum(:,1) + rostrum_i.value;
-
-[pfint_s, pfint_i, pfint_STAT] = myregr(pfint(:,1), pfint(:,4),0);
-pfint_fit = pfint_s.value*pfint(:,1) + pfint_i.value;
-
-[dfini_s, dfini_i, dfini_STAT] = myregr(dfini(:,1), dfini(:,4),0);
-dfini_fit = dfini_s.value*dfini(:,1) + dfini_i.value;
-
-[dfint_s, dfint_i, dfint_STAT] = myregr(dfint(:,1), dfint(:,4),0);
-dfint_fit = dfint_s.value*dfint(:,1) + dfint_i.value;
+% [rostrum_s, rostrum_i, rostrum_STAT] = myregr(rostrum(:,1), rostrum(:,4),0);
+% rostrum_fit = rostrum_s.value*rostrum(:,1) + rostrum_i.value;
+% 
+% [pfint_s, pfint_i, pfint_STAT] = myregr(pfint(:,1), pfint(:,4),0);
+% pfint_fit = pfint_s.value*pfint(:,1) + pfint_i.value;
+% 
+% [dfini_s, dfini_i, dfini_STAT] = myregr(dfini(:,1), dfini(:,4),0);
+% dfini_fit = dfini_s.value*dfini(:,1) + dfini_i.value;
+% 
+% [dfint_s, dfint_i, dfint_STAT] = myregr(dfint(:,1), dfint(:,4),0);
+% dfint_fit = dfint_s.value*dfint(:,1) + dfint_i.value;
 
 [fluke_s, fluke_i, fluke_STAT] = myregr(fluke(:,1), fluke(:,4),0);
 fluke_fit = fluke_s.value*fluke(:,1) + fluke_i.value;
@@ -67,19 +67,19 @@ ZO2_fit = ZO2_s.value*ZO2(:,1) + ZO2_i.value;
 
 %%
 % plot fits
-subplot(711)
-plot(rostrum(:,1),rostrum_fit,'k')
-subplot(712)
-plot(pfint(:,1),pfint_fit,'k')
-subplot(713)
-plot(dfini(:,1),dfini_fit,'k')
-subplot(714)
-plot(dfint(:,1),dfint_fit,'k')
-subplot(715)
+% subplot(711)
+% plot(rostrum(:,1),rostrum_fit,'k')
+% subplot(712)
+% plot(pfint(:,1),pfint_fit,'k')
+% subplot(713)
+% plot(dfini(:,1),dfini_fit,'k')
+% subplot(714)
+% plot(dfint(:,1),dfint_fit,'k')
+subplot(311)
 plot(fluke(:,1),fluke_fit,'k')
-subplot(716)
+subplot(312)
 plot(ZO1(:,1),ZO1_fit,'k')
-subplot(717)
+subplot(313)
 plot(ZO2(:,1),ZO2_fit,'k')
 
 
@@ -113,10 +113,10 @@ plot(ZO2(:,1),ZO2_fit,'k')
 %% plot all together
 figure(2); hold on
 
-plot(rostrum(:,1),rostrum(:,4),'b')
-plot(pfint(:,1),pfint(:,4),'r')
-plot(dfini(:,1),dfini(:,4),'k')
-plot(dfint(:,1),dfint(:,4),'color',[0.043, 0.517, 0.78])
+% plot(rostrum(:,1),rostrum(:,4),'b')
+% plot(pfint(:,1),pfint(:,4),'r')
+% plot(dfini(:,1),dfini(:,4),'k')
+% plot(dfint(:,1),dfint(:,4),'color',[0.043, 0.517, 0.78])
 plot(fluke(:,1),fluke(:,4),'color',[0,0.5,0])
 plot(ZO1(:,1),ZO1(:,4),'color',[1,0,1])
 plot(ZO2(:,1),ZO2(:,4),'color',[0.349,0.2,0.32941])

@@ -8,8 +8,8 @@ clear all; close all; clc
 % IMPORT DATA
 
 % Import glide .csv 
-cd /Users/julievanderhoop/Documents/P6_NOPPTagDrag/DolphinQuest2013/Glides
-filename = 'UWC_Liho_287_c.csv';
+cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides
+filename = 'UWC_Liho_290_2a.csv';
 A = importdata(filename,',',2);
 ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
