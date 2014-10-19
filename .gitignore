@@ -1,3 +1,9 @@
+$ cat .gitignore
+
+# Can ignore specific files
+.DS_Store
+
+# Use wildcards as well
 *.fig
 *.txt
 *.csv
@@ -6,3 +12,7 @@
 *.tiff
 *.mov
 *.dat
+
+# Can also ignore all directories and files in a directory.
+/Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/Lono - 273 (20Sept13)
+
