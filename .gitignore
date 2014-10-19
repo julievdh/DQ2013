@@ -16,5 +16,5 @@ $ cat .gitignore
 *.gpx
 
 # Can also ignore all directories and files in a directory.
-/Lono - 273 (20Sept13)/*
+/Lono - 273 (30Sept13)/*
 /ForAndreas/*
