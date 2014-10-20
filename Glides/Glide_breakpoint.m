@@ -9,14 +9,14 @@ clear all; close all; clc
 
 % Import glide .csv 
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides
-filename = 'UWC_Liho_290_2a.csv';
+filename = 'UWC_Hoku_288_2f.csv';
 A = importdata(filename,',',2);
 ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
 fluke = A.data(:,11:15);
 
 % % set cutoff point
-% cutoff = 2537;
+% cutoff = 2537
 % ii = find(fluke(:,5) < cutoff); % frame from visual
 % fluke = fluke(ii,:);
 % ii = find(ZO1(:,5) < cutoff); 
@@ -44,7 +44,7 @@ fluke = A.data(:,11:15);
 % Mb = body mass (kg)
     % Liho = 339.7 lbs = 154 kg
     % Hoku = 388 lbs = 176 kg
-Mb = 154*1.06;
+Mb = 176*1.06;
 % Ma = entrained water mass (kg) = Mb * 1.06
 % SAw = reference area (m^2) % estimated wetted surface area
 SAw = 0.08*Mb.^0.65;
