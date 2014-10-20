@@ -1,6 +1,8 @@
+close all; clear all; clc
+
 % Import glide .csv 
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides
-A = importdata('UWC_Liho_290_2a.csv',',',2);
+A = importdata('UWC_Liho_290_2c.csv',',',2);
 ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
 fluke = A.data(:,11:15);
@@ -121,7 +123,7 @@ plot(fluke(:,1),fluke(:,4),'color',[0,0.5,0])
 plot(ZO1(:,1),ZO1(:,4),'color',[1,0,1])
 plot(ZO2(:,1),ZO2(:,4),'color',[0.349,0.2,0.32941])
 
-xlim([min(rostrum(:,1)),max(fluke(:,1))])
+xlim([min(ZO1(:,1)),max(fluke(:,1))])
 xlabel('Time (s)')
 ylabel('Velocity (m/s')
 
@@ -140,11 +142,30 @@ SAw = 0.08*Mb.^0.65;
 rho = 1023.61;
 % GET TEMP/SAL NUMBERS FROM JULIE, GET REF WITH TABLE
 
-Cd_rostrum = (rostrum_s.value*(2*Mb))/(SAw*rho)
-Cd_pfint = (pfint_s.value*(2*Mb))/(SAw*rho)
-Cd_dfini = (dfini_s.value*(2*Mb))/(SAw*rho)
+% Cd_rostrum = (rostrum_s.value*(2*Mb))/(SAw*rho)
+% Cd_pfint = (pfint_s.value*(2*Mb))/(SAw*rho)
+% Cd_dfini = (dfini_s.value*(2*Mb))/(SAw*rho)
 Cd_ZO1 = (ZO1_s.value*(2*Mb))/(SAw*rho)
 Cd_fluke = (fluke_s.value*(2*Mb))/(SAw*rho)
 Cd_ZO2 = (ZO2_s.value*(2*Mb))/(SAw*rho)
+
+%% NOREN METHOD
+% Cd = (2*D)/(rho*Saw*V^2)
+% D = Mb*acceleration
+
+% filter ZO1 data
+windowSize = 30; % 30 frames = 1s
+ZO1_filt = filter(ones(1,windowSize)/windowSize,1,ZO1);
+ZO2_filt = filter(ones(1,windowSize)/windowSize,1,ZO2);
+
+% compute acceleration from smoothed velocity
+ZO1_filt_ax = (ZO1_filt(2:end,4) - ZO1_filt(1:end-1,4))/(1/29.97);
+ZO2_filt_ax = (ZO2_filt(2:end,4) - ZO2_filt(1:end-1,4))/(1/29.97);
+
+% Calculate Cd from drag (D = Mb*accel)
+Cd_ZO1 = (2*abs(Mb.*ZO1_filt_ax))./(rho*SAw*ZO1_filt(2:end,4).^2);
+Cd_ZO1_mn = nanmean(Cd_ZO1)
+Cd_ZO2 = (2*abs(Mb.*ZO2_filt_ax))./(rho*SAw*ZO2_filt(2:end,4).^2);
+Cd_ZO2_mn = nanmean(Cd_ZO2)
 
 

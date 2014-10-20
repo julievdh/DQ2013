@@ -90,4 +90,4 @@ Cd_ZO1_mn = nanmean(Cd_ZO1);
 Cd_ZO2 = (2*abs(Mb.*ZO2_filt_ax))./(rho*SAw*ZO2_filt(2:end,4).^2);
 Cd_ZO2_mn = nanmean(Cd_ZO2);
 
-CDALL = [Cd.ZO1(1) Cd.ZO2(1) Cd.fluke(1) Cd_ZO1_mn Cd_ZO2_mn];
+CDALL = [
