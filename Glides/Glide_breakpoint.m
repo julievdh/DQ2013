@@ -44,7 +44,7 @@ fluke = A.data(:,11:15);
 % Mb = body mass (kg)
     % Liho = 339.7 lbs = 154 kg
     % Hoku = 388 lbs = 176 kg
-Mb = 176*1.06;
+Mb = 154*1.06;
 % Ma = entrained water mass (kg) = Mb * 1.06
 % SAw = reference area (m^2) % estimated wetted surface area
 SAw = 0.08*Mb.^0.65;
