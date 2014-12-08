@@ -2,7 +2,7 @@ close all; clear all; clc
 
 % Import glide .csv 
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-A = importdata('UWC_Liho_289_2a_cut.csv',',',2);
+A = importdata('UWC_Liho_288_1a.csv',',',2);
 ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
 
@@ -64,7 +64,7 @@ plot(ZO2(:,1),ZO2_fit,'k')
 % Mb = body mass (kg)
     % Liho = 339.7 lbs = 154 kg
     % Hoku = 388 lbs = 176 kg
-Mb = 154*1.06;
+Mb = 176*1.06;
 % Ma = entrained water mass (kg)
 % SAw = reference area (m^2) % estimated wetted surface area
 SAw = 0.08*Mb.^0.65;
