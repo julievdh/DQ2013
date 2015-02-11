@@ -14,7 +14,11 @@ $ cat .gitignore
 *.dat
 *.eps
 *.gpx
+*.mat
+*.xlsx
+*.xls
 
 # Can also ignore all directories and files in a directory.
 /Lono - 273 (30Sept13)/*
 /ForAndreas/*
+/RespData/*
