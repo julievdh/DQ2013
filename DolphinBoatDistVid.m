@@ -1,12 +1,17 @@
 % Load in video data, determine distance between boat and dolphin
-close all
+close all; warning off
 
 % load data
-C = load('Lono_288_C_Track');
-A = load('Lono_285_A_Track');
-A2 = load('Lono_287_A2_Track');
+% C = load('Lono_288_C_Track');
+% A = load('Lono_285_A_Track');
+% A2 = load('Lono_287_A2_Track');
+C = load('Nainoa_285_C_Track');
+A = load('Nainoa_284_A_Track');
+A2 = load('Nainoa_287_A2_Track');
 
-filenames = {'Lono_288_C_Track'; 'Lono_285_A_Track'; 'Lono_287_A2_Track'};
+% filenames = {'Lono_288_C_Track'; 'Lono_285_A_Track'; 'Lono_287_A2_Track'};
+filenames = {'Nainoa_285_C_Track'; 'Nainoa_284_A_Track'; 'Nainoa_287_A2_Track'};
+
 for j = 1:3
 load(filenames{j})
 
