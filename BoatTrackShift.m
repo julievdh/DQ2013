@@ -51,7 +51,7 @@ plot(A2.boat(:,2), shift_A2.boat(:,3),'.','MarkerSize',10)
 plot(A2.dolphin(:,2), shift_A2.dolphin(:,3),'.','MarkerSize',10)
 legend('C boat','C dolphin','A boat','A dolphin','A2 boat','A2 dolphin')
 
-%
+%%
 figure(5); clf; set(gcf,'position',[147 290 1220 380])
 subplot(211); hold on
 plot(C.dolphin(:,1),C.dolphin(:,2),'.','MarkerSize',10)

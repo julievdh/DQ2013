@@ -44,23 +44,32 @@ legend('C dolphin','A dolphin','A2 dolphin')
 
 % Plot all together again
 figure(4); clf; hold on
-plot(C.boat(:,2), C.boat(:,3),'.','MarkerSize',10)
+plot(C.boat(:,2), C.boat(:,3),'-','MarkerSize',10)
 plot(C.dolphin(:,2), C.dolphin(:,3),'.','MarkerSize',10)
-plot(A.boat(:,2), shift_A.boat(:,3),'.','MarkerSize',10)
+plot(A.boat(:,2), shift_A.boat(:,3),'-','MarkerSize',10)
 plot(A.dolphin(:,2), shift_A.dolphin(:,3),'.','MarkerSize',10)
-plot(A2.boat(:,2), shift_A2.boat(:,3),'.','MarkerSize',10)
+plot(A2.boat(:,2), shift_A2.boat(:,3),'-','MarkerSize',10)
 plot(A2.dolphin(:,2), shift_A2.dolphin(:,3),'.','MarkerSize',10)
 legend('C boat','C dolphin','A boat','A dolphin','A2 boat','A2 dolphin')
 
-%%
+%% plot x and y through time
 figure(5); clf; set(gcf,'position',[147 290 1220 380])
 subplot(211); hold on
-plot(C.dolphin(:,1),C.dolphin(:,2),'.','MarkerSize',10)
-plot(A.dolphin(:,1)-abs(25.18-70.9),A.dolphin(:,2),'.','MarkerSize',10)
-plot(A2.dolphin(:,1)+abs(11.64-25.18),A2.dolphin(:,2),'.','MarkerSize',10)
+%plot(C.dolphin(:,1),C.dolphin(:,2),'.','MarkerSize',10)
+%plot(A.dolphin(:,1)-abs(25.18-70.9),A.dolphin(:,2),'.','MarkerSize',10)
+plot(A2.dolphin(:,1)+abs(11.64-25.18),A2.dolphin(:,2),'k.','MarkerSize',10)
+%plot(C.boat(:,1),C.boat(:,2),'-','MarkerSize',10)
+%plot(A.boat(:,1)-abs(25.18-70.9),A.boat(:,2),'-','MarkerSize',10)
+plot(A2.boat(:,1)+abs(11.64-25.18),A2.boat(:,2),'k-','MarkerSize',10)
+
 
 subplot(212); hold on
-plot(C.dolphin(:,1),shift_C.dolphin(:,3),'.','MarkerSize',10)
-plot(A.dolphin(:,1)-abs(65.4-20.53),A.dolphin(:,3),'.','MarkerSize',10)
-plot(A2.dolphin(:,1)+abs(20.53-8.25),shift_A2.dolphin(:,3),'.','MarkerSize',10)
+%plot(C.dolphin(:,1),C.dolphin(:,3),'.','MarkerSize',10)
+plot(A.dolphin(:,1)-abs(65.4-20.53),shift_A.dolphin(:,3),'.','MarkerSize',10)
+plot(A2.dolphin(:,1)+abs(20.53-8.25),shift_A2.dolphin(:,3),'k.','MarkerSize',10)
+%plot(C.boat(:,1),C.boat(:,3),'-','MarkerSize',10)
+plot(A.boat(:,1)-abs(65.4-20.53),A.boat(:,3),'-','MarkerSize',10)
+plot(A2.boat(:,1)+abs(20.53-8.25),A2.boat(:,3),'k-','MarkerSize',10)
+
+xlabel('Time (s)')
 
