@@ -16,6 +16,7 @@ plot(Nainoa.C.dolphin(:,2), Nainoa.C.dolphin(:,3),'.','MarkerSize',10)
 plot(Nainoa.A.dolphin(:,2), Nainoa.shift_A.dolphin(:,3),'.','MarkerSize',10)
 plot(Nainoa.A2.dolphin(:,2), Nainoa.shift_A2.dolphin(:,3),'.','MarkerSize',10)
 legend('C dolphin','A dolphin','A2 dolphin'); axis equal
+title('Nainoa')
 
 % subplot of dolphin and boat tracks 1D in X
 subplot('position',[0.32 0.68 0.3 0.22]); hold on; xlim([0 330]) % ylim([-6 15])
@@ -51,6 +52,7 @@ plot(Lono.C.dolphin(:,2), Lono.shift_C.dolphin(:,3),'.','MarkerSize',10)
 plot(Lono.A.dolphin(:,2), Lono.A.dolphin(:,3),'.','MarkerSize',10)
 plot(Lono.A2.dolphin(:,2), Lono.shift_A2.dolphin(:,3),'.','MarkerSize',10)
 legend('C dolphin','A dolphin','A2 dolphin'); axis equal
+title('Lono')
 
 % subplot of dolphin and boat tracks 1D in X
 subplot('position',[0.32 0.68 0.3 0.22]); hold on; xlim([0 360]) % ylim([-6 15])
