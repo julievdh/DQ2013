@@ -232,7 +232,7 @@ end
 
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
-        for j = 3:10
+        for j = 3:9
         VO2kg_table{i,j} = VO2_table{i,j}/240.25;
         end
     end

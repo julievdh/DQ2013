@@ -138,23 +138,23 @@ set(gca,'xtick',[0 1 2],'xticklabels',{'C','A','A+2'}); xlim([-1 3])
 title(headers{8}); xlabel('Condition')
 
 
-subplot(155); hold on
-for i = 1:6
-    if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
-    else if strfind(VO2_table{i,2},'A2')
-            h = errorbar(2,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
-        else
-            h = errorbar(1,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
-        end
-    end
-    if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-    else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','k')
-        end
-    end
-end
+% subplot(155); hold on
+% for i = 1:6
+%     if strfind(VO2_table{i,2},'C')
+%         h = errorbar(0,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
+%     else if strfind(VO2_table{i,2},'A2')
+%             h = errorbar(2,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
+%         else
+%             h = errorbar(1,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
+%         end
+%     end
+%     if strfind(VO2_table{i,1},'Nainoa')
+%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+%     else if strfind(VO2_table{i,1},'Lono')
+%             set(h,'color','k','MarkerFaceColor','k')
+%         end
+%     end
+% end
 set(gca,'xtick',[0 1 2],'xticklabels',{'C','A','A+2'}); xlim([-1 3])
 xlabel('Condition')
 title(headers{10})
@@ -301,7 +301,7 @@ for i = 4:6
     set(h,'color','k')
 end
 
-set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 2'}); xlim([-1 3]); ylim([2 6])
+set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 2'}); xlim([-1 3]);  ylim([1 2])
 xlabel('Condition'); ylabel('Physical Activity Ratio')
 title('Nainoa')
 
