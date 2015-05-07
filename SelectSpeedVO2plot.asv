@@ -266,5 +266,5 @@ for i = 1:length(VO2_table)
     VO2_2min_restkg(:,i) = VO2kg_table{i,4}(1);
 end
 
-[p,t,stats] = anovan(PAR,{Ind,Cond});
+[p,t,stats] = anovan(VO2_min1_recov,{Ind,Cond});
 
