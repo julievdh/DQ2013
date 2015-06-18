@@ -13,5 +13,8 @@ plot(boat(min_b(:,1)),min_b(:,2),'*')
 [max_d, min_d] = peakdet(dolphin(:,2),10);
 plot(dolphin(min_d(:,1)),min_d(:,2),'*')
 
+xlabel('Time (seconds)'); ylabel('x coordinate in frame')
+legend('Dolphin','Boat','Location','SE')
+
 % calculate difference between troughs
 d = min_d(:,2) - min_b(:,2);
