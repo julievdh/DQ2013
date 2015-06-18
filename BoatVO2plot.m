@@ -51,7 +51,7 @@ set(gca,'xtick',[0 1 2]); xlim([-1 3])
 xlabel('Condition'); ylabel('VO_2 (L/min)')
 title('Rest')
 box on
-set(gca,'xticklabels',{'Control','A','A+4'})
+set(gca,'xticklabels',{'Control','Tag','Tag+4'})
 adjustfigurefont
 
 
@@ -74,7 +74,7 @@ for i = 1:6
         end
     end
 end
-set(gca,'xtick',[0 1 2],'xticklabels',{'C','A','A+2'}); xlim([-1 3])
+set(gca,'xtick',[0 1 2],'xticklabels',{'C','Tag','Tag+4'}); xlim([-1 3])
 title(headers{5}); ylabel('VO_2 (L/min)'); xlabel('Condition')
 
 subplot(152); hold on
@@ -94,7 +94,7 @@ for i = 1:6
         end
     end
 end
-set(gca,'xtick',[0 1 2],'xticklabels',{'C','A','A+2'}); xlim([-1 3])
+set(gca,'xtick',[0 1 2],'xticklabels',{'C','Tag','Tag+4'}); xlim([-1 3])
 title(headers{6}); xlabel('Condition')
 
 subplot(153); hold on
@@ -114,7 +114,7 @@ for i = 1:6
         end
     end
 end
-set(gca,'xtick',[0 1 2],'xticklabels',{'C','A','A+2'}); xlim([-1 3])
+set(gca,'xtick',[0 1 2],'xticklabels',{'C','Tag','Tag+4'}); xlim([-1 3])
 title(headers{7}); xlabel('Condition')
 
 subplot(154); hold on
@@ -134,7 +134,7 @@ for i = 1:6
         end
     end
 end
-set(gca,'xtick',[0 1 2],'xticklabels',{'C','A','A+2'}); xlim([-1 3])
+set(gca,'xtick',[0 1 2],'xticklabels',{'C','Tag','Tag+4'}); xlim([-1 3])
 title(headers{8}); xlabel('Condition')
 
 
@@ -155,7 +155,7 @@ title(headers{8}); xlabel('Condition')
 %         end
 %     end
 % end
-set(gca,'xtick',[0 1 2],'xticklabels',{'C','A','A+2'}); xlim([-1 3])
+set(gca,'xtick',[0 1 2],'xticklabels',{'C','Tag','Tag+4'}); xlim([-1 3])
 xlabel('Condition')
 title(headers{10})
 adjustfigurefont
@@ -283,7 +283,7 @@ for i = 1:3
     set(h,'color','k')
 end
 
-set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 2'}); xlim([-1 3])
+set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 4'}); xlim([-1 3])
 xlabel('Condition'); ylabel('Physical Activity Ratio')
 title('Lono')
 
@@ -301,10 +301,11 @@ for i = 4:6
     set(h,'color','k')
 end
 
-set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 2'}); xlim([-1 3]);  ylim([1 2])
+set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 4'}); xlim([-1 3]);  ylim([1 2])
 xlabel('Condition'); ylabel('Physical Activity Ratio')
 title('Nainoa')
 
 adjustfigurefont
 
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print -depsc BoatVO2.eps

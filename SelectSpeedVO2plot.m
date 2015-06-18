@@ -8,137 +8,137 @@ headers = {'Filename';'Condition';'Rest all';'Rest last 2 min';...
     'Recov all';'Recov min 1';'Recov 0-2 min';'Recov min 2';...
     'Recov 5 min';'Recov 3-5 min'};
 
-% resting VO2 two methods
-figure(1); clf
-subplot(211); hold on
-for i = 1:length(VO2_table)
-    if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,3}(1),VO2_table{i,3}(1)-VO2_table{i,3}(2),'o');
-    else if strfind(VO2_table{i,2},'A4')
-            h = errorbar(2,VO2_table{i,3}(1),VO2_table{i,3}(1)-VO2_table{i,3}(2),'o');
-        else
-            h = errorbar(1,VO2_table{i,3}(1),VO2_table{i,3}(1)-VO2_table{i,3}(2),'o');
-        end
-    end
-    if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-    else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','auto')
-        else if strfind(VO2_table{i,1},'Kolohe')
-                set(h,'color','b','MarkerFaceColor','auto')
-            else
-                set(h,'color','r','MarkerFaceColor','auto')
-            end
-        end
-    end
-end
-set(gca,'xtick',[0 1 2]); xlim([-1 3])
-title(headers{3}); ylabel('VO_2 L/min')
-%%
-subplot(212); hold on
-for i = 1:length(VO2_table)
-    if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
-    else if strfind(VO2_table{i,2},'A4')
-           h = errorbar(2,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
-        else
-            h =errorbar(1,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
-        end
-    end
-    if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-    else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','auto')
-        else if strfind(VO2_table{i,1},'Kolohe')
-                set(h,'color','b','MarkerFaceColor','auto')
-            else
-                set(h,'color','r','MarkerFaceColor','auto')
-            end
-        end
-    end
-end
-set(gca,'xtick',[0 1 2]); xlim([-1 3])
-xlabel('Condition'); ylabel('VO_2 L/min')
-title(headers{4})
-
-%% plot recovery 3 methods
-figure(2); clf
-subplot(131); hold on
-for i = 1:length(VO2_table)
-    if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,5}(1),VO2_table{i,5}(1)-VO2_table{i,5}(2),'o');
-    else if strfind(VO2_table{i,2},'A4')
-           h = errorbar(2,VO2_table{i,5}(1),VO2_table{i,5}(1)-VO2_table{i,5}(2),'o');
-        else
-           h = errorbar(1,VO2_table{i,5}(1),VO2_table{i,5}(1)-VO2_table{i,5}(2),'o');
-        end
-    end
-        if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-    else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','auto')
-        else if strfind(VO2_table{i,1},'Kolohe')
-                set(h,'color','b','MarkerFaceColor','auto')
-            else
-                set(h,'color','r','MarkerFaceColor','auto')
-            end
-        end
-    end
-end
-set(gca,'xtick',[0 1 2]); xlim([-1 3])
-title(headers{5}); ylabel('VO_2 L/min')
-
-subplot(132); hold on
-for i = 1:length(VO2_table)
-    if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
-    else if strfind(VO2_table{i,2},'A4')
-            h = errorbar(2,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
-        else
-            h = errorbar(1,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
-        end
-    end
-        if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-    else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','auto')
-        else if strfind(VO2_table{i,1},'Kolohe')
-                set(h,'color','b','MarkerFaceColor','auto')
-            else
-                set(h,'color','r','MarkerFaceColor','auto')
-            end
-        end
-    end
-end
-set(gca,'xtick',[0 1 2]); xlim([-1 3])
-title(headers{6}); ylabel('VO_2 L/min')
-
-subplot(133); hold on
-for i = 1:length(VO2_table)
-    if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,7}(1),VO2_table{i,7}(1)-VO2_table{i,7}(2),'o');
-    else if strfind(VO2_table{i,2},'A4')
-           h = errorbar(2,VO2_table{i,7}(1),VO2_table{i,7}(1)-VO2_table{i,7}(2),'o');
-        else
-           h = errorbar(1,VO2_table{i,7}(1),VO2_table{i,7}(1)-VO2_table{i,7}(2),'o');
-        end
-    end
-        if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-    else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','auto')
-        else if strfind(VO2_table{i,1},'Kolohe')
-                set(h,'color','b','MarkerFaceColor','auto')
-            else
-                set(h,'color','r','MarkerFaceColor','auto')
-            end
-        end
-    end
-end
-set(gca,'xtick',[0 1 2]); xlim([-1 3])
-xlabel('Condition')
-title(headers{7}); ylabel('VO_2 L/min')
-
+% % resting VO2 two methods
+% figure(1); clf
+% subplot(211); hold on
+% for i = 1:length(VO2_table)
+%     if strfind(VO2_table{i,2},'C')
+%         h = errorbar(0,VO2_table{i,3}(1),VO2_table{i,3}(1)-VO2_table{i,3}(2),'o');
+%     else if strfind(VO2_table{i,2},'A4')
+%             h = errorbar(2,VO2_table{i,3}(1),VO2_table{i,3}(1)-VO2_table{i,3}(2),'o');
+%         else
+%             h = errorbar(1,VO2_table{i,3}(1),VO2_table{i,3}(1)-VO2_table{i,3}(2),'o');
+%         end
+%     end
+%     if strfind(VO2_table{i,1},'Nainoa')
+%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+%     else if strfind(VO2_table{i,1},'Lono')
+%             set(h,'color','k','MarkerFaceColor','auto')
+%         else if strfind(VO2_table{i,1},'Kolohe')
+%                 set(h,'color','b','MarkerFaceColor','auto')
+%             else
+%                 set(h,'color','r','MarkerFaceColor','auto')
+%             end
+%         end
+%     end
+% end
+% set(gca,'xtick',[0 1 2]); xlim([-1 3])
+% title(headers{3}); ylabel('VO_2 L/min')
+% %%
+% subplot(212); hold on
+% for i = 1:length(VO2_table)
+%     if strfind(VO2_table{i,2},'C')
+%         h = errorbar(0,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
+%     else if strfind(VO2_table{i,2},'A4')
+%            h = errorbar(2,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
+%         else
+%             h =errorbar(1,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
+%         end
+%     end
+%     if strfind(VO2_table{i,1},'Nainoa')
+%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+%     else if strfind(VO2_table{i,1},'Lono')
+%             set(h,'color','k','MarkerFaceColor','auto')
+%         else if strfind(VO2_table{i,1},'Kolohe')
+%                 set(h,'color','b','MarkerFaceColor','auto')
+%             else
+%                 set(h,'color','r','MarkerFaceColor','auto')
+%             end
+%         end
+%     end
+% end
+% set(gca,'xtick',[0 1 2]); xlim([-1 3])
+% xlabel('Condition'); ylabel('VO_2 L/min')
+% title(headers{4})
+% 
+% %% plot recovery 3 methods
+% figure(2); clf
+% subplot(131); hold on
+% for i = 1:length(VO2_table)
+%     if strfind(VO2_table{i,2},'C')
+%         h = errorbar(0,VO2_table{i,5}(1),VO2_table{i,5}(1)-VO2_table{i,5}(2),'o');
+%     else if strfind(VO2_table{i,2},'A4')
+%            h = errorbar(2,VO2_table{i,5}(1),VO2_table{i,5}(1)-VO2_table{i,5}(2),'o');
+%         else
+%            h = errorbar(1,VO2_table{i,5}(1),VO2_table{i,5}(1)-VO2_table{i,5}(2),'o');
+%         end
+%     end
+%         if strfind(VO2_table{i,1},'Nainoa')
+%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+%     else if strfind(VO2_table{i,1},'Lono')
+%             set(h,'color','k','MarkerFaceColor','auto')
+%         else if strfind(VO2_table{i,1},'Kolohe')
+%                 set(h,'color','b','MarkerFaceColor','auto')
+%             else
+%                 set(h,'color','r','MarkerFaceColor','auto')
+%             end
+%         end
+%     end
+% end
+% set(gca,'xtick',[0 1 2]); xlim([-1 3])
+% title(headers{5}); ylabel('VO_2 L/min')
+% 
+% subplot(132); hold on
+% for i = 1:length(VO2_table)
+%     if strfind(VO2_table{i,2},'C')
+%         h = errorbar(0,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
+%     else if strfind(VO2_table{i,2},'A4')
+%             h = errorbar(2,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
+%         else
+%             h = errorbar(1,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
+%         end
+%     end
+%         if strfind(VO2_table{i,1},'Nainoa')
+%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+%     else if strfind(VO2_table{i,1},'Lono')
+%             set(h,'color','k','MarkerFaceColor','auto')
+%         else if strfind(VO2_table{i,1},'Kolohe')
+%                 set(h,'color','b','MarkerFaceColor','auto')
+%             else
+%                 set(h,'color','r','MarkerFaceColor','auto')
+%             end
+%         end
+%     end
+% end
+% set(gca,'xtick',[0 1 2]); xlim([-1 3])
+% title(headers{6}); ylabel('VO_2 L/min')
+% 
+% subplot(133); hold on
+% for i = 1:length(VO2_table)
+%     if strfind(VO2_table{i,2},'C')
+%         h = errorbar(0,VO2_table{i,7}(1),VO2_table{i,7}(1)-VO2_table{i,7}(2),'o');
+%     else if strfind(VO2_table{i,2},'A4')
+%            h = errorbar(2,VO2_table{i,7}(1),VO2_table{i,7}(1)-VO2_table{i,7}(2),'o');
+%         else
+%            h = errorbar(1,VO2_table{i,7}(1),VO2_table{i,7}(1)-VO2_table{i,7}(2),'o');
+%         end
+%     end
+%         if strfind(VO2_table{i,1},'Nainoa')
+%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+%     else if strfind(VO2_table{i,1},'Lono')
+%             set(h,'color','k','MarkerFaceColor','auto')
+%         else if strfind(VO2_table{i,1},'Kolohe')
+%                 set(h,'color','b','MarkerFaceColor','auto')
+%             else
+%                 set(h,'color','r','MarkerFaceColor','auto')
+%             end
+%         end
+%     end
+% end
+% set(gca,'xtick',[0 1 2]); xlim([-1 3])
+% xlabel('Condition')
+% title(headers{7}); ylabel('VO_2 L/min')
+% 
 
 %%
 % plot all animals VO2 rest and recovery
@@ -188,6 +188,11 @@ for i = 1:length(VO2_table)
     set(h,'color','k')
 end
 
+adjustfigurefont
+
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('SelfSelect_RestRecov','-depsc','-r300')
+
 %%  Calculate PAR
 for i = 1:length(VO2_table)
     PAR(i) = VO2_table{i,6}(1)/VO2_table{i,4}(1);
@@ -223,6 +228,9 @@ for i = 1:length(VO2_table)
     
 end
 
+adjustfigurefont
+print('SelfSelect_PAR','-depsc','-r300')
+
 
 %% VO2/Kg
 
@@ -237,17 +245,17 @@ for i = 1:length(VO2_table)
         end
     end
     if strfind(VO2_table{i,1},'Kolohe')
-                for j = 3:10
+                for j = 3:9
         VO2kg_table{i,j} = VO2_table{i,j}/199.77;
         end
     end
     if strfind(VO2_table{i,1},'Liko')
-              for j = 3:10
+              for j = 3:9
         VO2kg_table{i,j} = VO2_table{i,j}/166.62;
         end
     end
     if strfind(VO2_table{i,1},'Nainoa')
-              for j = 3:10
+              for j = 3:9
         VO2kg_table{i,j} = VO2_table{i,j}/171.0;
         end
     end
@@ -256,11 +264,11 @@ end
 figure; hold on
 for i = 1:length(VO2kg_table)
     if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2kg_table{i,7}(1),VO2kg_table{i,7}(1)-VO2kg_table{i,7}(2),'o');
+        h = errorbar(0+rand/10,VO2kg_table{i,7}(1),VO2kg_table{i,7}(1)-VO2kg_table{i,7}(2),'o');
     else if strfind(VO2_table{i,2},'A4')
-           h = errorbar(2,VO2kg_table{i,7}(1),VO2kg_table{i,7}(1)-VO2kg_table{i,7}(2),'o');
+           h = errorbar(2+rand/10,VO2kg_table{i,7}(1),VO2kg_table{i,7}(1)-VO2kg_table{i,7}(2),'o');
         else
-           h = errorbar(1,VO2kg_table{i,7}(1),VO2kg_table{i,7}(1)-VO2kg_table{i,7}(2),'o');
+           h = errorbar(1+rand/10,VO2kg_table{i,7}(1),VO2kg_table{i,7}(1)-VO2kg_table{i,7}(2),'o');
         end
     end
         if strfind(VO2_table{i,1},'Nainoa')
@@ -281,8 +289,9 @@ set(gca,'xtick',[0 1 2]); xlim([-1 3])
 xlabel('Condition')
 title(headers{7}); ylabel('VO_2 L/kg/min')
 
+adjustfigurefont
+print('SelfSelect_VO2kg.eps','-depsc','-r300')
 
-return
 
 %% set up ANOVA
 for i = 1:length(VO2_table)
@@ -295,5 +304,5 @@ for i = 1:length(VO2_table)
     VO2_2min_restkg(:,i) = VO2kg_table{i,4}(1);
 end
 
-[p,t,stats] = anovan(VO2_2min_recovkg,{Ind,Cond});
+[p,t,stats] = anovan(VO2_2min_recovkg,{Ind,Cond},'varnames',{'Individual','Condition'});
 
