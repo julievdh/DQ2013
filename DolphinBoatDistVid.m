@@ -11,6 +11,7 @@ dC = boatDist(C.dolphin,C.boat);
 dA = boatDist(A.dolphin,A.boat);
 dA2 = boatDist(A2.dolphin,A2.boat);
 
+<<<<<<< HEAD
 % distances are absolute values
 dC = abs(dC); dA = abs(dA); dA2 = abs(dA2);
 
@@ -41,6 +42,17 @@ adjustfigurefont
 xlabel('Lap Number'); ; ylabel('Relative Distance fom Boat')
 legend('Control','Tag','Tag+4')
 print('Lono_LapDist.eps','-depsc','-r300')
+=======
+% figure(1); clf; hold on
+% histogram(dC,[-2:16])
+% histogram(dA,[-2:16])
+% histogram(dA2,[-2:16])
+
+figure(11); 
+subplot(211)
+bar(abs(horzcat(dC,dA(2:end),dA2)),'stacked')
+ylabel('Distance from Boat')
+>>>>>>> origin/master
 
 %% Nainoa
 clear all
@@ -54,6 +66,7 @@ dC = boatDist(C.dolphin,C.boat);
 dA = boatDist(A.dolphin,A.boat);
 dA2 = boatDist(A2.dolphin,A2.boat);
 
+<<<<<<< HEAD
 % distances are absolute values
 dC = abs(dC); dA = abs(dA); dA2 = abs(dA2);
 
@@ -83,3 +96,18 @@ colormap(myC)
 xlabel('Lap Number'); ylabel('Relative Distance fom Boat')
 legend('Control','Tag','Tag+4')
 print('Nainoa_LapDist.eps','-depsc','-r300')
+=======
+% figure(2); clf; hold on
+% histogram(dC,[-2:16])
+% histogram(dA,[-2:16])
+% histogram(dA2,[-2:16])
+
+figure(11)
+subplot(212)
+bar(abs(horzcat(dC,dA(2:end),dA2)),'stacked')
+ylim([0 15])
+ylabel('Distance from Boat'); xlabel('Lap Number')
+adjustfigurefont
+
+print -dtiff BoatLapDistance
+>>>>>>> origin/master
