@@ -137,24 +137,6 @@ end
 set(gca,'xtick',[0 1 2],'xticklabels',{'C','Tag','Tag+4'}); xlim([-1 3])
 title(headers{8}); xlabel('Condition')
 
-
-% subplot(155); hold on
-% for i = 1:6
-%     if strfind(VO2_table{i,2},'C')
-%         h = errorbar(0,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
-%     else if strfind(VO2_table{i,2},'A2')
-%             h = errorbar(2,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
-%         else
-%             h = errorbar(1,VO2_table{i,10}(1),VO2_table{i,10}(1)-VO2_table{i,10}(2),'o');
-%         end
-%     end
-%     if strfind(VO2_table{i,1},'Nainoa')
-%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-%     else if strfind(VO2_table{i,1},'Lono')
-%             set(h,'color','k','MarkerFaceColor','k')
-%         end
-%     end
-% end
 set(gca,'xtick',[0 1 2],'xticklabels',{'C','Tag','Tag+4'}); xlim([-1 3])
 xlabel('Condition')
 title(headers{10})
@@ -261,7 +243,7 @@ h = errorbar(0,VO2_table{6,4}(1),VO2_table{6,4}(1)-VO2_table{6,4}(2),'ks');
 h = errorbar(1,VO2_table{6,6}(1),VO2_table{6,6}(1)-VO2_table{6,6}(2),'ks');
 plot([0 1],[VO2_table{6,4}(1) VO2_table{6,6}(1)],'k:')
 
-set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5]); ylim([0 5])
+set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5]); ylim([0 2])
 ylabel('VO_2 L/min')
 title('Nainoa')
 
