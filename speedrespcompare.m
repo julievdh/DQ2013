@@ -1,5 +1,6 @@
-<<<<<<< HEAD
+
 close all; clear all; clc
+warning off % cause xticklabels is a bitch
 
 % load data
 [AllTrials,txt] = xlsread('DQ13_MetabSwimSpeeds');
@@ -12,12 +13,12 @@ headers = {'Filename';'Condition';'Rest all';'Rest last 2 min';...
 
 % make text vector of filenames
 for i = 1:length(txt)
- text{i} = txt{1,i};
+ txt2{i} = txt{1,i};
 end
 
 % find filename in VO2 table and match index for speed
 for n = 1:length(AllTrials)
-    filename = regexprep(text{n},'13','');
+    filename = regexprep(txt2{n},'13','');
     filename = regexprep(filename,'+','');
     
     for i = 1:size(VO2_table,1)
@@ -65,78 +66,89 @@ for i = 1:length(VO2_table)
 end
 
 %%
-figure(12); 
+figure(12); clf
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
-        subplot(221); title('Lono'); hold on; xlim([-0.5 2.5])
-        ylabel('PAR')
+        subplot('position',[0.07 0.55 0.38 0.2]); hold on; xlim([-0.5 2.5]); 
+        ylabel('PAR'); box on
     end
     if strfind(VO2_table{i,1},'Kolohe')
-        subplot(222); title('Kolohe'); hold on; xlim([-0.5 2.5])
+        subplot('position',[0.53 0.55 0.38 0.2]); title('Kolohe'); hold on; 
+        xlim([-0.5 2.5]); ylim([0 16]); box on
     end
     if strfind(VO2_table{i,1},'Liko')
-        subplot(223); title('Liko'); hold on; xlim([-0.5 2.5])
-        xlabel('Condition'); ylabel('PAR')
+        subplot('position',[0.07 0.1 0.38 0.2]); title('Liko'); hold on; xlim([-0.5 2.5])
+        xlabel('Condition'); ylabel('PAR'); box on
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot(224); title('Nainoa'); hold on; xlim([-0.5 2.5])
-        xlabel('Condition')
+        subplot('position',[0.53 0.1 0.38 0.2]); title('Nainoa'); hold on; xlim([-0.5 2.5])
+        xlabel('Condition'); ylim([0 2.5]); box on
     end
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,PAR(i),'o');
+        h = plot(0,PAR(i),'ko');
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,PAR(i),'s');
+            h = plot(2,PAR(i),'rs');
         else
-            h = plot(1,PAR(i),'^');
+            h = plot(1,PAR(i),'b^');
         end
     end
-    set(h,'color','k')
+    % set(h,'color','k') % can keep this if want to keep PAR = black and
+    % speed a different colour.
     set(gca,'xtick',[0 1 2])
 end
-
-
 
 for i = 1:length(speed)
     if strfind(VO2_table{i,1},'Lono')
-        subplot(221); title('Lono'); hold on; xlim([-0.5 2.5])
-        ylabel({'PAR';'Mean Lap Duration (sec)'})
+        subplot('position',[0.07 0.75 0.38 0.2]); hold on; xlim([-0.5 2.5])
+        ax = gca; ax.YAxisLocation = 'right';set(gca','xticklabels',{'','',''})
+        text(-0.34,46.3,'A: Lono','FontSize',12,'FontWeight','Bold'); box on
     end
     if strfind(VO2_table{i,1},'Kolohe')
-        subplot(222); title('Kolohe'); hold on; xlim([-0.5 2.5])
+        subplot('position',[0.53 0.75 0.38 0.2]); hold on; xlim([-0.5 2.5]); 
+        ylim([20 50]); box on
+        ax = gca; ax.YAxisLocation = 'right'; ylabel({'Mean Lap'; 'Duration (sec)'}); 
+        set(gca','xticklabels',{'','',''}); 
+        text(-0.34,46.3,'B: Kolohe','FontSize',12,'FontWeight','Bold'); 
     end
     if strfind(VO2_table{i,1},'Liko')
-        subplot(223); title('Liko'); hold on; xlim([-0.5 2.5])
-        xlabel('Condition'); ylabel({'PAR';'Mean Lap Duration (sec)'})
+        subplot('position',[0.07 0.3 0.38 0.2]); hold on; xlim([-0.5 2.5]); ylim([23 45])
+        ax = gca; ax.YAxisLocation = 'right'; set(gca','xticklabels',{'','',''})
+        text(-0.34,42.3,'C: Liko','FontSize',12,'FontWeight','Bold'); box on
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot(224); title('Nainoa'); hold on; xlim([-0.5 2.5])
-        xlabel('Condition')
+        subplot('position',[0.53 0.3 0.38 0.2]); hold on; xlim([-0.5 2.5]); ylim([23 45])
+        ax = gca; ax.YAxisLocation = 'right'; set(gca','xticklabels',{'','',''}); box on
+        ylabel({'Mean Lap'; 'Duration (sec)'}); 
+        text(-0.34,42.3,'D: Nainoa','FontSize',12,'FontWeight','Bold'); 
     end
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,speed(i),'o');
+        h = plot(0,speed(i),'ko');
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,speed(i),'s');
+            h = plot(2,speed(i),'rs');
         else
-            h = plot(1,speed(i),'^');
+            h = plot(1,speed(i),'b^');
         end
     end
-    set(h,'color','b')
+    %set(h,'color','b')
     set(gca,'xtick',[0 1 2])
 end
 
+adjustfigurefont
+
 print -dtiff PARlapspeed
-=======
+
+%%
 % load data
 [AllTrials,txt] = xlsread('DQ13_MetabSwimSpeeds');
 
 % make text vector of filenames
 for i = 1:length(txt)
- text{i} = txt{1,i};
+ txt2{i} = txt{1,i};
 end
 
 % find filename in VO2 table and match index for speed
 for n = 1:length(AllTrials)
-    filename = regexprep(text{n},'13','');
+    filename = regexprep(txt2{n},'13','');
     filename = regexprep(filename,'+','');
     
     for i = 1:length(VO2_table)
@@ -170,4 +182,3 @@ for i = 1:length(speed)
         end
     end
 end
->>>>>>> origin/master
