@@ -1,9 +1,22 @@
 % plot three laps for non-boat trials
 
-% load data
-% e.g., Kolohe
-cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/NoBoatVideo
-load('KoloheNoBoatVid')
+% first process the data
+ProcessNoBoatVid
+
+
+% A.d271 is base file to which all are corrected to
+
+% correct all Kolohe files
+[Kolohe.A4.d288,Kolohe.A.d271] = aligntrainers(Kolohe.A4.d288,Kolohe.A.d271);
+[Kolohe.A4.d272,Kolohe.A.d271] = aligntrainers(Kolohe.A4.d272,Kolohe.A.d271);
+[Kolohe.A.d276,Kolohe.A.d271] = aligntrainers(Kolohe.A.d276,Kolohe.A.d271);
+[Kolohe.A.d282,Kolohe.A.d271] = aligntrainers(Kolohe.A.d282,Kolohe.A.d271);
+[Kolohe.C.d278,Kolohe.A.d271] = aligntrainers(Kolohe.C.d278,Kolohe.A.d271);
+
+% save Kolohe structure
+keep Kolohe; save('Kolohe
+
+
 
 figure(1); clf; hold on
 plot(Kolohe.A.d271.trainers(:,2),Kolohe.A.d271.trainers(:,3),'k^','MarkerFaceColor','k')
