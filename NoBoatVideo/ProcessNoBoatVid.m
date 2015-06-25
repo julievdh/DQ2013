@@ -15,6 +15,7 @@ load('KoloheNoBoatVid')
 [Kolohe.A.d276,Kolohe.A.d271] = aligntrainers(Kolohe.A.d276,Kolohe.A.d271);
 [Kolohe.A.d282,Kolohe.A.d271] = aligntrainers(Kolohe.A.d282,Kolohe.A.d271);
 [Kolohe.C.d278,Kolohe.A.d271] = aligntrainers(Kolohe.C.d278,Kolohe.A.d271);
+[Kolohe.C.d269,Kolohe.A.d271] = aligntrainers(Kolohe.C.d269,Kolohe.A.d271);
 
 % save Kolohe structure
 keep Kolohe; save('KoloheNoBoatVid')
@@ -24,7 +25,7 @@ load('LonoNoBoatVid')
 
 % correct all Lono files
 [Lono.A.d269,Kolohe.A.d271] = aligntrainers(Lono.A.d269,Kolohe.A.d271);
-% [Lono.A.d278,Kolohe.A.d271] = aligntrainers(Lono.A.d278,Kolohe.A.d271);
+[Lono.A.d278,Kolohe.A.d271] = aligntrainers(Lono.A.d278,Kolohe.A.d271);
 [Lono.A.d283,Kolohe.A.d271] = aligntrainers(Lono.A.d283,Kolohe.A.d271);
 [Lono.A4.d273,Kolohe.A.d271] = aligntrainers(Lono.A4.d273,Kolohe.A.d271);
 [Lono.A4.d276,Kolohe.A.d271] = aligntrainers(Lono.A4.d276,Kolohe.A.d271);
