@@ -327,7 +327,7 @@ for i = 1:length(VO2_table)
     if strfind(VO2_table{i,2},'C')
         h = plot(0,VO2_2min_recovkg(i)*1000,'ko','markerfacecolor','k');
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,VO2_2min_recovkg(i)*1000,'s','markerfacecolor',[202/255 0 32/255],'markeredgecolor',[202/255 0/255 32/255]);
+            h = plot(2,VO2_2min_recovkg(i)*1000,'s','markerfacecolor',[202/255 113/255 222/255],'markeredgecolor',[5/255 113/255 222/255]);
         else
             h = plot(1,VO2_2min_recovkg(i)*1000,'^','markerfacecolor',[5/255 113/255 222/255],'markeredgecolor',[5/255 113/255 222/255]);
         end

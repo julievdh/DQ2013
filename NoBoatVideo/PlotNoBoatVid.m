@@ -207,6 +207,7 @@ plot(Lono.A4.d276.lap3_new(:,2),Lono.A4.d276.lap3_new(:,3),'r.','MarkerSize',10)
 plot(Lono.A4.d281.lap3_new(:,2),Lono.A4.d281.lap3_new(:,3),'r.','MarkerSize',10)
 plot(Liko.C.d273.lap3_new(:,2),Liko.C.d273.lap3_new(:,3),'k.','MarkerSize',10)
 plot(Liko.A.d279.lap3_new(:,2),Liko.A.d279.lap3_new(:,3),'b.','MarkerSize',10)
+plot(Nainoa.C.d276.trainers_new(:,2),Nainoa.C.d276.trainers_new(:,3),'k^','MarkerFaceColor','k')
 plot(Nainoa.C.d276.lap3_new(:,2),Nainoa.C.d276.lap3_new(:,3),'k.','MarkerSize',10)
 plot(Nainoa.A.d273.lap3_new(:,2),Nainoa.A.d273.lap3_new(:,3),'b.','MarkerSize',10)
 

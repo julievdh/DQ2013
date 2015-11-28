@@ -4,10 +4,10 @@
 close all
 
 % mac path
-% cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/RespData/Boat
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/RespData/Boat
 
-% pc path
-cd C:\Users\Julie\Documents\MATLAB\DQ2013\DQ2013\RespData\Boat
+% % pc path
+% cd C:\Users\Julie\Documents\MATLAB\DQ2013\DQ2013\RespData\Boat
 
 load('VO2_table_boat')
 headers = {'Filename';'Condition';'Rest all';'Rest last 2 min';...
@@ -210,83 +210,79 @@ title('Nainoa')
 
 %% Rest (last 2 min) and Recovery (first min) for each condition 
 
-figure(5);
-subplot(221); hold on
+figure(5); clf
+subplot('position',[0.1 0.55 0.4 0.4]); hold on
 
 % control
-h = errorbar(0,VO2_table{3,4}(1),VO2_table{3,4}(1)-VO2_table{3,4}(2),'ko');
-h = errorbar(1,VO2_table{3,6}(1),VO2_table{3,6}(1)-VO2_table{3,6}(2),'ko');
+h = errorbar(0,VO2_table{3,4}(1),VO2_table{3,4}(1)-VO2_table{3,4}(2),'ko','MarkerFaceColor','k');
+h = errorbar(1,VO2_table{3,6}(1),VO2_table{3,6}(1)-VO2_table{3,6}(2),'ko','MarkerFaceColor','k');
 plot([0 1],[VO2_table{3,4}(1) VO2_table{3,6}(1)],'k')
 
 % Tag
-h = errorbar(0,VO2_table{1,4}(1),VO2_table{1,4}(1)-VO2_table{1,4}(2),'k^');
-h = errorbar(1,VO2_table{1,6}(1),VO2_table{1,6}(1)-VO2_table{1,6}(2),'k^');
-plot([0 1],[VO2_table{1,4}(1) VO2_table{1,6}(1)],'k--')
+h = errorbar(0,VO2_table{1,4}(1),VO2_table{1,4}(1)-VO2_table{1,4}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor',[5/255 113/255 222/255]);
+h = errorbar(1,VO2_table{1,6}(1),VO2_table{1,6}(1)-VO2_table{1,6}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor',[5/255 113/255 222/255]);
+plot([0 1],[VO2_table{1,4}(1) VO2_table{1,6}(1)],'--','color',[5/255 113/255 222/255])
 
-% Tag +2
-h = errorbar(0,VO2_table{2,4}(1),VO2_table{2,4}(1)-VO2_table{2,4}(2),'ks');
-h = errorbar(1,VO2_table{2,6}(1),VO2_table{2,6}(1)-VO2_table{2,6}(2),'ks');
-plot([0 1],[VO2_table{2,4}(1) VO2_table{2,6}(1)],'k:')
+% Tag + 4
+h = errorbar(0,VO2_table{2,4}(1),VO2_table{2,4}(1)-VO2_table{2,4}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
+h = errorbar(1,VO2_table{2,6}(1),VO2_table{2,6}(1)-VO2_table{2,6}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
+plot([0 1],[VO2_table{2,4}(1) VO2_table{2,6}(1)],':','color',[26/255 150/255 65/255])
 
 set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5])
 ylabel('VO_2 L/min')
-title('Lono')
+text(-0.4,2.7,'Lono','FontSize',18,'FontWeight','Bold')
 
-subplot(223); hold on
+subplot('position',[0.1 0.075 0.4 0.4]); hold on
 % control
-h = errorbar(0,VO2_table{5,4}(1),VO2_table{5,4}(1)-VO2_table{5,4}(2),'ko');
-h = errorbar(1,VO2_table{5,6}(1),VO2_table{5,6}(1)-VO2_table{5,6}(2),'ko');
+h = errorbar(0,VO2_table{5,4}(1),VO2_table{5,4}(1)-VO2_table{5,4}(2),'ko','MarkerFaceColor','k');
+h = errorbar(1,VO2_table{5,6}(1),VO2_table{5,6}(1)-VO2_table{5,6}(2),'ko','MarkerFaceColor','k');
 plot([0 1],[VO2_table{5,4}(1) VO2_table{5,6}(1)],'k')
 
 % Tag
-h = errorbar(0,VO2_table{4,4}(1),VO2_table{4,4}(1)-VO2_table{4,4}(2),'k^');
-h = errorbar(1,VO2_table{4,6}(1),VO2_table{4,6}(1)-VO2_table{4,6}(2),'k^');
-plot([0 1],[VO2_table{4,4}(1) VO2_table{4,6}(1)],'k--')
+h = errorbar(0,VO2_table{4,4}(1),VO2_table{4,4}(1)-VO2_table{4,4}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor',[5/255 113/255 222/255]);
+h = errorbar(1,VO2_table{4,6}(1),VO2_table{4,6}(1)-VO2_table{4,6}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor',[5/255 113/255 222/255]);
+plot([0 1],[VO2_table{4,4}(1) VO2_table{4,6}(1)],'--','color',[5/255 113/255 222/255])
 
-% Tag +2
-h = errorbar(0,VO2_table{6,4}(1),VO2_table{6,4}(1)-VO2_table{6,4}(2),'ks');
-h = errorbar(1,VO2_table{6,6}(1),VO2_table{6,6}(1)-VO2_table{6,6}(2),'ks');
-plot([0 1],[VO2_table{6,4}(1) VO2_table{6,6}(1)],'k:')
+% Tag + 4
+h = errorbar(0,VO2_table{6,4}(1),VO2_table{6,4}(1)-VO2_table{6,4}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
+h = errorbar(1,VO2_table{6,6}(1),VO2_table{6,6}(1)-VO2_table{6,6}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
+plot([0 1],[VO2_table{6,4}(1) VO2_table{6,6}(1)],':','color',[26/255 150/255 65/255])
 
-<<<<<<< HEAD
 set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5]); ylim([0 2])
-=======
 set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5]); ylim([0 3])
->>>>>>> origin/master
 ylabel('VO_2 L/min')
-title('Nainoa')
+text(-0.4,2.7,'Nainoa','FontSize',18,'FontWeight','Bold')
 
 
 
 %% PAR: Calculated based on first minute post, and last 2 min pre.
 
 % plot Lono
-subplot(222); hold on
+subplot('position',[0.6 0.55 0.4 0.4]); hold on
 for i = 1:3
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,VO2_table{i,6}(1)/VO2_table{i,4}(1),'o');
+        h = plot(0,VO2_table{i,6}(1)/VO2_table{i,4}(1),'ko','MarkerFaceColor','k');
     else if strfind(VO2_table{i,2},'A2')
-            h = plot(2,VO2_table{i,6}(1)/VO2_table{i,4}(1),'s');
+            h = plot(2,VO2_table{i,6}(1)/VO2_table{i,4}(1),'d','MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
         else
-            h = plot(1,VO2_table{i,6}(1)/VO2_table{i,4}(1),'^');
+            h = plot(1,VO2_table{i,6}(1)/VO2_table{i,4}(1),'^','MarkerEdgeColor',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255]);
         end
     end
-    set(h,'color','k')
 end
 
 set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 4'}); xlim([-1 3])
 xlabel('Condition'); ylabel('Physical Activity Ratio')
-title('Lono')
+text(-0.75,3.65,'Lono','FontSize',18,'FontWeight','Bold')
 
 
-subplot(224); hold on
+subplot('position',[0.6 0.075 0.4 0.4]); hold on
 for i = 4:6
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,VO2_table{i,6}(1)/VO2_table{i,4}(1),'o');
+        h = plot(0,VO2_table{i,6}(1)/VO2_table{i,4}(1),'ko','MarkerFaceColor','k');
     else if strfind(VO2_table{i,2},'A2')
-            h = plot(2,VO2_table{i,6}(1)/VO2_table{i,4}(1),'s');
+            h = plot(2,VO2_table{i,6}(1)/VO2_table{i,4}(1),'d','MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
         else
-            h = plot(1,VO2_table{i,6}(1)/VO2_table{i,4}(1),'^');
+            h = plot(1,VO2_table{i,6}(1)/VO2_table{i,4}(1),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor',[5/255 113/255 222/255]);
         end
     end
     set(h,'color','k')
@@ -294,13 +290,10 @@ end
 
 set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 4'}); xlim([-1 3]);  ylim([1 2])
 xlabel('Condition'); ylabel('Physical Activity Ratio')
-title('Nainoa')
+text(-0.75,1.9,'Nainoa','FontSize',18,'FontWeight','Bold')
 
 adjustfigurefont
 
-<<<<<<< HEAD
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print -depsc BoatVO2.eps
-=======
 print -dtiff BoatVO2
->>>>>>> origin/master
