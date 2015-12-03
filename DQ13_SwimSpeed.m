@@ -79,3 +79,22 @@ adjustfigurefont
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('Lapspeed_wboat.eps','-depsc','-r300')
+
+%% Second figure with no time series
+
+figure(2); clf; hold on
+% plot mean values
+plot(zeros(1,length(C)),nanmean(AllTrials(:,C)),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(zeros(1,length(A))+1,nanmean(AllTrials(:,A)),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(A4))+2,nanmean(AllTrials(:,A4)),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+% plot(zeros(1,length(C_BOAT))+3,nanmean(AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+% plot(zeros(1,length(A_BOAT))+3,nanmean(AllTrials(:,A_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+% plot(zeros(1,length(A2_BOAT))+3,nanmean(AllTrials(:,A2_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+
+xlim([-1.5 3.5])
+set(gca,'xtick',0:2,'xticklabel',{'C','T','T+8'})
+xlabel('Lap Number'); ylabel('Lap Duration (sec)')
+adjustfigurefont
+
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('Lapspeed_averages.eps','-depsc','-r300')
