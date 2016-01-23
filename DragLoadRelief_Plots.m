@@ -17,12 +17,12 @@ plot(loadA4(:,2),loadA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',1.5)
 subplot(224); hold on;
 title('Kolohe - Drag Relief')
 plot(trainers(:,1),trainers(:,2),'k*')
-plot(remove0(:,2),remove0(:,3),'ko','MarkerFaceColor','k')
-plot(removeA(:,2),removeA(:,3),'^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerEdgeColor',[55/255 126/255 184/255])
-plot(removeA1(:,2),removeA1(:,3),'o','MarkerFaceColor',[255/255 127/255 0/255],'MarkerEdgeColor',[255/255 127/255 0/255])
-plot(removeA2(:,2),removeA2(:,3),'d','MarkerFaceColor',[77/255 175/255 74/255],'MarkerEdgeColor',[77/255 175/255 74/255])
-plot(removeA3(:,2),removeA3(:,3),'o','MarkerFaceColor',[152/255 78/255 163/255],'MarkerEdgeColor',[152/255 78/255 163/255])
-plot(removeA4(:,2),removeA4(:,3),'s','MarkerFaceColor',[228/255 26/255 28/255],'MarkerEdgeColor',[228/255 26/255 28/255])
+plot(remove0(:,2),remove0(:,3),'k','LineWidth',1.5)
+plot(removeA(:,2),removeA(:,3),'Color',[55/255 126/255 184/255],'LineWidth',1.5)
+plot(removeA1(:,2),removeA1(:,3),'Color',[255/255 127/255 0/255],'LineWidth',1.5)
+plot(removeA2(:,2),removeA2(:,3),'Color',[77/255 175/255 74/255],'LineWidth',1.5)
+plot(removeA3(:,2),removeA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',1.5)
+plot(removeA4(:,2),removeA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',1.5)
 
 
 % Lono
@@ -46,12 +46,12 @@ adjustfigurefont
 subplot(222); hold on;
 title('Lono - Drag Relief')
 plot(trainers(:,1),trainers(:,2),'k*')
-plot(remove0(:,2),remove0(:,3),'ko','MarkerFaceColor','k')
-plot(removeA(:,2),removeA(:,3),'^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerEdgeColor',[55/255 126/255 184/255])
-plot(removeA1(:,2),removeA1(:,3),'o','MarkerFaceColor',[255/255 127/255 0/255],'MarkerEdgeColor',[255/255 127/255 0/255])
-plot(removeA2(:,2),removeA2(:,3),'d','MarkerFaceColor',[77/255 175/255 74/255],'MarkerEdgeColor',[77/255 175/255 74/255])
-plot(removeA3(:,2),removeA3(:,3),'o','MarkerFaceColor',[152/255 78/255 163/255],'MarkerEdgeColor',[152/255 78/255 163/255])
-plot(removeA4(:,2),removeA4(:,3),'s','MarkerFaceColor',[228/255 26/255 28/255],'MarkerEdgeColor',[228/255 26/255 28/255])
+plot(remove0(:,2),remove0(:,3),'k','LineWidth',1.5)
+plot(removeA(:,2),removeA(:,3),'Color',[55/255 126/255 184/255],'LineWidth',1.5)
+plot(removeA1(:,2),removeA1(:,3),'Color',[255/255 127/255 0/255],'LineWidth',1.5)
+plot(removeA2(:,2),removeA2(:,3),'Color',[77/255 175/255 74/255],'LineWidth',1.5)
+plot(removeA3(:,2),removeA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',1.5)
+plot(removeA4(:,2),removeA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',1.5)
 
 
 %% Duration of loading/unloading laps
