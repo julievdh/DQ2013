@@ -78,25 +78,6 @@ figure(2); clf; hold on
 plot(0:5,dur_load,'o')
 plot(6:11,dur_remove,'o')
 
-%% percent change between tag condition and CONTROL
-p0A = (dur_loadA-dur_load0)/dur_load0;
-p0A1= (dur_loadA1-dur_load0)/dur_load0;
-p0A2 = (dur_loadA2-dur_load0)/dur_load0;
-p0A3 = (dur_loadA3-dur_load0)/dur_load0;
-p0A4 = (dur_loadA4-dur_load0)/dur_load0;
-
-% and backwards:
-pA40 = (dur_removeA4-dur_remove0)/dur_remove0;
-pA30 = (dur_removeA3-dur_remove0)/dur_remove0;
-pA20 = (dur_removeA2-dur_remove0)/dur_remove0;
-pA10 = (dur_removeA1-dur_remove0)/dur_remove0;
-pA0 = (dur_removeA-dur_remove0)/dur_remove0;
-
-% plot
-plot(1:5,[p0A p0A1 p0A2 p0A3 p0A4])
-plot(6:10,[pA40 pA30 pA20 pA10 pA0])
-
-%% Kolohe
 clear all; load('Kolohe_DradLoadRelief');
 
 % calculate durations of loadings
@@ -122,23 +103,7 @@ figure(2);
 plot(0:5,dur_load,'o')
 plot(6:11,dur_remove,'o')
 
-%% percent change between tag condition and CONTROL
-p0A = (dur_loadA-dur_load0)/dur_load0;
-p0A1= (dur_loadA1-dur_load0)/dur_load0;
-p0A2 = (dur_loadA2-dur_load0)/dur_load0;
-p0A3 = (dur_loadA3-dur_load0)/dur_load0;
-p0A4 = (dur_loadA4-dur_load0)/dur_load0;
-
-% and backwards:
-pA40 = (dur_removeA4-dur_remove0)/dur_remove0;
-pA30 = (dur_removeA3-dur_remove0)/dur_remove0;
-pA20 = (dur_removeA2-dur_remove0)/dur_remove0;
-pA10 = (dur_removeA1-dur_remove0)/dur_remove0;
-pA0 = (dur_removeA-dur_remove0)/dur_remove0;
-
-% plot
-plot(1:5,[p0A p0A1 p0A2 p0A3 p0A4])
-plot(6:10,[pA40 pA30 pA20 pA10 pA0])
+%% percent change 
 
 return 
 
