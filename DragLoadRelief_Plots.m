@@ -3,6 +3,9 @@
 % Kolohe
 load('Kolohe_DradLoadRelief');
 
+% pad all with NaN for better plotting
+padAll
+
 figure(1); clf
 subplot(223); hold on;
 title('Kolohe - Drag Loading')
@@ -28,6 +31,7 @@ plot(removeA4(:,2),removeA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',1.5
 % Lono
 clear all
 load('Lono_DradLoadRelief');
+padAll
 
 subplot(221); hold on;
 title('Lono - Drag Loading')

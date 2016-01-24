@@ -8,5 +8,6 @@ mat2 = [NaN NaN NaN];
 for i = 1:length(ii)
     file_pad = insertrows(file,mat2,ii(i));
     file = file_pad;
+    ii = ii+1; % update ii 
 end
 
