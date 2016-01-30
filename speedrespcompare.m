@@ -70,26 +70,30 @@ figure(12); clf
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
         subplot('position',[0.07 0.55 0.38 0.2]); hold on; xlim([-0.5 2.5]); 
-        ylabel('PAR'); box on
+        ylabel('PAR'); box on; ylim([0 16])
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})
     end
     if strfind(VO2_table{i,1},'Kolohe')
         subplot('position',[0.53 0.55 0.38 0.2]); title('Kolohe'); hold on; 
         xlim([-0.5 2.5]); ylim([0 16]); box on
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})
     end
     if strfind(VO2_table{i,1},'Liko')
         subplot('position',[0.07 0.1 0.38 0.2]); title('Liko'); hold on; xlim([-0.5 2.5])
-        xlabel('Condition'); ylabel('PAR'); box on
+        xlabel('Condition'); ylabel('PAR'); box on; ylim([0 16])
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot('position',[0.53 0.1 0.38 0.2]); title('Nainoa'); hold on; xlim([-0.5 2.5])
-        xlabel('Condition'); ylim([0 2.5]); box on
+        subplot('position',[0.53 0.1 0.38 0.2]); title('Nai Noa'); hold on; xlim([-0.5 2.5])
+        xlabel('Condition'); ylim([0 2.5]); box on; ylim([0 16])
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})
     end
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,PAR(i),'ko');
+        h = plot(0,PAR(i),'ko','markerfacecolor','k','markersize',8);
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,PAR(i),'rs');
+            h = plot(2,PAR(i),'ks','markerfacecolor',[202/255 0 32/255],'Markersize',8);
         else
-            h = plot(1,PAR(i),'b^');
+            h = plot(1,PAR(i),'k^','markerfacecolor',[5/255 113/255 222/255],'markersize',8);
         end
     end
     % set(h,'color','k') % can keep this if want to keep PAR = black and
@@ -111,26 +115,26 @@ for i = 1:length(speed)
         text(-0.34,46.3,'B: Kolohe','FontSize',12,'FontWeight','Bold'); 
     end
     if strfind(VO2_table{i,1},'Liko')
-        subplot('position',[0.07 0.3 0.38 0.2]); hold on; xlim([-0.5 2.5]); ylim([23 45])
+        subplot('position',[0.07 0.3 0.38 0.2]); hold on; xlim([-0.5 2.5]); ylim([20 50])
         ax = gca; ax.YAxisLocation = 'right'; set(gca','xticklabels',{'','',''})
-        text(-0.34,42.3,'C: Liko','FontSize',12,'FontWeight','Bold'); box on
+        text(-0.34,46.3,'C: Liko','FontSize',12,'FontWeight','Bold'); box on
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot('position',[0.53 0.3 0.38 0.2]); hold on; xlim([-0.5 2.5]); ylim([23 45])
+        subplot('position',[0.53 0.3 0.38 0.2]); hold on; xlim([-0.5 2.5]); ylim([20 50])
         ax = gca; ax.YAxisLocation = 'right'; set(gca','xticklabels',{'','',''}); box on
         ylabel({'Mean Lap'; 'Duration (sec)'}); 
-        text(-0.34,42.3,'D: Nainoa','FontSize',12,'FontWeight','Bold'); 
+        text(-0.34,46.3,'D: Nai Noa','FontSize',12,'FontWeight','Bold'); 
     end
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,speed(i),'ko');
+        h = plot(0,speed(i),'ko','markerfacecolor','k','markersize',8);
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,speed(i),'rs');
+            h = plot(2,speed(i),'ks','markerfacecolor',[202/255 0 32/255],'markersize',8);
         else
-            h = plot(1,speed(i),'b^');
+            h = plot(1,speed(i),'k^','markerfacecolor',[5/255 113/255 222/255],'markersize',8);
         end
     end
     %set(h,'color','b')
-    set(gca,'xtick',[0 1 2])
+    set(gca,'xtick',[0 1 2],'xticklabels',{'','',''})
 end
 
 adjustfigurefont

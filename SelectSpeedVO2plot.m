@@ -169,30 +169,34 @@ figure(4); clf; hold on
 
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
-        subplot(221); title('Lono'); hold on; xlim([-0.5 2.5])
+        subplot('position',[0.1 0.55 0.4 0.4]);
+        hold on; xlim([-0.5 2.5])
         ylabel('PAR')
     end
     if strfind(VO2_table{i,1},'Kolohe')
-        subplot(222); title('Kolohe'); hold on; xlim([-0.5 2.5])
+        subplot('position',[0.55 0.55 0.4 0.4]);
+        hold on; xlim([-0.5 2.5])
     end
     if strfind(VO2_table{i,1},'Liko')
-        subplot(223); title('Liko'); hold on; xlim([-0.5 2.5])
+        subplot('position',[0.1 0.1 0.4 0.4]); 
+        hold on; xlim([-0.5 2.5])
         xlabel('Condition'); ylabel('PAR')
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot(224); title('Nainoa'); hold on; xlim([-0.5 2.5])
+        subplot('position',[0.55 0.1 0.4 0.4]); 
+        hold on; xlim([-0.5 2.5])
         xlabel('Condition')
     end
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,PAR(i),'o');
+        h = plot(0,PAR(i),'ko','MarkerFacecolor','k','markersize',8);
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,PAR(i),'s');
+            h = plot(2,PAR(i),'s','markerfacecolor',[202/255 0 32/255],'markeredgecolor','k','MarkerSIze',8);
         else
-            h = plot(1,PAR(i),'^');
+            h = plot(1,PAR(i),'^','markerfacecolor',[5/255 113/255 222/255],'markeredgecolor','k','MarkerSIze',8);
         end
     end
     set(h,'color','k')
-    set(gca,'xtick',[0 1 2],'ylim',[0 25])
+    set(gca,'xtick',[0 1 2],'ylim',[0 16],'xticklabels',{'C','T','T+8'})
 end
 
 adjustfigurefont
@@ -290,7 +294,7 @@ end
 
 [p,t,stats] = anovan(VO2_2min_recovkg,{Ind,Cond},'varnames',{'Individual','Condition'});
 [p,t,stats] = anovan(VO2_2min_recov,{Ind,Cond},'varnames',{'Individual','Condition'});
-[p,t,stats] = anovan(PAR,{Ind,Cond});
+[p,t,stats] = anovan(PAR,{Ind,Cond},'varnames',{'Individual','Condition'});
 
 
 %% figure: VO2 and VO2/kg 
