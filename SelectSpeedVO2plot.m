@@ -289,52 +289,58 @@ for i = 1:length(VO2_table)
 end
 
 [p,t,stats] = anovan(VO2_2min_recovkg,{Ind,Cond},'varnames',{'Individual','Condition'});
+[p,t,stats] = anovan(VO2_2min_recov,{Ind,Cond},'varnames',{'Individual','Condition'});
 [p,t,stats] = anovan(PAR,{Ind,Cond});
 
 
-%% figure
+%% figure: VO2 and VO2/kg 
 warning off
 figure(6); clf; hold on
-set(gcf,'position',[427 289 400 384],'paperpositionmode','auto')
+set(gcf,'position',[1 241 500 384],'paperpositionmode','auto')
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
-        subplot('position',[0.15 0.55 0.4 0.4]); 
-        text(-0.4,15,'Lono','FontSize',18,'FontWeight','Bold')
-        hold on; xlim([-0.5 2.5])
-        ylabel('VO_2 mL/kg/min','FontSize',16); ylim([3 16])
-        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},'ytick',[4,10,16],'FontSize',16)
+        subplot('position',[0.1 0.55 0.35 0.4]);hold on; xlim([-0.5 2.5]);
+        text(-0.4,15,'Lono')
+        ylabel('VO_2 (L/min)')
+        ylim([1.05 3.75]); box on
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
+            'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
     end
     if strfind(VO2_table{i,1},'Kolohe')
-        subplot('position',[0.6 0.55 0.4 0.4]); 
-        text(-0.4,15,'Kolohe','FontSize',18,'FontWeight','Bold')
-        hold on; xlim([-0.5 2.5]); ylim([3 16])
-        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},'ytick',[4,10,16],'FontSize',16)
+        subplot('position',[0.6 0.55 0.35 0.4]);
+        text(-0.4,15,'Kolohe'); box on
+        hold on; xlim([-0.5 2.5]); ylim([1.05 3.75])
+        ylabel('VO_2 (L/min)')
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
+            'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
     end
     if strfind(VO2_table{i,1},'Liko')
-        subplot('position',[0.15 0.1 0.4 0.4]); 
-        text(-0.4,15,'Liko','FontSize',18,'FontWeight','Bold')
-        hold on; xlim([-0.5 2.5]); ylim([3 16])
-        xlabel('Condition','FontSize',16); ylabel('VO_2 mL/kg/min','FontSize',16)
-        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},'ytick',[4,10,16],'FontSize',16)
+        subplot('position',[0.1 0.1 0.35 0.4]); 
+        text(-0.4,15,'Liko'); box on
+        hold on; xlim([-0.5 2.5]); ylim([1.3 2.05])
+        xlabel('Condition'); ylabel('VO_2 (L/min)')
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
+            'ytick',[1.4 1.6 1.8 2.0],'yticklabels',{'1.4','1.6','1.8','2.0'})
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot('position',[0.6 0.1 0.4 0.4]); 
-        text(-0.4,15,'Nainoa','FontSize',18,'FontWeight','Bold')
-        hold on; xlim([-0.5 2.5]); ylim([3 16])
-        xlabel('Condition','FontSize',16)
-        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},'ytick',[4,10,16],'FontSize',16)
+        subplot('position',[0.6 0.1 0.35 0.4]); 
+        text(-0.4,15,'Nainoa'); box on
+        hold on; xlim([-0.5 2.5]); ylim([0.5 1.2])
+        xlabel('Condition'); ylabel('VO_2 (L/min)')
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
+            'ytick',[0.6 0.8 1.0 1.2],'yticklabels',{'0.6','0.8','1.0','1.2'})
     end
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,VO2_2min_recovkg(i)*1000,'ko','markerfacecolor','k');
+        h = plot(0,VO2_2min_recov(i),'ko','markerfacecolor','k','MarkerSIze',8);
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,VO2_2min_recovkg(i)*1000,'s','markerfacecolor',[202/255 0 32/255],'markeredgecolor',[202/255 0/255 32/255]);
+            h = plot(2,VO2_2min_recov(i),'s','markerfacecolor',[202/255 0 32/255],'markeredgecolor','k','MarkerSIze',8);
         else
-            h = plot(1,VO2_2min_recovkg(i)*1000,'^','markerfacecolor',[5/255 113/255 222/255],'markeredgecolor',[5/255 113/255 222/255]);
+            h = plot(1,VO2_2min_recov(i),'^','markerfacecolor',[5/255 113/255 222/255],'markeredgecolor','k','MarkerSIze',8);
         end
     end
 end
 
-% adjustfigurefont
-print('SelfSelect_VO2kg_2.eps','-depsc','-r300')
+adjustfigurefont
+print('SelfSelect_VO2_only.eps','-depsc','-r300')
 
 
