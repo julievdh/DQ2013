@@ -15,15 +15,16 @@ for i = 1:length(d);
     % establish depth bins based on individual body diameter
     edges = [0 0.5*diam(Ind(i)) 1.5*diam(Ind(i)) 3*diam(Ind(i)) 5*diam(Ind(i))]; %  bin edges
     [n(i,:),edges] = histcounts(tag.(name2).pCORR(tag.(name2).start:tag.(name2).stop),edges,'normalization','probability'); % n proportion of time spent in that depth bin
-    figure(1); hold on
+    figure(1);
+    subplot('position',[0.1 0.1 0.3 0.85]); hold on; view([90 90])
     h = histogram(tag.(name2).pCORR(tag.(name2).start:tag.(name2).stop),edges,'normalization','probability','displaystyle','stairs');
     if Cond(i) == 1
-        set(h,'EdgeColor','b')
-    else set(h,'EdgeColor','r')
+        set(h,'EdgeColor',[5/255 113/255 176/255])
+    else set(h,'EdgeColor',[202/255 0 32/255])
     end
     % make time vector in seconds
     t_s = (1:length(tag.(name2).start:tag.(name2).stop))/tag.(name2).fs;
-    figure(4);hold on
+    subplot('position',[0.42 0.1 0.5 0.85]); hold on
     if Cond(i) == 1
         h2 = patchline(t_s,-tag.(name2).pCORR(tag.(name2).start:tag.(name2).stop),'edgecolor',[5/255 113/255 176/255],'edgealpha',0.1);
     else h2 = patchline(t_s,-tag.(name2).pCORR(tag.(name2).start:tag.(name2).stop),'edgecolor',[202/255 0 32/255],'edgealpha',0.1);
@@ -34,10 +35,18 @@ for i = 1:4; % plot diameters
 plot([0 675],-[0.5*diam(i) 0.5*diam(i)],'k');
 plot([0 675],-[1.5*diam(i) 1.5*diam(i)],'k');
 end
-xlim([0 675]); ylim([-1.15 0]); 
-xlabel('Time (Seconds)'); ylabel('Depth (m)')
+xlim([0 675]); ylim([-1.15 0]); box on
+xlabel('Time (Seconds)'); 
+set(gca,'ytick',[-0.64 -0.21 0],'yticklabels',{'1.5xBL','0.5xBL','0'},'yaxislocation','right')
 
+subplot('position',[0.1 0.1 0.3 0.85]); hold on; view([90 90])
+xlabel('Depth (m)'); xlim([0 1.1]); box on;
+ylabel('Normalized Frequency')
+set(gcf,'position',[384   241   675   384])
 adjustfigurefont
+
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('DQ2013_TagDepth','-dpng','-r300')
 
 %% plot time spent in different depth bins
 figure(2); clf; hold on
@@ -46,8 +55,8 @@ for i = 1:length(n)
    h = plot3(repmat(i,4,1),n(I(i),:),[-0.5 -1.5 -3 -5]);
     % but make these different colours and symbols for different conditions
     if Cond(I(i)) == 1
-        set(h,'color','b','marker','^','markerfacecolor','b','markeredgecolor','k')
-    else set(h,'color','r','marker','s','markerfacecolor','r','markeredgecolor','k')
+        set(h,'color',[5/255 113/255 176/255],'marker','^','markerfacecolor',[5/255 113/255 176/255],'markeredgecolor','k')
+    else set(h,'color',[202/255 0 32/255],'marker','s','markerfacecolor',[202/255 0 32/255],'markeredgecolor','k')
     end
 end
 view(62,32); box on
@@ -75,9 +84,9 @@ set(h1,'ytick',1:16,'Yticklabels',Y,'xtick',1:4,...
 
 %% plot all <0.5 BL in each condition, 0.5-1.5 in each condition
 figure(5); clf; hold on
-plot(zeros(length(find(Cond == 1))),n(Cond == 1,1),'^')
-plot(zeros(length(find(Cond == 4)))+0.5,n(Cond == 4,1),'s')
-plot(ones(length(find(Cond == 1))),n(Cond == 1,2),'^')
-plot(ones(length(find(Cond == 4)))+0.5,n(Cond == 4,2),'s')
+plot(zeros(length(find(Cond == 1))),n(Cond == 1,1),'^','color',[5/255 113/255 176/255])
+plot(zeros(length(find(Cond == 4)))+0.5,n(Cond == 4,1),'s','color',[202/255 0 32/255])
+plot(ones(length(find(Cond == 1))),n(Cond == 1,2),'^','color',[5/255 113/255 176/255])
+plot(ones(length(find(Cond == 4)))+0.5,n(Cond == 4,2),'s','color',[202/255 0 32/255])
 
 
