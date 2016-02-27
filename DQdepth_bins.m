@@ -37,7 +37,7 @@ plot([0 675],-[1.5*diam(i) 1.5*diam(i)],'k');
 end
 xlim([0 675]); ylim([-1.15 0]); box on
 xlabel('Time (Seconds)'); 
-set(gca,'ytick',[-0.64 -0.21 0],'yticklabels',{'1.5xBL','0.5xBL','0'},'yaxislocation','right')
+set(gca,'ytick',[-0.64 -0.21 0],'yticklabels',{'1.5xBD','0.5xBD','0'},'yaxislocation','right')
 
 subplot('position',[0.1 0.1 0.3 0.85]); hold on; view([90 90])
 xlabel('Depth (m)'); xlim([0 1.1]); box on;
