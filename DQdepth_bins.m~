@@ -25,7 +25,7 @@ for i = 1:length(d);
     t_s = (1:length(tag.(name2).start:tag.(name2).stop))/tag.(name2).fs;
     figure(4);hold on
     if Cond(i) == 1
-        h2 = patchline(t_s,-tag.(name2).pCORR(tag.(name2).start:tag.(name2).stop),'edgecolor',[5/255 113/255 176/255],'edgealpha',0.1);
+        h2 = patchline(t_s,-tag.(name2).pCORR(tag.(name2).start:tag.(name2).stop),'edgecolor',[202/255 0 1/255],'edgealpha',0.1);
     else h2 = patchline(t_s,-tag.(name2).pCORR(tag.(name2).start:tag.(name2).stop),'edgecolor',[202/255 0 32/255],'edgealpha',0.1);
     end
 end
