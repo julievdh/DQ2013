@@ -23,7 +23,7 @@ A_BOAT = find(A_BOAT == 1);
 A2_BOAT = strcmp('A2_BOAT',txt(2,:));
 A2_BOAT = find(A2_BOAT == 1);
 
-% plot
+%% plot
 figure(2); clf; hold on
 plot(nanmean(AllTrials(:,A4)'),'color',[202/255 0 32/255],'LineWidth',2)
 plot(nanmean(AllTrials(:,A)'),'color',[5/255 113/255 222/255],'LineWidth',2)
@@ -62,23 +62,29 @@ set(get(get(hCGroup,'Annotation'),'LegendInformation'),...
 plot(nanmean(AllTrials(:,A4)'),'color',[202/255 0 32/255],'LineWidth',2)
 plot(nanmean(AllTrials(:,A)'),'color',[5/255 113/255 222/255],'LineWidth',2)
 plot(nanmean(AllTrials(:,C)'),'k','LineWidth',2)
-%plot(nanmean(AllTrials(:,horzcat(A_BOAT,A2_BOAT,C_BOAT))'),'color',[255/255 127/255 0],'LineWidth',2)
+plot(nanmean(AllTrials(:,horzcat(A_BOAT,A2_BOAT,C_BOAT))'),'color',[255/255 127/255 0],'LineWidth',2)
 
 % plot mean values
 plot(zeros(1,length(C))-2.5,nanmean(AllTrials(:,C)),'ko','MarkerFaceColor','k','MarkerSize',8)
 plot(zeros(1,length(A))-1.25,nanmean(AllTrials(:,A)),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
 plot(zeros(1,length(A4)),nanmean(AllTrials(:,A4)),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
-%plot(zeros(1,length(C_BOAT))-3.75,nanmean(AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
-%plot(zeros(1,length(A_BOAT))-3.75,nanmean(AllTrials(:,A_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
-%plot(zeros(1,length(A2_BOAT))-3.75,nanmean(AllTrials(:,A2_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(C_BOAT))-3.75,nanmean(AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(A_BOAT))-3.75,nanmean(AllTrials(:,A_BOAT)),'^','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(A2_BOAT))-3.75,nanmean(AllTrials(:,A2_BOAT)),'d','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
 
 xlim([-4.5 30])
-set(gca,'xtick',[-2.5 -1.25 0 1 10 25],'xticklabel',{'','','','1','10','25'})
+set(gca,'xtick',[-3.75 -2.5 -1.25 0 1 10 25],...
+    'xticklabel',{'','','','','1','10','25'},...
+    'position',[0.100 0.1500 0.85 0.80])
+text(-3.75,7.5,'Boat','rotation',90,'FontSize',14)
+text(-2.5,7.5,'Control','rotation',90,'FontSize',14)
+text(-1.25,7.5,'Tag','rotation',90,'FontSize',14)
+text(0,7.5,'Tag+8','rotation',90,'FontSize',14)
 xlabel('Lap Number'); ylabel('Lap Duration (sec)')
 adjustfigurefont
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print('Lapspeed_wboat.eps','-depsc','-r300')
+print('Lapspeed_wboat','-dpng','-r300')
 
 %% Second figure with no time series
 
