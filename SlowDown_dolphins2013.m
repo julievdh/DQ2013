@@ -38,6 +38,7 @@ plot(Ured_tag2,c_tag2(1)*Ured_tag2.^c_tag2(2),'ko','markerfacecolor',[255/255 12
 plot(Ured_tag,c_tag(1)*Ured_tag.^c_tag(2),'k^','markerfacecolor',[55/255 126/255 184/255])
 plot(vel(3),notag(3),'ko','markerfacecolor','k')
 
+print('CFDresults','-dpng','-r300')
 
 % calculate percent decrease
 p0t = (abs(Ured_tag-3)/3);

@@ -157,25 +157,25 @@ h4 = axes('Color','none','XColor','k','YColor','k',...
           'Yticklabels',{'0','25','50','125'},...
           'Yaxislocation','right','NextPlot','add');
 
-plot(h3,6,dur_load0,'ko','MarkerFaceColor','k','MarkerSize',10)
-plot(h3,7,dur_loadA,'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
-plot(h3,8,dur_loadA1,'ko','MarkerFaceColor',[255/255 127/255 0/255],'MarkerSize',10)
-plot(h3,9,dur_loadA2,'kd','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',10)
-plot(h3,10,dur_loadA3,'ko','MarkerFaceColor',[152/255 78/255 163/255],'MarkerSize',10)
-plot(h3,11,dur_loadA4,'ks','MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',10)
+plot(h3,0,dur_load0,'ko','MarkerFaceColor','k','MarkerSize',10)
+plot(h3,1,dur_loadA,'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
+plot(h3,2,dur_loadA1,'ko','MarkerFaceColor',[255/255 127/255 0/255],'MarkerSize',10)
+plot(h3,3,dur_loadA2,'kd','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',10)
+plot(h3,4,dur_loadA3,'ko','MarkerFaceColor',[152/255 78/255 163/255],'MarkerSize',10)
+plot(h3,5,dur_loadA4,'ks','MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',10)
 
-plot(h3,5,dur_remove0,'o','MarkerEdgeColor','k','MarkerSize',10,'LineWidth',2)
-plot(h3,4,dur_removeA,'^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerSize',10,'LineWidth',2)
-plot(h3,3,dur_removeA1,'o','MarkerEdgeColor',[255/255 127/255 0/255],'MarkerSize',10,'LineWidth',2)
-plot(h3,2,dur_removeA2,'d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerSize',10,'LineWidth',2)
-plot(h3,1,dur_removeA3,'o','MarkerEdgeColor',[152/255 78/255 163/255],'MarkerSize',10,'LineWidth',2)
-plot(h3,0,dur_removeA4,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerSize',10,'LineWidth',2)
+plot(h3,0,dur_remove0,'o','MarkerEdgeColor','k','MarkerSize',10,'LineWidth',2)
+plot(h3,1,dur_removeA,'^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerSize',10,'LineWidth',2)
+plot(h3,2,dur_removeA1,'o','MarkerEdgeColor',[255/255 127/255 0/255],'MarkerSize',10,'LineWidth',2)
+plot(h3,3,dur_removeA2,'d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerSize',10,'LineWidth',2)
+plot(h3,4,dur_removeA3,'o','MarkerEdgeColor',[152/255 78/255 163/255],'MarkerSize',10,'LineWidth',2)
+plot(h3,5,dur_removeA4,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerSize',10,'LineWidth',2)
 
-plot(h4,7:11,[p0A p0A1 p0A2 p0A3 p0A4],'k')
-plot(h4,0:4,[pA40 pA30 pA20 pA10 pA0],'k')
+plot(h4,1:5,[p0A p0A1 p0A2 p0A3 p0A4],'k')
+plot(h4,5:-1:1,[pA40 pA30 pA20 pA10 pA0],'k')
 
 %% Kolohe
-keep h1 h2 h3 h4; load('Kolohe_DradLoadRelief');
+keep h1 h2 h3 h4 p0t p0t2 p0t4; load('Kolohe_DradLoadRelief');
 
 % calculate durations of loadings
 dur_load0 = load0(end,1)-load0(1,1);
@@ -252,6 +252,10 @@ plot(h3,5,dur_removeA4,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerSize
 
 plot(h4,1:5,[p0A p0A1 p0A2 p0A3 p0A4],'k')
 plot(h4,5:-1:1,[pA40 pA30 pA20 pA10 pA0],'k')
+
+plot(h4,1:3,[p0t p0t2 p0t4],'color',[0.75 0.75 0.75],'LineWidth',2)
+
+set(gca,'xticklabels',{'C','T','T+2','T+4','T+6','T+8'})
 
 print -dpng LoadReliefSpeed_2
 
