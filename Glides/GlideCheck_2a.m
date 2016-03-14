@@ -2,7 +2,7 @@ close all; clear all; clc
 
 % Import glide .csv 
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-A = importdata('UWC_Liho_288_1a.csv',',',2);
+A = importdata('UWC_Liho_288_2a.csv',',',2);
 ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
 
