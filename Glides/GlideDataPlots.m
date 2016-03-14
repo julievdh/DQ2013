@@ -5,7 +5,7 @@ load('Data_Readmatv6')
 % plot Cd vs. Re from Video Only glide data
 figure(1); clf; hold on
 set(gcf,'position',[1417 276 933 384])
-subplot('position',[0.1 0.1 0.4 0.8]); 
+subplot('position',[0.08 0.1 0.4 0.8]); 
 for i = 1:length(mav)
     h1 = loglog(Re(i),mav(i,5),'o'); hold on
     if mav(i,1) == 0
@@ -37,8 +37,8 @@ for i = 1:length(mav)
     end
 end
 
-xlabel('Reynolds Number, Re'); ylabel('Drag Coefficient, C_d')
-
+xlabel('Reynolds Number (Re)'); ylabel('Drag Coefficient (C_d)')
+xlim([8E5 4E6]); ylim([7E-3 1E0])
 %% plot agreement between glide vs. tag method
 subplot('position',[0.55 0.1 0.4 0.8]); hold on
 for i = 1:length(mav)
@@ -57,8 +57,9 @@ end
 plot([0 0.12],[0 0.12],'k')
 xlabel('Tag-derived Drag Coefficient'); ylabel('Video Only-derived Drag Coefficient')
 adjustfigurefont
+box on
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print('VideoOnly_Cd','-dpng','-r300')
+print('VideoTag_Cd','-dpng','-r300')
 
 %% summary statistics tag glide data
 nanmean(nanmean([Cdtag1(mav(:,1) == 3) Cdtag2(mav(:,1) == 3)]));
@@ -97,3 +98,4 @@ loglog(Re,nanmean([Cdtag1 Cdtag2]'),'*');
 
 xlabel('Reynolds Number (Re)'); ylabel('Drag Coefficient (Cd)')
 adjustfigurefont
+print('AllCdData','-dpng','-r300')
