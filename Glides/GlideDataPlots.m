@@ -129,3 +129,23 @@ end
 xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
 adjustfigurefont
 print('AllCdData','-dpng','-r300')
+
+%% add CFD data?
+load('DolphinTagSims_24Feb16')
+
+% calculate Re
+L = 2.6; % length ASSUMTION - NEED DATA FROM SHORTER
+v = 1.05E-6; % kinematic viscosity
+CFD_Re = (L*vel)./v;
+
+% calculate Cd of dolphin only
+rho = 1021; % seawater density 
+A = 2.3; % area ASSUMPTION - NEED DATA FROM SHORTER
+CFD_Cd_notag = (2*notag')./(rho*A.*vel.^2);
+CFD_Cd_tag = (2*sum(tag'))./(rho*A.*vel.^2);
+CFD_Cd_tag4 = (2*sum(tag4'))./(rho*A.*vel.^2);
+
+loglog(CFD_Re,CFD_Cd_notag,'color',[0.75 0.75 0.75])
+loglog(CFD_Re,CFD_Cd_tag,'color',[0.75 0.75 0.75])
+loglog(CFD_Re,CFD_Cd_tag4,'color',[0.75 0.75 0.75])
+
