@@ -33,7 +33,6 @@ if ZO2dur < 1
     error('ZO2 NOT LONG ENOUCH')
 end
 
-%% SET PARAMETERS
 % Mb = body mass (kg)
     % Liho = 339.7 lbs = 154 kg
     % Hoku = 388 lbs = 176 kg
@@ -49,7 +48,7 @@ rho = 1021;
 % Cd = (2*D)/(rho*Saw*V^2)
 % D = Mb*acceleration
 
-% filter ZO1 and ZO2 data
+% filter ZO1 data
 windowSize = 30; % 30 frames = 1s
 ZO1_filt = filter(ones(1,windowSize)/windowSize,1,ZO1);
 ZO2_filt = filter(ones(1,windowSize)/windowSize,1,ZO2);
@@ -64,5 +63,25 @@ Cd_ZO1_mn = nanmean(Cd_ZO1);
 Cd_ZO2 = (2*abs(Mb.*ZO2_filt_ax))./(rho*SAw*ZO2_filt(2:end,4).^2);
 Cd_ZO2_mn = nanmean(Cd_ZO2);
 
+%% BREAKSLOPE 
+% find glide breakpoint for ZO1 and ZO2
+[s.ZO1,i.ZO1,STAT.ZO1,fit1.ZO1,fit2.ZO1,brk.ZO1] = breakslope(ZO1);
+[s.ZO2,i.ZO2,STAT.ZO2,fit1.ZO2,fit2.ZO2,brk.ZO2] = breakslope(ZO2);
+
+% calculate Cd 
+Cd.ZO1(1) = (s.ZO1(1).value*(2*Mb))/(SAw*rho);
+Cd.ZO2(1) = (s.ZO2(1).value*(2*Mb))/(SAw*rho);
+
+% to export: Cd by regression and Rsqs; Cd by MAV; Glide duration
+CDreg = abs([Cd_ZO1_reg Cd_ZO2_reg ZO1_STAT.rsq ZO2_STAT.rsq Cd.ZO1(1) Cd.ZO2(1) brk.ZO1 brk.ZO2]);
+
+% find breakpoint on filtered data
+[s.ZO1,i.ZO1,STAT.ZO1,fit1.ZO1,fit2.ZO1,brk.ZO1] = breakslope(ZO1_filt);
+[s.ZO2,i.ZO2,STAT.ZO2,fit1.ZO2,fit2.ZO2,brk.ZO2] = breakslope(ZO2_filt);
+
+% calculate Cd 
+Cd.ZO1(2) = (s.ZO1(1).value*(2*Mb))/(SAw*rho);
+Cd.ZO2(2) = (s.ZO2(1).value*(2*Mb))/(SAw*rho);
+
 % to export
-CDmav = abs([Cd_ZO1_mn Cd_ZO2_mn mean([sum(isnan(ZO2_filt(:,4))) sum(isnan(ZO1_filt(:,4)))])]);
+CDmav = abs([Cd_ZO1_mn Cd_ZO2_mn Cd.ZO1(2) Cd.ZO2(2) brk.ZO1 brk.ZO2]);
