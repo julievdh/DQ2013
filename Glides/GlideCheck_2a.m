@@ -2,9 +2,9 @@ close all; clear all; clc
 
 % Import glide .csv
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-A = importdata('UWC_Liho_289_2a.csv',',',2);
-Cond = 1;
-ZO1 = A.data(:,1:5);
+A = importdata('UWC_Hoku_290_2b.csv',',',2);
+Cond = 0;
+ZO1 = A.data(:,1:5);d
 ZO2 = A.data(:,6:10);
 
 ZO1 = ZO1(~isnan(ZO1(:,1)),:);
@@ -31,7 +31,7 @@ if ZO1dur < 1
     error('ZO1 NOT LONG ENOUGH')
 end
 if ZO2dur < 1
-    error('ZO2 NOT LONG ENOUCH')
+    error('ZO2 NOT LONG ENOUGH')
 end
 
 %% SET PARAMETERS
@@ -54,7 +54,7 @@ end
 % Liho = 339.7 lbs = 154 kg
 % Hoku = 388 lbs = 176 kg
 % Ma = entrained water mass (kg) = 1.06
-Mb = (154+Mt)*1.06;
+Mb = (176+Mt)*1.06;
 % SAw = reference area (m^2) % estimated wetted surface area from Fish 1993
 % Add SAt = surface area of tag from CFD
 SAw = (0.08*Mb.^0.65)+SAt;
@@ -82,4 +82,4 @@ Cd_ZO2 = (2*abs(Mb.*ZO2_filt_ax))./(rho*SAw*ZO2_filt(2:end,4).^2);
 Cd_ZO2_mn = nanmean(Cd_ZO2);
 
 % to export: CD from ZO1, from ZO2, duration of glide
-CDmav = abs([Cd_ZO1_mn Cd_ZO2_mn mean([sum(isnan(ZO2_filt(:,4))) sum(isnan(ZO1_filt(:,4)))])])
+CDmav = abs([Cd_ZO1_mn Cd_ZO2_mn mean([ZO1dur ZO2dur]) mean([ZO1(2,4) ZO2(2,4)]) mean([ZO1(end,4) ZO2(end,4)])]);
