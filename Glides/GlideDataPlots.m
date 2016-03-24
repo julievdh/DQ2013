@@ -1,4 +1,6 @@
 % Glide Cd Method Figure
+warning off
+
 % load glide data
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/Glides
 load('Data_Readmatv6')
@@ -222,11 +224,101 @@ x = [0.3 0.7 1.3 1.7 2.3 2.7 3.3 3.7]; % x axis locations for boxes
 h = notBoxPlot(avmav_mtrx,x);
 d = [h.data];
 % set marker differences
-set(d(1:2:end), 'markerfacecolor', [0.4,1,0.4], 'color', [0,0.4,0]); 
-set(d, 'markersize', 5);
+set(d, 'markersize',6);
+set(d(1:2), 'markerfacecolor','k', 'color','k'); 
+set(d(3:4), 'markerfacecolor',[55/255 126/255 184/255],'color','k','marker','^'); 
+set(d(5:6), 'markerfacecolor',[77/255 175/255 74/255],'color','k','marker','d'); 
+set(d(7), 'markerfacecolor',[228/255 26/255 28/255],'color','k','marker','s'); 
+
 % set patch colors
-set(h(8).sdPtch,'facecolor',[1 1 1]) 
-set(gca,'xtick',[0.5 1.5 2.5 3.5])
+for i = 1:8
+set(h(i).sdPtch,'facecolor',[1 1 1],'edgecolor','k')
+set(h(i).semPtch,'facecolor',[0.75 0.75 0.75],'edgecolor','k')
+end
+% set mean colors
+l = [h.mu];
+set(l(1:2),'color','k')
+set(l(3:4),'color',[55/255 126/255 184/255])
+set(l(5:6),'color',[77/255 175/255 74/255])
+set(l(8),'color',[228/255 26/255 28/255])
+%%
+xticklabel_rotate(x,90,{'Hoku C  ','Liho C  ','Hoku T  ','Liho T  ','Hoku T+4  ','Liho T+4  ','Hoku T+8  ','Liho T+8  '})
 xlabel('Condition')
 ylabel('Drag Coefficient, Cd')
+adjustfigurefont
+
+%% do for tag Cd
+meantag = nanmean([Cdtag1 Cdtag2]')';
+
+tag_mtrx = nan(11,8);
+tag_mtrx(1:7,1) = meantag(mav(:,1) == 0 & mav(:,2) == 1); % Hoku 0
+tag_mtrx(1:4,2) = meantag(mav(:,1) == 0 & mav(:,2) == 2); % Liho 0
+tag_mtrx(1:6,3) = meantag(mav(:,1) == 1 & mav(:,2) == 1); % Hoku 1
+tag_mtrx(1:5,4) = meantag(mav(:,1) == 1 & mav(:,2) == 2); % Liho 1
+tag_mtrx(1:11,5) = meantag(mav(:,1) == 3 & mav(:,2) == 1); % Hoku 3
+tag_mtrx(1:4,6) = meantag(mav(:,1) == 3 & mav(:,2) == 2); % Liho 3
+% tag_mtrx(:,7) = meantag(mav(:,1) == 5 & mav(:,2) == 1); % Hoku 5
+tag_mtrx(1:8,8) = meantag(mav(:,1) == 5 & mav(:,2) == 2); % Liho 5
+
+figure(7); 
+h = notBoxPlot(tag_mtrx,x);
+d = [h.data];
+% set marker differences
+set(d, 'markersize',6);
+set(d(1), 'markerfacecolor',[55/255 126/255 184/255],'color','k','marker','^'); 
+set(d(2:3), 'markerfacecolor',[77/255 175/255 74/255],'color','k','marker','d'); 
+set(d(4), 'markerfacecolor',[228/255 26/255 28/255],'color','k','marker','s'); 
+
+% set patch colors
+for i = 1:8
+set(h(i).sdPtch,'facecolor',[1 1 1],'edgecolor','k')
+set(h(i).semPtch,'facecolor',[0.75 0.75 0.75],'edgecolor','k')
+end
+% set mean colors
+l = [h.mu];
+set(l(3:4),'color',[55/255 126/255 184/255])
+set(l(5:6),'color',[77/255 175/255 74/255])
+set(l(7:8),'color',[228/255 26/255 28/255])
+
+xticklabel_rotate(x,90,{'Hoku C  ','Liho C  ','Hoku T  ','Liho T  ','Hoku T+4  ','Liho T+4  ','Hoku T+8  ','Liho T+8  '})
+xlabel('Condition')
+ylabel('Drag Coefficient, Cd')
+adjustfigurefont
+
+%% do for Duration
+dur_mtrx = nan(11,8);
+dur_mtrx(1:7,1) = mav(mav(:,1) == 0 & mav(:,2) == 1,5); % Hoku 0
+dur_mtrx(1:4,2) = mav(mav(:,1) == 0 & mav(:,2) == 2,5); % Liho 0
+dur_mtrx(1:6,3) = mav(mav(:,1) == 1 & mav(:,2) == 1,5); % Hoku 1
+dur_mtrx(1:5,4) = mav(mav(:,1) == 1 & mav(:,2) == 2,5); % Liho 1
+dur_mtrx(1:11,5) = mav(mav(:,1) == 3 & mav(:,2) == 1,5); % Hoku 3
+dur_mtrx(1:4,6) = mav(mav(:,1) == 3 & mav(:,2) == 2,5); % Liho 3
+% dur_mtrx(:,7) = mav(mav(:,1) == 5 & mav(:,2) == 1); % Hoku 5
+dur_mtrx(1:8,8) = mav(mav(:,1) == 5 & mav(:,2) == 2,5); % Liho 5
+
+figure(8); 
+h = notBoxPlot(dur_mtrx,x);
+d = [h.data];
+% set marker differences
+set(d, 'markersize',6);
+set(d(1:2), 'markerfacecolor','k', 'color','k'); 
+set(d(3:4), 'markerfacecolor',[55/255 126/255 184/255],'color','k','marker','^'); 
+set(d(5:6), 'markerfacecolor',[77/255 175/255 74/255],'color','k','marker','d'); 
+set(d(7), 'markerfacecolor',[228/255 26/255 28/255],'color','k','marker','s'); 
+
+% set patch colors
+for i = 1:8
+set(h(i).sdPtch,'facecolor',[1 1 1],'edgecolor','k')
+set(h(i).semPtch,'facecolor',[0.75 0.75 0.75],'edgecolor','k')
+end
+% set mean colors
+l = [h.mu];
+set(l(1:2),'color','k')
+set(l(3:4),'color',[55/255 126/255 184/255])
+set(l(5:6),'color',[77/255 175/255 74/255])
+set(l(8),'color',[228/255 26/255 28/255])
+
+xticklabel_rotate(x,90,{'Hoku C  ','Liho C  ','Hoku T  ','Liho T  ','Hoku T+4  ','Liho T+4  ','Hoku T+8  ','Liho T+8  '})
+xlabel('Condition')
+ylabel('Glide Duration (sec)')
 adjustfigurefont
