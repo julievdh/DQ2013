@@ -2,9 +2,9 @@ close all; clear all; clc
 
 % Import glide .csv
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-A = importdata('UWC_Hoku_290_2b.csv',',',2);
-Cond = 0;
-ZO1 = A.data(:,1:5);d
+A = importdata('UWC_Liho_289_3e_cut2.csv',',',2);
+Cond = 5;
+ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
 
 ZO1 = ZO1(~isnan(ZO1(:,1)),:);
@@ -41,11 +41,11 @@ if Cond == 1
     Mt = 0.250; % tag weighs 250 g (weighed on necropsy scale 17 Mar 2016)
     SAt = 0.024; % tag surface area from CFD sims
 else if Cond == 3
-        Mt = 0.350+(0.01)*4; % GET ACTUAL WEIGHT OF ELEMENTS
+        Mt = 0.250+(0.135)*2; % 2x elements are 135 g
         SAt = 0.024+(0.0105)*4; % tag and element surface area from CFD sims
     else if Cond == 5
-            Mt = 0.350+(0.01)*8;
-            SAt = 0.024+(0.0105)*4;
+            Mt = 0.250+(0.135)*4;
+            SAt = 0.024+(0.0105)*8;
         else Mt = 0; SAt = 0;
         end
     end
@@ -54,7 +54,7 @@ end
 % Liho = 339.7 lbs = 154 kg
 % Hoku = 388 lbs = 176 kg
 % Ma = entrained water mass (kg) = 1.06
-Mb = (176+Mt)*1.06;
+Mb = (154+Mt)*1.06;
 % SAw = reference area (m^2) % estimated wetted surface area from Fish 1993
 % Add SAt = surface area of tag from CFD
 SAw = (0.08*Mb.^0.65)+SAt;

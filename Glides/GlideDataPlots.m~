@@ -221,12 +221,7 @@ figure(6); clf; hold on
 x = [0.3 0.7 1.3 1.7 2.3 2.7 3.3 3.7]; % x axis locations for boxes
 h = notBoxPlot(avmav_mtrx,x);
 d = [h.data];
-% set marker differences
-set(d(1:2:end), 'markerfacecolor', [0.4,1,0.4], 'color', [0,0.4,0]); 
+set(d(1:2:end), 'markerfacecolor', [0.4,1,0.4], 'color', [0,0.4,0]);
 set(d, 'markersize', 5);
-% set patch colors
-set(h(8).sdPtch,'facecolor',[1 1 1]) 
 set(gca,'xtick',[0.5 1.5 2.5 3.5])
-xlabel('Condition')
-ylabel('Drag Coefficient, Cd')
-adjustfigurefont
+xlabel('Con
