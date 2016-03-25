@@ -247,6 +247,7 @@ set(l(8),'color',[228/255 26/255 28/255])
 set(gca,'xtick',[])
 ylim([-0.05 0.4])
 ylabel('Drag Coefficient, C_d')
+text(-0.6,0.35,'A','FontSize',18,'FontWeight','Bold'); box on
 
 %% do for tag Cd
 meantag = nanmean([Cdtag1 Cdtag2]')';
@@ -284,7 +285,7 @@ set(l(7:8),'color',[228/255 26/255 28/255])
 set(gca,'xtick',[])
 ylim([-0.05 0.4])
 ylabel('Drag Coefficient, C_d')
-
+text(-0.6,0.35,'B','FontSize',18,'FontWeight','Bold'); box on
 %% do for Duration
 dur_mtrx = nan(11,8);
 dur_mtrx(1:7,1) = mav(mav(:,1) == 0 & mav(:,2) == 1,5); % Hoku 0
@@ -325,5 +326,36 @@ xlabel('Condition')
 ylabel('Glide Duration (sec)')
 adjustfigurefont
 set(gca,'position',[0.13 0.25 0.7750 0.2157])
+text(-0.6,3.2,'C','FontSize',18,'FontWeight','Bold'); box on
 
 print('Glide_Boxplots','-dpng','-r300')
+
+%% Percent Change in Drag - following Jones et al. 2013
+Cd_animal_vid = [nanmean(avmav(mav(:,1) == 0 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 0 & mav(:,2) == 2))];
+Cd_tag_vid = [nanmean(avmav(mav(:,1) == 1 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 1 & mav(:,2) == 2))];
+Cd_tag4_vid = [nanmean(avmav(mav(:,1) == 3 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 3 & mav(:,2) == 2))];
+Cd_tag8_vid = [nanmean(avmav(mav(:,1) == 5 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 5 & mav(:,2) == 2))];
+
+Cd_animal_CFD = 0.00759;
+Cd_tag_CFD = 0.008;
+Cd_tag4_CFD = 0.0127;
+
+% Surface areas
+SA = [2.39 2.19];
+SAt = [0.024 0.024];
+SAt4 = [0.0660 0.0660];
+SAt8 = [0.1080 0.1080];
+
+% Frontal areas
+FA = [1.23 1.21];
+FAt = [0.0022 0.0022];
+FAt4 = FAt*5;
+FAt8 = FAt*9;
+
+% by Jones
+perc_tag_vid = (((Cd_tag_vid.*SAt)./SA)./Cd_animal_vid)*100
+perc_tag4_vid = (((Cd_tag4_vid.*SAt4)./SA)./Cd_animal_vid)*100
+perc_tag8_vid = (((Cd_tag8_vid.*SAt8)./SA)./Cd_animal_vid)*100
+
+perc_tag_CFD = (((Cd_tag_CFD.*SAt)./SA)./Cd_animal_CFD)*100
+perc_tag4_CFD = (((Cd_tag4_CFD.*SAt4)./SA)./Cd_animal_CFD)*100
