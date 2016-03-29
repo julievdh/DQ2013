@@ -338,7 +338,7 @@ xlabel('Condition');
 ylabel({'Glide Duration (sec)',''})
 adjustfigurefont
 set(gca,'position',[0.13 0.25 0.7750 0.35])
-text(0.1,3.2,'C','FontSize',18,'FontWeight','Bold'); box on
+text(0.1,3.2,'B','FontSize',18,'FontWeight','Bold'); box on
 
 print('Glide_Boxplots','-dpng','-r300')
 
