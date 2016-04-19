@@ -51,24 +51,7 @@ t2 = linspace(min(ZO2(:,1)),max(ZO2(:,1)));
 v2 = polyval(P,t2);
 plot(t1,v1,'o-',t2,v2,'o-')
 
-%% calculate average V_0 for each animal and condition
-V0_bar = nanmean([ZO1(1,4) ZO2(1,4)]);
-
-c2 = 1/(V0_bar.^3);
-
-%% find best fit Cd - optimize
-Cd = [0:0.01:1];
-c3 = -(rho.*Cd'*SAw)./(4*M);
-
-for i = 1:length(c3)
-Vt(:,i) = (c2-c3(i).*t2).^(-1/3);
-end
-
-plot(t2,Vt,'.')
-
-return 
-%% 
-
+%%
 xdata = vertcat(ZO1(:,1),ZO2(:,1));
 ydata = vertcat(ZO1(:,4),ZO2(:,4));
 fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
