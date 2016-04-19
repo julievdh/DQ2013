@@ -56,7 +56,7 @@ xdata = vertcat(ZO1(:,1),ZO2(:,1));
 ydata = vertcat(ZO1(:,4),ZO2(:,4));
 fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
 x0 = [1,-1];
-[x,resnorm,residual,exitflag,output] = lsqcurvefit(fun,x0,xdata,ydata);
+[x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
 % plot 
 times = linspace(xdata(1),xdata(end));
@@ -67,4 +67,15 @@ title('Data and Fitted Curve')
 
 Cd = (x(2)*4*M)/(rho*SAw);
 
-% calculate standard error
+% calculate standard error on fitted values
+J = jacobian;
+r = residual;
+[Q,R] = qr(J,0);
+mse = sum(abs(r).^2)/(size(J,1)-size(J,2));
+Rinv = inv(R);
+Sigma = Rinv*Rinv'*mse;
+se = sqrt(diag(Sigma));
+se = full(se); % convert from sparse to full matrix
+
+% calculate error on Cd estimate
+Cd_se = (se(2)*4*M)/(rho*SAw);
