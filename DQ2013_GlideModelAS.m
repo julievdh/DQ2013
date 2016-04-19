@@ -2,18 +2,20 @@
 % 12 April 2016 Julie van der Hoop
 
 %% load some glides and process into structure 
-n = 5; % which entry of glide are you working on?
-cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-glide(n).filename = 'UWC_Liho_288_2a.csv';
-A = importdata(glide(n).filename,',',2);
-glide(n).condition = 1; 
-glide(n).animal = 2;
-glide(n).ZO1 = A.data(:,1:5);
-glide(n).ZO2 = A.data(:,6:10);
-glide(n).ZO1 = glide(n).ZO1(~isnan(glide(n).ZO1(:,4)),:); % replace NaNs
-glide(n).ZO2 = glide(n).ZO2(~isnan(glide(n).ZO2(:,4)),:);
-
-save('GlideStructure','glide')
+% n = 5; % which entry of glide are you working on?
+% cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
+% glide(n).filename = 'UWC_Liho_288_2a.csv';
+% A = importdata(glide(n).filename,',',2);
+% glide(n).condition = 1; 
+% glide(n).animal = 2;
+% glide(n).ZO1 = A.data(:,1:5);
+% glide(n).ZO2 = A.data(:,6:10);
+% glide(n).ZO1 = glide(n).ZO1(~isnan(glide(n).ZO1(:,4)),:); % replace NaNs
+% glide(n).ZO2 = glide(n).ZO2(~isnan(glide(n).ZO2(:,4)),:);
+% 
+% save('GlideStructure','glide')
+clear all; load('GlideStructure')
+warning off
 %% overall right now condition = 1
 Cond = 1; % tag condition. 0 = Control, 1 = Tag, 3 = Tag + 4; 5 = tag + 8
 
@@ -43,22 +45,26 @@ SAw = (0.08*Mb.^0.65)+SAt;
 % as measured at DQO (see water quality for glide.jrl.o13014.xlsx)
 rho = 1021;
 
+%% plot all velocity vs time for these five files
+figure(1); hold on
+for i = find([glide.condition] == 1)
+    plot(vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1)),vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4)),'.')
+
 %% fit model parameters
-xdata = vertcat(ZO1(:,1),ZO2(:,1));
-ydata = vertcat(ZO1(:,4),ZO2(:,4));
+xdata = vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1));
+ydata = vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4));
 fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
 x0 = [1,-1];
-[x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
+[x(i,:),resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
-%% plot data
+% plot data
 times = linspace(xdata(1),xdata(end));
-figure(5); clf
-plot(xdata,ydata,'ko',times,fun(x,times),'b-')
+plot(xdata,ydata,'ko',times,fun(x(i,:),times),'b-')
 legend('Data','Fitted exponential')
 title('Data and Fitted Curve')
 
-% calculate Cd from parameter estimate
-Cd = (x(2)*4*M)/(rho*SAw);
+%% calculate Cd from parameter estimate
+Cd(i) = (x(i,2)*4*M)/(rho*SAw);
 
 % calculate standard error on parameter estimates
 J = jacobian;
@@ -71,4 +77,5 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_se = (se(2)*4*M)/(rho*SAw);
+Cd_se(i) = (se(2)*4*M)/(rho*SAw);
+end
