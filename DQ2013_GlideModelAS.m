@@ -37,37 +37,24 @@ SAw = (0.08*Mb.^0.65)+SAt;
 % as measured at DQO (see water quality for glide.jrl.o13014.xlsx)
 rho = 1021;
 
-%% plot velocities with time 
-figure(1); clf; hold on
-plot(ZO1(:,1),ZO1(:,4),ZO2(:,1),ZO2(:,4))
-xlabel('Time (s)'); ylabel('Velocity (m/s)');
-
-% polyfit velocity vs. time 
-[P,S] = polyfit(ZO1(:,1),ZO1(:,4),2);
-t1 = linspace(min(ZO1(:,1)),max(ZO1(:,1)));
-v1 = polyval(P,t1);
-[P,S] = polyfit(ZO2(:,1),ZO2(:,4),2);
-t2 = linspace(min(ZO2(:,1)),max(ZO2(:,1)));
-v2 = polyval(P,t2);
-plot(t1,v1,'o-',t2,v2,'o-')
-
-%%
+%% fit model parameters
 xdata = vertcat(ZO1(:,1),ZO2(:,1));
 ydata = vertcat(ZO1(:,4),ZO2(:,4));
 fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
-% plot 
+%% plot data
 times = linspace(xdata(1),xdata(end));
 figure(5); clf
 plot(xdata,ydata,'ko',times,fun(x,times),'b-')
 legend('Data','Fitted exponential')
 title('Data and Fitted Curve')
 
+% calculate Cd from parameter estimate
 Cd = (x(2)*4*M)/(rho*SAw);
 
-% calculate standard error on fitted values
+% calculate standard error on parameter estimates
 J = jacobian;
 r = residual;
 [Q,R] = qr(J,0);
