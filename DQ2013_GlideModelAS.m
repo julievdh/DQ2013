@@ -1,14 +1,20 @@
 % Glide Model after Alex Shorter's recommendation 
 % 12 April 2016 Julie van der Hoop
 
-%% load a glide 
+%% load some glides and process into structure 
+n = 5; % which entry of glide are you working on?
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-A = importdata('UWC_Liho_288_2c.csv',',',2);
-ZO1 = A.data(:,1:5);
-ZO2 = A.data(:,6:10);
-ZO1 = ZO1(~isnan(ZO1(:,4)),:); % replace NaNs
-ZO2 = ZO2(~isnan(ZO2(:,4)),:);
+glide(n).filename = 'UWC_Liho_288_2a.csv';
+A = importdata(glide(n).filename,',',2);
+glide(n).condition = 1; 
+glide(n).animal = 2;
+glide(n).ZO1 = A.data(:,1:5);
+glide(n).ZO2 = A.data(:,6:10);
+glide(n).ZO1 = glide(n).ZO1(~isnan(glide(n).ZO1(:,4)),:); % replace NaNs
+glide(n).ZO2 = glide(n).ZO2(~isnan(glide(n).ZO2(:,4)),:);
 
+save('GlideStructure','glide')
+%% overall right now condition = 1
 Cond = 1; % tag condition. 0 = Control, 1 = Tag, 3 = Tag + 4; 5 = tag + 8
 
 % Add condition-specific tag weights and surface areas
