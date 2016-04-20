@@ -23,10 +23,15 @@ warning off
 
 %% MAKE ALL TIMES START AT ZERO
 
-%% plot all velocity vs time for these five files
+%% plot all velocity vs time for these files
 figure(1); clf; hold on
 for i = find([glide.condition] == 5)
+    % make all speeds start at zero
+    firstZO1 = glide(i).ZO1(1,1);
+    glide(i).ZO1(:,1) = glide(i).ZO1(:,1)-firstZO1;
+    glide(i).ZO2(:,1) = glide(i).ZO2(:,1)-firstZO1;
     plot(vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1)),vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4)),'.')
+    
     
     % fit model parameters
     xdata = vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1));
@@ -38,7 +43,7 @@ for i = find([glide.condition] == 5)
     % plot data
     times = linspace(xdata(1),xdata(end));
     plot(xdata,ydata,'ko',times,fun(x(i,:),times),'b-')
-    legend('Data','Fitted exponential')
+    legend('Data','Data','Fitted exponential')
     title('Data and Fitted Curve')
     
     %% calculate Cd from parameter estimate
@@ -92,6 +97,10 @@ for i = find([glide.condition] == 5)
     pause
 end
 
+% plot labels
+xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+adjustfigurefont
+
 %% what about fitting to all group data
 % MAKE ALL TIMES START AT ZERO
 allpoints = vertcat(vertcat(glide.ZO1),vertcat(glide.ZO2));
@@ -110,3 +119,7 @@ title('Data and Fitted Curve')
 
 % calculate Cd for all
 Cd_all = (x(2)*4*M)/(rho*SAw);
+
+% plot labels
+xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+adjustfigurefont
