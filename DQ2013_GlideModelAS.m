@@ -20,31 +20,32 @@
 % save('GlideStructure','glide')
 clear all; load('GlideStructure')
 warning off
-
-%% MAKE ALL TIMES START AT ZERO
+close all
 
 %% plot all velocity vs time for these files
-figure(1); clf; hold on
-for i = find([glide.condition] == 5)
+for i = 1:length(glide)
+    % plot data on specific figure
+    figure(glide(i).condition+1); hold on
+    
     % make all speeds start at zero
     firstZO1 = glide(i).ZO1(1,1);
     glide(i).ZO1(:,1) = glide(i).ZO1(:,1)-firstZO1;
     glide(i).ZO2(:,1) = glide(i).ZO2(:,1)-firstZO1;
-    plot(vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1)),vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4)),'.')
+    % plot(vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1)),vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4)),'.')
     
     
     % fit model parameters
     xdata = vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1));
+    [xdata,I] = sort(xdata); % sort these data to see if it fixes problem?
     ydata = vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4));
+    ydata = ydata(I);
     fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
-    x0 = [1,-1];
+    x0 = [5,-1];
     [x(i,:),resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
     
     % plot data
     times = linspace(xdata(1),xdata(end));
-    plot(xdata,ydata,'ko',times,fun(x(i,:),times),'b-')
-    legend('Data','Data','Fitted exponential')
-    title('Data and Fitted Curve')
+    plot(xdata,ydata,'o',times,fun(x(i,:),times),'k-')
     
     %% calculate Cd from parameter estimate
     % Add condition-specific tag weights and surface areas
@@ -94,16 +95,22 @@ for i = find([glide.condition] == 5)
     % calculate error on Cd estimate
     Cd_se(i) = (se(2)*4*M)/(rho*SAw);
     
-    pause
 end
 
 % plot labels
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
 adjustfigurefont
 
+return
 %% what about fitting to all group data
-% MAKE ALL TIMES START AT ZERO
-allpoints = vertcat(vertcat(glide.ZO1),vertcat(glide.ZO2));
+% separate plots and fits for conditions
+c0 = find([glide.condition] == 0);
+c1 = find([glide.condition] == 1);
+c3 = find([glide.condition] == 3);
+c5 = find([glide.condition] == 5);
+figure(2); clf; hold on
+for i = [c0 c1 c3 c5]
+allpoints = vertcat(vertcat(glide(i).ZO1),vertcat(glide(i).ZO2));
 xdata = allpoints(:,1);
 ydata = allpoints(:,4);
 fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
@@ -112,13 +119,13 @@ x0 = [1,-1];
 
 % plot data
 times = linspace(xdata(1),xdata(end));
-figure(2); clf
-plot(xdata,ydata,'ko',times,fun(x,times),'b-')
+plot(xdata,ydata,'o',times,fun(x,times),'b-')
 legend('Data','Fitted exponential')
 title('Data and Fitted Curve')
 
 % calculate Cd for all
-Cd_all = (x(2)*4*M)/(rho*SAw);
+Cd_all(i) = (x(2)*4*M)/(rho*SAw);
+end
 
 % plot labels
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
