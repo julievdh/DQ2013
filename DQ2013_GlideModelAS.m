@@ -96,21 +96,49 @@ for i = 1:length(glide)
     Cd_se(i) = (se(2)*4*M)/(rho*SAw);
     
 end
-
-% plot labels
-xlabel('Time (sec)'); ylabel('Velocity (m/s)');
-adjustfigurefont
-
-return
-%% what about fitting to all group data
-% separate plots and fits for conditions
+% get indices for conditions
 c0 = find([glide.condition] == 0);
 c1 = find([glide.condition] == 1);
 c3 = find([glide.condition] == 3);
 c5 = find([glide.condition] == 5);
-figure(2); clf; hold on
-for i = [c0 c1 c3 c5]
-allpoints = vertcat(vertcat(glide(i).ZO1),vertcat(glide(i).ZO2));
+
+%% plot labels
+figure(1);
+xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+adjustfigurefont
+title('Control; No Tag')
+text(2.5,1.5,['n =' num2str(size(c0,2))])
+text(2.0,1.4,['meanSD = ' num2str(mean(Cd(c0))) '+/-' num2str(std(Cd(c0)))])
+
+figure(2); 
+xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+adjustfigurefont
+title('Tag')
+text(2,1.15,['n =' num2str(size(c1,2))])
+text(2,1.10,['meanSD = ' num2str(mean(Cd(c1))) '+/-' num2str(std(Cd(c1)))])
+
+figure(4); 
+xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+adjustfigurefont
+title('Tag + 4')
+text(1.5,1.6,['n =' num2str(size(c3,2))])
+text(1.5,1.5,['meanSD = ' num2str(mean(Cd(c3))) '+/-' num2str(std(Cd(c3)))])
+
+figure(6); 
+xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+adjustfigurefont
+title('Tag + 8')
+text(1.5,1.05,['n =' num2str(size(c5,2))])
+text(1.25,1.0,['meanSD = ' num2str(mean(Cd(c5))) '+/-' num2str(std(Cd(c5)))])
+
+
+
+%% what about fitting to all group data
+% separate plots and fits for conditions
+
+figure(8); clf; hold on
+% c0 - control, no tag
+allpoints = vertcat(vertcat(glide(c0).ZO1),vertcat(glide(c0).ZO2));
 xdata = allpoints(:,1);
 ydata = allpoints(:,4);
 fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
@@ -120,13 +148,85 @@ x0 = [1,-1];
 % plot data
 times = linspace(xdata(1),xdata(end));
 plot(xdata,ydata,'o',times,fun(x,times),'b-')
-legend('Data','Fitted exponential')
-title('Data and Fitted Curve')
 
-% calculate Cd for all
-Cd_all(i) = (x(2)*4*M)/(rho*SAw);
-end
+% calculate Cd for C0
+Mt = 0; SAt = 0;
+Mb = 165; % using average mass of both animals
+M = (Mb+Mt)*1.06;
+SAw = (0.08*Mb.^0.65)+SAt;
+Cd0_all = (x(2)*4*M)/(rho*SAw);
+
+% c1 - tag
+allpoints = vertcat(vertcat(glide(c1).ZO1),vertcat(glide(c1).ZO2));
+xdata = allpoints(:,1);
+ydata = allpoints(:,4);
+fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+x0 = [1,-1];
+[x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
+
+% plot data
+times = linspace(xdata(1),xdata(end));
+plot(xdata,ydata,'o',times,fun(x,times),'k-')
+
+% calculate Cd for C1
+Mt = 0.250; % tag weighs 250 g (weighed on necropsy scale 17 Mar 2016)
+SAt = 0.024; % tag surface area from CFD sims
+Mb = 165; % using average mass of both animals
+M = (Mb+Mt)*1.06;
+SAw = (0.08*Mb.^0.65)+SAt;
+Cd1_all = (x(2)*4*M)/(rho*SAw);
+
+% c3 - tag+4
+allpoints = vertcat(vertcat(glide(c3).ZO1),vertcat(glide(c3).ZO2));
+xdata = allpoints(:,1);
+ydata = allpoints(:,4);
+fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+x0 = [1,-1];
+[x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
+
+% plot data
+times = linspace(xdata(1),xdata(end));
+plot(xdata,ydata,'o',times,fun(x,times),'k-')
+
+% calculate Cd for C3
+Mt = 0.250+(0.135)*2; % 2x elements are 135 g
+SAt = 0.024+(0.0105)*4; % tag and element surface area from CFD simsMb = 165; % using average mass of both animals
+M = (Mb+Mt)*1.06;
+SAw = (0.08*Mb.^0.65)+SAt;
+Cd3_all = (x(2)*4*M)/(rho*SAw);
+
+% c5 - tag+8
+allpoints = vertcat(vertcat(glide(c5).ZO1),vertcat(glide(c5).ZO2));
+xdata = allpoints(:,1);
+ydata = allpoints(:,4);
+fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+x0 = [1,-1];
+[x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
+
+% plot data
+times = linspace(xdata(1),xdata(end));
+plot(xdata,ydata,'o',times,fun(x,times),'k-')
+
+% calculate Cd for C5
+Mt = 0.250+(0.135)*4; % 2x elements are 135 g
+SAt = 0.024+(0.0105)*8; % tag and element surface area from CFD simsMb = 165; % using average mass of both animals
+M = (154+Mt)*1.06; % Liho only 
+SAw = (0.08*Mb.^0.65)+SAt;
+Cd5_all = (x(2)*4*M)/(rho*SAw);
 
 % plot labels
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+adjustfigurefont
+
+%% compare both methods:
+figure(10); clf; hold on
+subplot(411); ylim([0 8]); hold on
+histogram(Cd(c0),[0:0.05:1]);  plot([Cd0_all Cd0_all],[0 8],'b')
+subplot(412); ylim([0 8]); hold on
+histogram(Cd(c1),[0:0.05:1]);  plot([Cd1_all Cd1_all],[0 8],'b')
+subplot(413); ylim([0 8]); hold on
+histogram(Cd(c3),[0:0.05:1]);  plot([Cd3_all Cd3_all],[0 8],'b')
+subplot(414); hold on; ylim([0 8])
+histogram(Cd(c5),[0:0.05:1]); plot([Cd5_all Cd5_all],[0 8],'b')
+xlabel('Drag Coefficient');
 adjustfigurefont
