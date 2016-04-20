@@ -2,29 +2,30 @@
 % 12 April 2016 Julie van der Hoop
 
 %% load some glides and process into structure
-n = 26; % which entry of glide are you working on?
-cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-glide(n).filename = 'UWC_Liho_289_6a.csv';
-A = importdata(glide(n).filename,',',2);
-glide(n).condition = 3;
-if ~isempty(strfind(glide(n).filename,'Hoku'))
-    glide(n).animal = 1;
-else
-    glide(n).animal = 2;
-end
-glide(n).ZO1 = A.data(:,1:5);
-glide(n).ZO2 = A.data(:,6:10);
-glide(n).ZO1 = glide(n).ZO1(~isnan(glide(n).ZO1(:,4)),:); % replace NaNs
-glide(n).ZO2 = glide(n).ZO2(~isnan(glide(n).ZO2(:,4)),:);
+% n = 31; % which entry of glide are you working on?
+% cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
+% glide(n).filename = 'UWC_Liho_289_3e_cut.csv';
+% A = importdata(glide(n).filename,',',2);
+% glide(n).condition = 0;
+% if ~isempty(strfind(glide(n).filename,'Hoku'))
+%     glide(n).animal = 1;
+% else
+%     glide(n).animal = 2;
+% end
+% glide(n).ZO1 = A.data(:,1:5);
+% glide(n).ZO2 = A.data(:,6:10);
+% glide(n).ZO1 = glide(n).ZO1(~isnan(glide(n).ZO1(:,4)),:); % replace NaNs
+% glide(n).ZO2 = glide(n).ZO2(~isnan(glide(n).ZO2(:,4)),:);
 %
-save('GlideStructure','glide')
-% clear all; load('GlideStructure')
+% save('GlideStructure','glide')
+clear all; load('GlideStructure')
 warning off
 
+%% MAKE ALL TIMES START AT ZERO
 
 %% plot all velocity vs time for these five files
-figure(1); hold on
-for i = find([glide.condition] == 1)
+figure(1); clf; hold on
+for i = find([glide.condition] == 5)
     plot(vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1)),vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4)),'.')
     
     % fit model parameters
@@ -87,9 +88,12 @@ for i = find([glide.condition] == 1)
     
     % calculate error on Cd estimate
     Cd_se(i) = (se(2)*4*M)/(rho*SAw);
+    
+    pause
 end
 
 %% what about fitting to all group data
+% MAKE ALL TIMES START AT ZERO
 allpoints = vertcat(vertcat(glide.ZO1),vertcat(glide.ZO2));
 xdata = allpoints(:,1);
 ydata = allpoints(:,4);
@@ -99,6 +103,7 @@ x0 = [1,-1];
 
 % plot data
 times = linspace(xdata(1),xdata(end));
+figure(2); clf
 plot(xdata,ydata,'ko',times,fun(x,times),'b-')
 legend('Data','Fitted exponential')
 title('Data and Fitted Curve')
