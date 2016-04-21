@@ -47,7 +47,7 @@ for i = 1:length(glide)
     times = linspace(xdata(1),xdata(end));
     h1 = plot(xdata,ydata,'o');
     if glide(i).animal == 1
-        set(h1,'markerstyle','s')
+        set(h1,'marker','s')
     end
     plot(times,fun(x(i,:),times),'k-')
     
@@ -158,7 +158,8 @@ x0 = [1,-1];
 
 % plot data
 times = linspace(xdata(1),xdata(end));
-plot(xdata,ydata,'o',times,fun(x,times),'b-')
+plot(xdata,ydata,'ko')
+plot(times,fun(x,times),'k-','Linewidth',2)
 
 % calculate Cd for C0
 Mt = 0; SAt = 0;
@@ -177,7 +178,8 @@ x0 = [1,-1];
 
 % plot data
 times = linspace(xdata(1),xdata(end));
-plot(xdata,ydata,'o',times,fun(x,times),'k-')
+plot(xdata,ydata,'o','Color',[55/255 126/255 184/255])
+plot(times,fun(x,times),'k-','Linewidth',2)
 
 % calculate Cd for C1
 Mt = 0.250; % tag weighs 250 g (weighed on necropsy scale 17 Mar 2016)
@@ -197,7 +199,8 @@ x0 = [1,-1];
 
 % plot data
 times = linspace(xdata(1),xdata(end));
-plot(xdata,ydata,'o',times,fun(x,times),'k-')
+plot(xdata,ydata,'o','Color',[77/255 175/255 74/255])
+plot(times,fun(x,times),'k-','Linewidth',2)
 
 % calculate Cd for C3
 Mt = 0.250+(0.135)*2; % 2x elements are 135 g
@@ -216,7 +219,8 @@ x0 = [1,-1];
 
 % plot data
 times = linspace(xdata(1),xdata(end));
-plot(xdata,ydata,'o',times,fun(x,times),'k-')
+plot(xdata,ydata,'o','Color',[228/255 26/255 28/255])
+plot(times,fun(x,times),'k-','Linewidth',2)
 
 % calculate Cd for C5
 Mt = 0.250+(0.135)*4; % 2x elements are 135 g
@@ -234,13 +238,17 @@ print('Cd_fitall','-dpng','-r300')
 %% compare both methods:
 figure(10); clf; hold on
 subplot(411); ylim([0 8]); hold on
-histogram(Cd(c0),[0:0.05:1]);  plot([Cd0_all Cd0_all],[0 8],'b')
+histogram(Cd(c0),[0:0.05:1],'FaceColor','k');  plot([Cd0_all Cd0_all],[0 8],'k')
+text(0.7,6,'Control, No Tag','FontSize',14)
 subplot(412); ylim([0 8]); hold on
-histogram(Cd(c1),[0:0.05:1]);  plot([Cd1_all Cd1_all],[0 8],'b')
+histogram(Cd(c1),[0:0.05:1],'FaceColor',[55/255 126/255 184/255]);  plot([Cd1_all Cd1_all],[0 8],'k')
+text(0.85,6,'Tag','FontSize',14)
 subplot(413); ylim([0 8]); hold on
-histogram(Cd(c3),[0:0.05:1]);  plot([Cd3_all Cd3_all],[0 8],'b')
+histogram(Cd(c3),[0:0.05:1],'FaceColor',[77/255 175/255 74/255]);  plot([Cd3_all Cd3_all],[0 8],'k')
+text(0.85,6,'Tag+4','FontSize',14)
 subplot(414); hold on; ylim([0 8])
-histogram(Cd(c5),[0:0.05:1]); plot([Cd5_all Cd5_all],[0 8],'b')
+histogram(Cd(c5),[0:0.05:1],'FaceColor',[228/255 26/255 28/255]); plot([Cd5_all Cd5_all],[0 8],'k')
+text(0.85,6,'Tag+8','FontSize',14)
 xlabel('Drag Coefficient');
 adjustfigurefont
 
