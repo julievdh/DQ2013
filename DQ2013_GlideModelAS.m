@@ -3,7 +3,7 @@
 
 %% load some glides and process into structure
 % n = 31; % which entry of glide are you working on?
-% cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
+cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
 % glide(n).filename = 'UWC_Liho_289_3e_cut.csv';
 % A = importdata(glide(n).filename,',',2);
 % glide(n).condition = 0;
@@ -45,7 +45,11 @@ for i = 1:length(glide)
     
     % plot data
     times = linspace(xdata(1),xdata(end));
-    plot(xdata,ydata,'o',times,fun(x(i,:),times),'k-')
+    h1 = plot(xdata,ydata,'o');
+    if glide(i).animal == 1
+        set(h1,'markerstyle','s')
+    end
+    plot(times,fun(x(i,:),times),'k-')
     
     %% calculate Cd from parameter estimate
     % Add condition-specific tag weights and surface areas
@@ -110,12 +114,17 @@ title('Control; No Tag')
 text(2.5,1.5,['n =' num2str(size(c0,2))])
 text(2.0,1.4,['meanSD = ' num2str(mean(Cd(c0))) '+/-' num2str(std(Cd(c0)))])
 
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('Cd0_notag_separate','-dpng','-r300')
+
 figure(2); 
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
 adjustfigurefont
 title('Tag')
 text(2,1.15,['n =' num2str(size(c1,2))])
 text(2,1.10,['meanSD = ' num2str(mean(Cd(c1))) '+/-' num2str(std(Cd(c1)))])
+
+print('Cd1_tag_separate','-dpng','-r300')
 
 figure(4); 
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
@@ -124,6 +133,8 @@ title('Tag + 4')
 text(1.5,1.6,['n =' num2str(size(c3,2))])
 text(1.5,1.5,['meanSD = ' num2str(mean(Cd(c3))) '+/-' num2str(std(Cd(c3)))])
 
+print('Cd3_tag+4_separate','-dpng','-r300')
+
 figure(6); 
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
 adjustfigurefont
@@ -131,7 +142,7 @@ title('Tag + 8')
 text(1.5,1.05,['n =' num2str(size(c5,2))])
 text(1.25,1.0,['meanSD = ' num2str(mean(Cd(c5))) '+/-' num2str(std(Cd(c5)))])
 
-
+print('Cd5_tag+8_separate','-dpng','-r300')
 
 %% what about fitting to all group data
 % separate plots and fits for conditions
@@ -218,6 +229,8 @@ Cd5_all = (x(2)*4*M)/(rho*SAw);
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
 adjustfigurefont
 
+print('Cd_fitall','-dpng','-r300')
+
 %% compare both methods:
 figure(10); clf; hold on
 subplot(411); ylim([0 8]); hold on
@@ -230,3 +243,5 @@ subplot(414); hold on; ylim([0 8])
 histogram(Cd(c5),[0:0.05:1]); plot([Cd5_all Cd5_all],[0 8],'b')
 xlabel('Drag Coefficient');
 adjustfigurefont
+
+print('Cd_fitcomparison','-dpng','-r300')
