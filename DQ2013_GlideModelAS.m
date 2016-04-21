@@ -2,11 +2,11 @@
 % 12 April 2016 Julie van der Hoop
 
 %% load some glides and process into structure
-% n = 31; % which entry of glide are you working on?
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-% glide(n).filename = 'UWC_Liho_289_3e_cut.csv';
+% n = 17; % which entry of glide are you working on?
+% glide(n).filename = 'UWC_Hoku_289_2extra2_cut.csv';
 % A = importdata(glide(n).filename,',',2);
-% glide(n).condition = 0;
+% glide(n).condition = 3;
 % if ~isempty(strfind(glide(n).filename,'Hoku'))
 %     glide(n).animal = 1;
 % else
@@ -16,9 +16,10 @@ cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
 % glide(n).ZO2 = A.data(:,6:10);
 % glide(n).ZO1 = glide(n).ZO1(~isnan(glide(n).ZO1(:,4)),:); % replace NaNs
 % glide(n).ZO2 = glide(n).ZO2(~isnan(glide(n).ZO2(:,4)),:);
-%
+% 
 % save('GlideStructure','glide')
-clear all; load('GlideStructure')
+%% clear all; 
+load('GlideStructure')
 warning off
 close all
 
@@ -98,7 +99,7 @@ for i = 1:length(glide)
     
     % calculate error on Cd estimate
     Cd_se(i) = (se(2)*4*M)/(rho*SAw);
-    
+    pause
 end
 % get indices for conditions
 c0 = find([glide.condition] == 0);
@@ -117,7 +118,7 @@ text(2.0,1.4,['meanSD = ' num2str(mean(Cd(c0))) '+/-' num2str(std(Cd(c0)))])
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('Cd0_notag_separate','-dpng','-r300')
 
-figure(2); 
+figure(2);
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
 adjustfigurefont
 title('Tag')
@@ -126,7 +127,7 @@ text(2,1.10,['meanSD = ' num2str(mean(Cd(c1))) '+/-' num2str(std(Cd(c1)))])
 
 print('Cd1_tag_separate','-dpng','-r300')
 
-figure(4); 
+figure(4);
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
 adjustfigurefont
 title('Tag + 4')
@@ -135,7 +136,7 @@ text(1.5,1.5,['meanSD = ' num2str(mean(Cd(c3))) '+/-' num2str(std(Cd(c3)))])
 
 print('Cd3_tag+4_separate','-dpng','-r300')
 
-figure(6); 
+figure(6);
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
 adjustfigurefont
 title('Tag + 8')
@@ -167,6 +168,18 @@ Mb = 165; % using average mass of both animals
 M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
 Cd0_all = (x(2)*4*M)/(rho*SAw);
+% calculate standard error on parameter estimates
+J = jacobian;
+r = residual;
+[Q,R] = qr(J,0);
+mse = sum(abs(r).^2)/(size(J,1)-size(J,2));
+Rinv = inv(R);
+Sigma = Rinv*Rinv'*mse;
+se = sqrt(diag(Sigma));
+se = full(se); % convert from sparse to full matrix
+
+% calculate error on Cd estimate
+Cd_se0 = (se(2)*4*M)/(rho*SAw);
 
 % c1 - tag
 allpoints = vertcat(vertcat(glide(c1).ZO1),vertcat(glide(c1).ZO2));
@@ -189,6 +202,19 @@ M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
 Cd1_all = (x(2)*4*M)/(rho*SAw);
 
+% calculate standard error on parameter estimates
+J = jacobian;
+r = residual;
+[Q,R] = qr(J,0);
+mse = sum(abs(r).^2)/(size(J,1)-size(J,2));
+Rinv = inv(R);
+Sigma = Rinv*Rinv'*mse;
+se = sqrt(diag(Sigma));
+se = full(se); % convert from sparse to full matrix
+
+% calculate error on Cd estimate
+Cd_se1 = (se(2)*4*M)/(rho*SAw);
+
 % c3 - tag+4
 allpoints = vertcat(vertcat(glide(c3).ZO1),vertcat(glide(c3).ZO2));
 xdata = allpoints(:,1);
@@ -209,6 +235,19 @@ M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
 Cd3_all = (x(2)*4*M)/(rho*SAw);
 
+% calculate standard error on parameter estimates
+J = jacobian;
+r = residual;
+[Q,R] = qr(J,0);
+mse = sum(abs(r).^2)/(size(J,1)-size(J,2));
+Rinv = inv(R);
+Sigma = Rinv*Rinv'*mse;
+se = sqrt(diag(Sigma));
+se = full(se); % convert from sparse to full matrix
+
+% calculate error on Cd estimate
+Cd_se3 = (se(2)*4*M)/(rho*SAw);
+
 % c5 - tag+8
 allpoints = vertcat(vertcat(glide(c5).ZO1),vertcat(glide(c5).ZO2));
 xdata = allpoints(:,1);
@@ -225,9 +264,22 @@ plot(times,fun(x,times),'k-','Linewidth',2)
 % calculate Cd for C5
 Mt = 0.250+(0.135)*4; % 2x elements are 135 g
 SAt = 0.024+(0.0105)*8; % tag and element surface area from CFD simsMb = 165; % using average mass of both animals
-M = (154+Mt)*1.06; % Liho only 
+M = (154+Mt)*1.06; % Liho only
 SAw = (0.08*Mb.^0.65)+SAt;
 Cd5_all = (x(2)*4*M)/(rho*SAw);
+
+% calculate standard error on parameter estimates
+J = jacobian;
+r = residual;
+[Q,R] = qr(J,0);
+mse = sum(abs(r).^2)/(size(J,1)-size(J,2));
+Rinv = inv(R);
+Sigma = Rinv*Rinv'*mse;
+se = sqrt(diag(Sigma));
+se = full(se); % convert from sparse to full matrix
+
+% calculate error on Cd estimate
+Cd_se5 = (se(2)*4*M)/(rho*SAw);
 
 % plot labels
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
@@ -253,3 +305,9 @@ xlabel('Drag Coefficient');
 adjustfigurefont
 
 print('Cd_fitcomparison','-dpng','-r300')
+
+%% percent increases
+pinc1 = [((mean(Cd(c1))-mean(Cd(c0)))./mean(Cd(c0)))*100 ((Cd1_all - Cd0_all)/Cd0_all)*100];
+pinc3 = [((mean(Cd(c3))-mean(Cd(c0)))./mean(Cd(c0)))*100 ((Cd3_all - Cd0_all)/Cd0_all)*100];
+pinc5 = [((mean(Cd(c5))-mean(Cd(c0)))./mean(Cd(c0)))*100 ((Cd5_all - Cd0_all)/Cd0_all)*100];
+
