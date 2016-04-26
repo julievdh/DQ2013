@@ -2,13 +2,23 @@ close all; clear all; clc
 
 % Import glide .csv
 cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-A = importdata('UWC_Liho_289_3e_cut2.csv',',',2);
-Cond = 5;
+A = importdata('UWC_Liho_288_1a.csv',',',2);
+Cond = 1;
 ZO1 = A.data(:,1:5);
 ZO2 = A.data(:,6:10);
 
 ZO1 = ZO1(~isnan(ZO1(:,1)),:);
 ZO2 = ZO2(~isnan(ZO2(:,1)),:);
+
+%% Calculate vx, vy, v
+% vx = (x(i+1) - x(i))/dt; vy = (y(i+1) - y(i))/dt;
+Vx1 = (ZO1(2:end,2) - ZO1(1:end-1,2))/(ZO1(2,1)-ZO1(1,1));
+Vx2 = (ZO2(2:end,2) - ZO2(1:end-1,2))/(ZO2(2,1)-ZO2(1,1));
+Vy1 = (ZO1(2:end,3) - ZO1(1:end-1,3))/(ZO1(2,1)-ZO1(1,1));
+Vy2 = (ZO2(2:end,3) - ZO2(1:end-1,3))/(ZO2(2,1)-ZO2(1,1));
+% v = sqrt(vx^2 + vy^2)
+V1 = sqrt(Vx1.^2 + Vy1.^2);
+V2 = sqrt(Vx2.^2 + Vy2.^2);
 
 %%
 % plot velocity from different body points
