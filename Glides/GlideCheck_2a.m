@@ -1,11 +1,11 @@
 close all; clear all; clc
 
-% Import glide .csv
-cd /Users/julievanderhoop/Documents/NOPPTagDrag/DolphinQuest2013/Glides/CUT
-A = importdata('UWC_Liho_288_1a.csv',',',2);
-Cond = 1;
-ZO1 = A.data(:,1:5);
-ZO2 = A.data(:,6:10);
+% Import glide structure 
+load('GlideStructure.mat')
+file = 4; 
+Cond = glide(file).condition;
+ZO1 = glide(file).ZO1;
+ZO2 = glide(file).ZO2;
 
 ZO1 = ZO1(~isnan(ZO1(:,1)),:);
 ZO2 = ZO2(~isnan(ZO2(:,1)),:);
@@ -25,15 +25,18 @@ V2 = sqrt(Vx2.^2 + Vy2.^2);
 figure(1); clf; 
 set(gcf,'Position',[290 120 1000 520])
 subplot(311); hold on
-% plot(fluke(:,1),fluke(:,4))
-plot(ZO1(:,1),ZO1(:,4),'o'); plot(ZO2(:,1),ZO2(:,4),'o'); % plot velocity from tracker
-plot(ZO1(2:end,1),V1); plot(ZO2(2:end,1),V2); % plot velocity calculated
+% plot velocity from tracker
+plot(ZO1(:,1),ZO1(:,4),'o','color',[247/255 23/255 53/255]); 
+plot(ZO2(:,1),ZO2(:,4),'o','color',[194/255 9/255 90/255]);
+% plot velocity calculated
+plot(ZO1(2:end,1),V1,'color',[0/255 31/255 84/255]); 
+plot(ZO2(2:end,1),V2,'color',[3/255 64/255 120/255]); 
 xlim([min(ZO1(:,1)),max(ZO2(:,1))])
 
 ylabel('Velocity (m/s)'); box on
 
-legend('Zinc Oxide 1','Zinc Oxide 2','Location','SW')
-legend boxoff
+% legend('Zinc Oxide 1','Zinc Oxide 2','Location','SW')
+% legend boxoff
 
 %% SET RULES
 ZO1dur = abs(ZO1(end,1) - ZO1(1,1));
@@ -81,37 +84,45 @@ rho = 1021;
 windowSize = 30; % 30 frames = 1s
 ZO1_filt = filter(ones(1,windowSize)/windowSize,1,ZO1);
 ZO2_filt = filter(ones(1,windowSize)/windowSize,1,ZO2);
-plot(ZO1_filt(:,1),ZO1_filt(:,4)); % plot filtered velocity
-plot(ZO2_filt(:,1),ZO2_filt(:,4));
+plot(ZO1_filt(:,1),ZO1_filt(:,4),'color',[247/255 23/255 53/255],'LineWidth',2); % plot filtered velocity
+plot(ZO2_filt(:,1),ZO2_filt(:,4),'color',[247/255 23/255 53/255],'LineWidth',2);
 % calcluate for calculated velocity (not tracker velocity)
 V1_filt = filter(ones(1,windowSize)/windowSize,1,[ZO1(2:end,1) V1]);
 V2_filt = filter(ones(1,windowSize)/windowSize,1,[ZO2(2:end,1) V2]);
-V1_filt(1:29) = NaN; V2_filt(1:29) = NaN;
-plot(V1_filt(:,1),V1_filt(:,2),V2_filt(:,1),V2_filt(:,2))
+V1_filt(1:29,:) = NaN; V2_filt(1:29,:) = NaN;
+h1 = plot(V1_filt(:,1),V1_filt(:,2),V2_filt(:,1),V2_filt(:,2));
+set(h1,'color',[0/255 31/255 84/255],'LineWidth',2);
 
 subplot(312); hold on
 % compute acceleration from smoothed velocity
 ZO1_filt_ax = (ZO1_filt(2:end,4) - ZO1_filt(1:end-1,4))/(1/29.97); % on tracker data
 ZO2_filt_ax = (ZO2_filt(2:end,4) - ZO2_filt(1:end-1,4))/(1/29.97);
-plot(ZO1_filt(2:end,1),ZO1_filt_ax,ZO2_filt(2:end,1),ZO2_filt_ax)
 A1_filt = diff(V1_filt(:,2))./diff(V1_filt(:,1)); % on calculated data
 A2_filt = diff(V2_filt(:,2))./diff(V2_filt(:,1));
-plot(V1_filt(2:end,1),A1_filt,V2_filt(2:end,1),A2_filt)
-% plot mean A
-plot([min(ZO1(:,1)),max(ZO2(:,1))],[nanmean([A1_filt; A2_filt]) nanmean([A1_filt; A2_filt])],'color',[0.75 0.75 0.75])
+% plot mean A and tracker A and calculated A
+plot([min(ZO1(:,1)),max(ZO2(:,1))],[nanmean([A1_filt; A2_filt]) nanmean([A1_filt; A2_filt])],'color',[0.75 0.75 0.75],'LineWidth',2)
+plot(ZO1_filt(2:end,1),ZO1_filt_ax,'color',[247/255 23/255 53/255],'LineWidth',2);
+plot(ZO2_filt(2:end,1),ZO2_filt_ax,'color',[194/255 9/255 90/255],'LineWidth',2)
+plot(V1_filt(2:end,1),A1_filt,'color',[0/255 31/255 84/255],'LineWidth',2)
+plot(V2_filt(2:end,1),A2_filt,'color',[3/255 64/255 120/255],'LineWidth',2)
 ylabel('Acceleration (m/s^2)'); 
 adjustfigurefont; box on
 xlim([min(ZO1(:,1)),max(ZO2(:,1))])
 
 subplot(313); hold on
 % Calculate Cd from drag (D = Mb*accel)
-Cd_ZO1 = (2*abs(Mb.*ZO1_filt_ax))./(rho*SAw*ZO1_filt(2:end,4).^2);
+Cd_ZO1 = (2*abs(Mb.*A1_filt))./(rho*SAw*V1_filt(2:end,2).^2);
+Cd_ZO1_old = (2*abs(Mb.*ZO1_filt_ax))./(rho*SAw*ZO1_filt(2:end,4).^2);
 Cd_ZO1_mn = nanmean(Cd_ZO1);
-Cd_ZO2 = (2*abs(Mb.*ZO2_filt_ax))./(rho*SAw*ZO2_filt(2:end,4).^2);
+Cd_ZO2 = (2*abs(Mb.*A2_filt))./(rho*SAw*V2_filt(2:end,2).^2);
+Cd_ZO2_old = (2*abs(Mb.*ZO2_filt_ax))./(rho*SAw*ZO2_filt(2:end,4).^2);
 Cd_ZO2_mn = nanmean(Cd_ZO2);
-plot(V1_filt(:,1),Cd_ZO1,V2_filt(:,1),Cd_ZO2);
-% plot mean Cd
-h = plot([min(ZO1(:,1)),max(ZO2(:,1))],[mean([Cd_ZO1_mn,Cd_ZO2_mn]) mean([Cd_ZO1_mn,Cd_ZO2_mn])],'color',[0.75 0.75 0.75]);
+% plot mean Cd and calcualted Cd
+h = plot([min(ZO1(:,1)),max(ZO2(:,1))],[mean([Cd_ZO1_mn,Cd_ZO2_mn]) mean([Cd_ZO1_mn,Cd_ZO2_mn])],'color',[0.75 0.75 0.75],'LineWidth',2);
+plot(V1_filt(2:end,1),Cd_ZO1,'color',[0/255 31/255 84/255],'LineWidth',2)
+plot(V2_filt(2:end,1),Cd_ZO2,'color',[3/255 64/255 120/255],'LineWidth',2)
+plot(ZO1_filt(2:end,1),Cd_ZO1_old,'color',[247/255 23/255 53/255],'LineWidth',2)
+plot(ZO2_filt(2:end,1),Cd_ZO2_old,'color',[194/255 9/255 90/255],'LineWidth',2)
 
 xlabel('Time (s)'); ylabel('Drag Coefficient, C_d'); 
 adjustfigurefont; box on
