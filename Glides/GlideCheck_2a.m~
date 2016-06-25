@@ -2,7 +2,7 @@ close all; clear all; clc
 
 % Import glide structure
 load('GlideStructure.mat')
-for file = 1:45
+file = 4;
 Cond = glide(file).condition;
 ZO1 = glide(file).ZO1;
 ZO2 = glide(file).ZO2;
@@ -133,12 +133,4 @@ adjustfigurefont; box on
 xlim([min(ZO1(:,1)),max(ZO2(:,1))])
 
 % to export: CD from ZO1, from ZO2, duration of glide
-glide(file).Cd_mn = abs([Cd_ZO1_mn Cd_ZO2_mn]); % Cd estimate
-glide(file).dur = mean([ZO1dur ZO2dur]); % glide duration
-glide(file).sspeed = mean([ZO1(2,4) ZO2(2,4)]); % glide start speed
-glide(file).espeed = mean([ZO1(end,4) ZO2(end,4)]); % glide end speed
-
-end
-
-% save glide structure
-save('GlideStructure','glide')
+glide(file).Cd_mn = abs([Cd_ZO1_mn Cd_ZO2_mn mean([ZO1dur ZO2dur]) mean([ZO1(2,4) ZO2(2,4)]) mean([ZO1(end,4) ZO2(end,4)])]);
