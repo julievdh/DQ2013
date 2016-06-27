@@ -126,16 +126,16 @@ loglog(CFD_Re,CFD_Cd_tag,'color',[0.75 0.75 0.75])
 loglog(CFD_Re,CFD_Cd_tag4,'color',[0.75 0.75 0.75])
 
 print('AllCdData','-dpng','-r300')
-return 
+
 %% plot velocities and durations of glides
 figure(4); clf; hold on
-for i = 1:length(mav)
-    h1 = plot([0 mav(i,5)],mav(i,6:7),'o-');
-    if mav(i,1) == 0
+for file = 1:45
+    h1 = plot([0 glide(file).dur],[glide(file).sspeed glide(file).espeed],'o-');
+    if glide(file).condition == 0
         set(h1,'MarkerEdgeColor','k','MarkerFaceColor','k','color','k')
-    else if mav(i,1) == 1
+    else if glide(file).condition == 1
             set(h1,'Marker','^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerFaceColor',[55/255 126/255 184/255],'color',[55/255 126/255 184/255])
-        else if mav(i,1) == 3
+        else if glide(file).condition == 3
                 set(h1,'Marker','d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerFaceColor',[77/255 175/255 74/255],'Color',[77/255 175/255 74/255])
             else set(h1,'Marker','s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerFaceColor',[228/255 26/255 28/255],'Color',[228/255 26/255 28/255])
             end
@@ -147,18 +147,18 @@ xlabel('Glide Duration (sec)'); ylabel('Velocity (m/s)')
 adjustfigurefont
 %%
 figure(5); clf; hold on
-for i = 1:length(mav)
-    if mav(i,1) == 0
-        scatter([0 mav(i,5)],mav(i,6:7), 100,[avmav(i) avmav(i)],'filled')
-        plot([0 mav(i,5)],mav(i,6:7),'k-');
-    else if mav(i,1) == 1
-            scatter([0 mav(i,5)],mav(i,6:7), 100,[avmav(i) avmav(i)],'filled','Marker','^')
-            plot([0 mav(i,5)],mav(i,6:7),'color',[55/255 126/255 184/255]);
-        else if mav(i,1) == 3
-                scatter([0 mav(i,5)],mav(i,6:7), 100,[avmav(i) avmav(i)],'filled','Marker','d')
-                plot([0 mav(i,5)],mav(i,6:7),'color',[77/255 175/255 74/255]);
-            else scatter([0 mav(i,5)],mav(i,6:7), 100,[avmav(i) avmav(i)],'filled','Marker','s')
-                plot([0 mav(i,5)],mav(i,6:7),'color',[228/255 26/255 28/255]);
+for file = 1:45
+    if glide(file).condition == 0
+        scatter([0 glide(file).dur],[glide(file).sspeed glide(file).espeed], 100,[mean(glide(file).Cd_mn) mean(glide(file).Cd_mn)],'filled')
+        plot([0 glide(file).dur],[glide(file).sspeed glide(file).espeed],'k-');
+    else if glide(file).condition == 1
+            scatter([0 glide(file).dur],[glide(file).sspeed glide(file).espeed], 100,[mean(glide(file).Cd_mn) mean(glide(file).Cd_mn)],'filled','Marker','^')
+            plot([0 glide(file).dur],[glide(file).sspeed glide(file).espeed],'color',[55/255 126/255 184/255]);
+        else if glide(file).condition == 3
+                scatter([0 glide(file).dur],[glide(file).sspeed glide(file).espeed], 100,[mean(glide(file).Cd_mn) mean(glide(file).Cd_mn)],'filled','Marker','d')
+                plot([0 glide(file).dur],[glide(file).sspeed glide(file).espeed],'color',[77/255 175/255 74/255]);
+            else scatter([0 glide(file).dur],[glide(file).sspeed glide(file).espeed], 100,[mean(glide(file).Cd_mn) mean(glide(file).Cd_mn)],'filled','Marker','s')
+                plot([0 glide(file).dur],[glide(file).sspeed glide(file).espeed],'color',[228/255 26/255 28/255]);
             end
         end
     end
@@ -166,18 +166,44 @@ end
 
 set(gca,'CLim',[0 0.3]);
 colormap jet
-
+return
 %% notboxplot
+% calculate means 
+for i = 1:45;
+    glide(i).mnCd = mean(glide(i).Cd_mn); 
+end
+
 % reorder data: each column of y is one variable/group
 avmav_mtrx = nan(11,8);
-avmav_mtrx(1:7,1) = avmav(mav(:,1) == 0 & mav(:,2) == 1); % Hoku 0
-avmav_mtrx(1:4,2) = avmav(mav(:,1) == 0 & mav(:,2) == 2); % Liho 0
-avmav_mtrx(1:6,3) = avmav(mav(:,1) == 1 & mav(:,2) == 1); % Hoku 1
-avmav_mtrx(1:5,4) = avmav(mav(:,1) == 1 & mav(:,2) == 2); % Liho 1
-avmav_mtrx(1:11,5) = avmav(mav(:,1) == 3 & mav(:,2) == 1); % Hoku 3
-avmav_mtrx(1:4,6) = avmav(mav(:,1) == 3 & mav(:,2) == 2); % Liho 3
-% avmav_mtrx(:,7) = avmav(mav(:,1) == 5 & mav(:,2) == 1); % Hoku 5
-avmav_mtrx(1:8,8) = avmav(mav(:,1) == 5 & mav(:,2) == 2); % Liho 5
+Hoku0 = find([glide.condition] == 0 & [glide.animal] == 1);
+Hoku1 = find([glide.condition] == 1 & [glide.animal] == 1);
+Hoku3 = find([glide.condition] == 3 & [glide.animal] == 1);
+Liho0 = find([glide.condition] == 0 & [glide.animal] == 2); 
+Liho1 = find([glide.condition] == 1 & [glide.animal] == 2); 
+Liho3 = find([glide.condition] == 3 & [glide.animal] == 2); 
+Liho5 = find([glide.condition] == 5 & [glide.animal] == 2); 
+
+for i = 1:length(Hoku0)
+avmav_mtrx(i,1) = glide(Hoku0(i)).mnCd;
+end
+for i = 1:length(Hoku1)
+avmav_mtrx(i,2) = glide(Hoku1(i)).mnCd;
+end
+for i = 1:length(Hoku3)
+avmav_mtrx(i,3) = glide(Hoku3(i)).mnCd;
+end
+for i = 1:length(Liho0)
+avmav_mtrx(i,4) = glide(Liho0(i)).mnCd;
+end
+for i = 1:length(Liho1)
+avmav_mtrx(i,5) = glide(Liho1(i)).mnCd;
+end
+for i = 1:length(Liho3)
+avmav_mtrx(i,6) = glide(Liho3(i)).mnCd;
+end
+for i = 1:length(Liho5)
+avmav_mtrx(i,8) = glide(Liho5(i)).mnCd;
+end
 
 %% plot
 figure(6); clf;
@@ -219,7 +245,7 @@ plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[0.75 0.75
 plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[0.75 0.75 0.75])
 end
 
-
+return
 %%
 %% do for tag Cd
 meantag = nanmean([Cdtag1 Cdtag2]')';
