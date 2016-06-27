@@ -175,6 +175,7 @@ end
 
 % reorder data: each column of y is one variable/group
 avmav_mtrx = nan(11,8);
+dur_mtrx = nan(11,8);
 Hoku0 = find([glide.condition] == 0 & [glide.animal] == 1);
 Hoku1 = find([glide.condition] == 1 & [glide.animal] == 1);
 Hoku3 = find([glide.condition] == 3 & [glide.animal] == 1);
@@ -183,26 +184,34 @@ Liho1 = find([glide.condition] == 1 & [glide.animal] == 2);
 Liho3 = find([glide.condition] == 3 & [glide.animal] == 2); 
 Liho5 = find([glide.condition] == 5 & [glide.animal] == 2); 
 
+% mean drag coefficients (A) and durations (C)
 for i = 1:length(Hoku0)
 avmav_mtrx(i,1) = glide(Hoku0(i)).mnCd;
+dur_mtrx(i,1) = glide(Hoku0(i)).dur;
 end
 for i = 1:length(Hoku1)
-avmav_mtrx(i,2) = glide(Hoku1(i)).mnCd;
+avmav_mtrx(i,3) = glide(Hoku1(i)).mnCd;
+dur_mtrx(i,3) = glide(Hoku1(i)).dur;
 end
 for i = 1:length(Hoku3)
-avmav_mtrx(i,3) = glide(Hoku3(i)).mnCd;
+avmav_mtrx(i,5) = glide(Hoku3(i)).mnCd;
+dur_mtrx(i,5) = glide(Hoku3(i)).dur;
 end
 for i = 1:length(Liho0)
-avmav_mtrx(i,4) = glide(Liho0(i)).mnCd;
+avmav_mtrx(i,2) = glide(Liho0(i)).mnCd;
+dur_mtrx(i,2) = glide(Liho0(i)).dur;
 end
 for i = 1:length(Liho1)
-avmav_mtrx(i,5) = glide(Liho1(i)).mnCd;
+avmav_mtrx(i,4) = glide(Liho1(i)).mnCd;
+dur_mtrx(i,4) = glide(Liho1(i)).dur;
 end
 for i = 1:length(Liho3)
 avmav_mtrx(i,6) = glide(Liho3(i)).mnCd;
+dur_mtrx(i,6) = glide(Liho3(i)).dur;
 end
 for i = 1:length(Liho5)
 avmav_mtrx(i,8) = glide(Liho5(i)).mnCd;
+dur_mtrx(i,8) = glide(Liho5(i)).dur;
 end
 
 %% plot
@@ -245,20 +254,20 @@ plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[0.75 0.75
 plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[0.75 0.75 0.75])
 end
 
-return
-%%
-%% do for tag Cd
-meantag = nanmean([Cdtag1 Cdtag2]')';
 
-tag_mtrx = nan(11,8);
-tag_mtrx(1:7,1) = meantag(mav(:,1) == 0 & mav(:,2) == 1); % Hoku 0
-tag_mtrx(1:4,2) = meantag(mav(:,1) == 0 & mav(:,2) == 2); % Liho 0
-tag_mtrx(1:6,3) = meantag(mav(:,1) == 1 & mav(:,2) == 1); % Hoku 1
-tag_mtrx(1:5,4) = meantag(mav(:,1) == 1 & mav(:,2) == 2); % Liho 1
-tag_mtrx(1:11,5) = meantag(mav(:,1) == 3 & mav(:,2) == 1); % Hoku 3
-tag_mtrx(1:4,6) = meantag(mav(:,1) == 3 & mav(:,2) == 2); % Liho 3
-% tag_mtrx(:,7) = meantag(mav(:,1) == 5 & mav(:,2) == 1); % Hoku 5
-tag_mtrx(1:8,8) = meantag(mav(:,1) == 5 & mav(:,2) == 2); % Liho 5
+%%
+%% do for METHOD 2
+% meantag = nanmean([Cdtag1 Cdtag2]')';
+% 
+% tag_mtrx = nan(11,8);
+% tag_mtrx(1:7,1) = meantag(mav(:,1) == 0 & mav(:,2) == 1); % Hoku 0
+% tag_mtrx(1:4,2) = meantag(mav(:,1) == 0 & mav(:,2) == 2); % Liho 0
+% tag_mtrx(1:6,3) = meantag(mav(:,1) == 1 & mav(:,2) == 1); % Hoku 1
+% tag_mtrx(1:5,4) = meantag(mav(:,1) == 1 & mav(:,2) == 2); % Liho 1
+% tag_mtrx(1:11,5) = meantag(mav(:,1) == 3 & mav(:,2) == 1); % Hoku 3
+% tag_mtrx(1:4,6) = meantag(mav(:,1) == 3 & mav(:,2) == 2); % Liho 3
+% % tag_mtrx(:,7) = meantag(mav(:,1) == 5 & mav(:,2) == 1); % Hoku 5
+% tag_mtrx(1:8,8) = meantag(mav(:,1) == 5 & mav(:,2) == 2); % Liho 5
 
 subplot('position',[0.13 0.5 0.7750 0.2157])
 % h = notBoxPlot(tag_mtrx,x);
@@ -285,16 +294,6 @@ ylim([-0.05 0.4]); xlim([0 4])
 ylabel('Drag Coefficient, C_d')
 text(-0.6,0.35,'B','FontSize',18,'FontWeight','Bold'); box on
 %% do for Duration
-dur_mtrx = nan(11,8);
-dur_mtrx(1:7,1) = mav(mav(:,1) == 0 & mav(:,2) == 1,5); % Hoku 0
-dur_mtrx(1:4,2) = mav(mav(:,1) == 0 & mav(:,2) == 2,5); % Liho 0
-dur_mtrx(1:6,3) = mav(mav(:,1) == 1 & mav(:,2) == 1,5); % Hoku 1
-dur_mtrx(1:5,4) = mav(mav(:,1) == 1 & mav(:,2) == 2,5); % Liho 1
-dur_mtrx(1:11,5) = mav(mav(:,1) == 3 & mav(:,2) == 1,5); % Hoku 3
-dur_mtrx(1:4,6) = mav(mav(:,1) == 3 & mav(:,2) == 2,5); % Liho 3
-% dur_mtrx(:,7) = mav(mav(:,1) == 5 & mav(:,2) == 1); % Hoku 5
-dur_mtrx(1:8,8) = mav(mav(:,1) == 5 & mav(:,2) == 2,5); % Liho 5
-
 subplot('position',[0.13 0.25 0.7750 0.2157])
 h = notBoxPlot(dur_mtrx,x);
 d = [h.data];
