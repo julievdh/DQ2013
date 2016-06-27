@@ -139,8 +139,8 @@ for file = 1:45
     glide(file).espeed = mean([ZO1(end,4) ZO2(end,4)]); % glide end speed
     
     if glide(file).animal == 1
-        l = 2.37;
-    else l = 2.52;
+        l = 2.52; % Hoku = 2.52 m (found error 27 June 2016)
+    else l = 2.37; % Liho = 2.37 m
     end
     glide(file).Re = (l*glide(file).sspeed)/0.00000105;
     
