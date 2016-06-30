@@ -42,7 +42,7 @@ for file = 1:45
 end
 
 xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
-xlim([8E5 5E6]); ylim([5E-3 1E0])
+xlim([8E5 5E6]); ylim([5E-3 1E1])
 text(8.4E5,0.75,'A','FontSize',18,'FontWeight','bold')
 
 % %% summary statistics tag glide data
