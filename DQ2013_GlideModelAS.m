@@ -29,17 +29,17 @@ for i = 1:length(glide)
     figure(glide(i).condition+1); hold on
     
     % make all speeds start at zero
-    firstZO1 = glide(i).ZO1(1,1);
+    firstZO1 = min(glide(i).ZO1(1,1), glide(i).ZO2(1,1));
     glide(i).ZO1(:,1) = glide(i).ZO1(:,1)-firstZO1;
     glide(i).ZO2(:,1) = glide(i).ZO2(:,1)-firstZO1;
     % plot(vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1)),vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4)),'.')
     
     
     % fit model parameters
-    xdata = vertcat(glide(i).ZO1(:,1),glide(i).ZO2(:,1));
+    xdata = vertcat(glide(i).ZO1(1:30,1),glide(i).ZO2(1:30,1));
     [xdata,I] = sort(xdata); % sort these data to see if it fixes problem?
-    ydata = vertcat(glide(i).ZO1(:,4),glide(i).ZO2(:,4));
-    ydata = ydata(I);
+    ydata = vertcat(glide(i).ZO1(1:30,4),glide(i).ZO2(1:30,4));
+    ydata = ydata(I); % sorted as in xdata
     fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
     x0 = [5,-1];
     [x(i,:),resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
@@ -51,6 +51,7 @@ for i = 1:length(glide)
         set(h1,'marker','s')
     end
     plot(times,fun(x(i,:),times),'k-')
+    text(xdata(end)+0.1,ydata(end),num2str(i))
     
     %% calculate Cd from parameter estimate
     % Add condition-specific tag weights and surface areas
@@ -99,13 +100,15 @@ for i = 1:length(glide)
     
     % calculate error on Cd estimate
     Cd_se(i) = (se(2)*4*M)/(rho*SAw);
-    pause
+
 end
-% get indices for conditions
+
+%% get indices for conditions
 c0 = find([glide.condition] == 0);
 c1 = find([glide.condition] == 1);
 c3 = find([glide.condition] == 3);
 c5 = find([glide.condition] == 5);
+
 
 %% plot labels
 figure(1);
@@ -290,16 +293,16 @@ print('Cd_fitall','-dpng','-r300')
 %% compare both methods:
 figure(10); clf; hold on
 subplot(411); ylim([0 8]); hold on
-histogram(Cd(c0),[0:0.05:1],'FaceColor','k');  plot([Cd0_all Cd0_all],[0 8],'k')
+histogram(Cd(c0),'FaceColor','k');  plot([Cd0_all Cd0_all],[0 8],'k')
 text(0.7,6,'Control, No Tag','FontSize',14)
 subplot(412); ylim([0 8]); hold on
-histogram(Cd(c1),[0:0.05:1],'FaceColor',[55/255 126/255 184/255]);  plot([Cd1_all Cd1_all],[0 8],'k')
+histogram(Cd(c1),'FaceColor',[55/255 126/255 184/255]);  plot([Cd1_all Cd1_all],[0 8],'k')
 text(0.85,6,'Tag','FontSize',14)
 subplot(413); ylim([0 8]); hold on
-histogram(Cd(c3),[0:0.05:1],'FaceColor',[77/255 175/255 74/255]);  plot([Cd3_all Cd3_all],[0 8],'k')
+histogram(Cd(c3),'FaceColor',[77/255 175/255 74/255]);  plot([Cd3_all Cd3_all],[0 8],'k')
 text(0.85,6,'Tag+4','FontSize',14)
 subplot(414); hold on; ylim([0 8])
-histogram(Cd(c5),[0:0.05:1],'FaceColor',[228/255 26/255 28/255]); plot([Cd5_all Cd5_all],[0 8],'k')
+histogram(Cd(c5),'FaceColor',[228/255 26/255 28/255]); plot([Cd5_all Cd5_all],[0 8],'k')
 text(0.85,6,'Tag+8','FontSize',14)
 xlabel('Drag Coefficient');
 adjustfigurefont
