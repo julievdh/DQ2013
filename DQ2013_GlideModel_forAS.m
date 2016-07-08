@@ -52,7 +52,7 @@ for i = 1:45
         set(h1,'marker','s')
     end
     plot(times,fun(x(i,:),times),'k-')
-    text(xdata(end)+0.1,ydata(end),num2str(i))
+    % text(xdata(end)+0.1,ydata(end),num2str(i))
     
     %% calculate Cd from parameter estimate
     % Add condition-specific tag weights and surface areas
@@ -110,45 +110,49 @@ c1 = find([glide.condition] == 1);
 c3 = find([glide.condition] == 3);
 c5 = find([glide.condition] == 5);
 
-
 %% plot labels
 figure(1);
-xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+xlabel('Time (sec)'); ylabel('1/Velocity (s/m)');
 adjustfigurefont
 title('Control; No Tag')
-text(2.5,1.5,['n =' num2str(size(c0,2))])
-text(2.0,1.4,['meanSD = ' num2str(mean(Cd(c0))) '+/-' num2str(std(Cd(c0)))])
+text(2.5,0.55,['n =' num2str(size(c5,2))])
+text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c5)),2)) '+/-' num2str(round(std(Cd(c5)),2))])
+ylim([0 7]); xlim([0 3.5])
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('Cd0_notag_separate','-dpng','-r300')
 
 figure(2);
-xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+xlabel('Time (sec)'); ylabel('1/Velocity (s/m)');
 adjustfigurefont
 title('Tag')
-text(2,1.15,['n =' num2str(size(c1,2))])
-text(2,1.10,['meanSD = ' num2str(mean(Cd(c1))) '+/-' num2str(std(Cd(c1)))])
+text(2.5,0.55,['n =' num2str(size(c5,2))])
+text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c5)),2)) '+/-' num2str(round(std(Cd(c5)),2))])
+ylim([0 7]); xlim([0 3.5])
 
 print('Cd1_tag_separate','-dpng','-r300')
 
 figure(4);
-xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+xlabel('Time (sec)'); ylabel('1/Velocity (s/m)');
 adjustfigurefont
 title('Tag + 4'); ylim([0 2])
-text(1.5,1.6,['n =' num2str(size(c3,2))])
-text(1.5,1.5,['meanSD = ' num2str(mean(Cd(c3))) '+/-' num2str(std(Cd(c3)))])
+text(2.5,0.55,['n =' num2str(size(c5,2))])
+text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c5)),2)) '+/-' num2str(round(std(Cd(c5)),2))])
+ylim([0 7]); xlim([0 3.5])
 
 print('Cd3_tag+4_separate','-dpng','-r300')
 
 figure(6);
-xlabel('Time (sec)'); ylabel('Velocity (m/s)');
+xlabel('Time (sec)'); ylabel('1/Velocity (s/m)');
 adjustfigurefont
 title('Tag + 8')
-text(1.5,1.05,['n =' num2str(size(c5,2))])
-text(1.25,1.0,['meanSD = ' num2str(mean(Cd(c5))) '+/-' num2str(std(Cd(c5)))])
+text(2.5,0.55,['n =' num2str(size(c5,2))])
+text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c5)),2)) '+/-' num2str(round(std(Cd(c5)),2))])
+ylim([0 7]); xlim([0 3.5])
 
 print('Cd5_tag+8_separate','-dpng','-r300')
 
+return
 
 %% what about fitting to all group data
 % separate plots and fits for conditions
@@ -166,7 +170,7 @@ figure(8); clf; hold on
 % c0 - control, no tag Hoku
 allpoints = vertcat(vertcat(glide(Hc0).ZO1),vertcat(glide(Hc0).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints1./(:,4); % goal would be to make this = V1 and V2 instead
+ydata = 1./allpoints(:,4); % goal would be to make this = V1 and V2 instead
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
