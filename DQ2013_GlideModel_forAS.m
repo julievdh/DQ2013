@@ -21,7 +21,7 @@ cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/Glides
 %% clear all; 
 load('GlideStructure')
 warning off
-% close all
+close all
 
 %% plot all velocity vs time for these files
 for i = 1:45
@@ -36,9 +36,9 @@ for i = 1:45
     
     
     % fit model parameters
-    xdata = vertcat(glide(i).ZO1(2:end,1)); % time
+    xdata = vertcat(glide(i).ZO1(2:end,1),glide(i).ZO2(2:end,1)); % time
     [xdata,I] = sort(xdata); % sort these data to see if it fixes problem?
-    ydata = vertcat(1./glide(i).V1);
+    ydata = vertcat(1./glide(i).V1, 1./glide(i).V2);
     ydata = ydata(I); % sorted as in xdata
     % fun = @(x,xdata)(x(1)+(x(2)*xdata)).^(-1/3);
     fun = @(x,xdata)(x(1)+(x(2)*xdata));
@@ -101,7 +101,7 @@ for i = 1:45
     
     % calculate error on Cd estimate
     Cd_se(i) = (se(2)*2*M)/(rho*SAw);
-
+glide(i).CDAS = Cd(i);
 end
 
 %% get indices for conditions
@@ -116,7 +116,7 @@ xlabel('Time (sec)'); ylabel('1/Velocity (s/m)');
 adjustfigurefont
 title('Control; No Tag')
 text(2.5,0.55,['n =' num2str(size(c5,2))])
-text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c5)),2)) '+/-' num2str(round(std(Cd(c5)),2))])
+text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c0)),2)) '+/-' num2str(round(std(Cd(c0)),2))])
 ylim([0 7]); xlim([0 3.5])
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
@@ -127,7 +127,7 @@ xlabel('Time (sec)'); ylabel('1/Velocity (s/m)');
 adjustfigurefont
 title('Tag')
 text(2.5,0.55,['n =' num2str(size(c5,2))])
-text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c5)),2)) '+/-' num2str(round(std(Cd(c5)),2))])
+text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c1)),2)) '+/-' num2str(round(std(Cd(c1)),2))])
 ylim([0 7]); xlim([0 3.5])
 
 print('Cd1_tag_separate','-dpng','-r300')
@@ -137,7 +137,7 @@ xlabel('Time (sec)'); ylabel('1/Velocity (s/m)');
 adjustfigurefont
 title('Tag + 4'); ylim([0 2])
 text(2.5,0.55,['n =' num2str(size(c5,2))])
-text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c5)),2)) '+/-' num2str(round(std(Cd(c5)),2))])
+text(2.25,0.3,['meanSD = ' num2str(round(mean(Cd(c3)),2)) '+/-' num2str(round(std(Cd(c3)),2))])
 ylim([0 7]); xlim([0 3.5])
 
 print('Cd3_tag+4_separate','-dpng','-r300')

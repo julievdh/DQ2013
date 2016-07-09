@@ -28,7 +28,7 @@ end
 
 %%
 for file = 1:45
-    h2 = plot(glide(file).Re,mean(glide(file).Cd_mn),'o');
+    h2 = plot(glide(file).Re,glide(file).CDAS,'o');
     if glide(file).condition == 0
         set(h2,'MarkerEdgeColor','k')
     else if glide(file).condition == 1
@@ -41,8 +41,10 @@ for file = 1:45
     end
 end
 
+
+
 xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
-xlim([8E5 5E6]); ylim([5E-3 1E1])
+xlim([8E5 5E6]); ylim([3E-3 1E0])
 text(8.4E5,0.75,'A','FontSize',18,'FontWeight','bold')
 
 % %% summary statistics tag glide data
@@ -90,13 +92,18 @@ loglog(Hanson(:,1),Hanson(:,8),'.-','markersize',15,'color',[83/255 53/255 113/2
 % video only data
 for file = 1:45
     h1 = loglog(glide(file).Re,mean(glide(file).Cd_mn),'o'); hold on
+    h2 = loglog(glide(file).Re,glide(file).CDAS,'o');
     if glide(file).condition == 0
         set(h1,'MarkerEdgeColor','k','MarkerFaceColor','k')
+        set(h2,'MarkerEdgeColor','k')
     else if glide(file).condition == 1
             set(h1,'Marker','^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerFaceColor',[55/255 126/255 184/255])
+            set(h2,'Marker','^','MarkerEdgeColor',[55/255 126/255 184/255])
         else if glide(file).condition == 3
                 set(h1,'Marker','d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerFaceColor',[77/255 175/255 74/255])
+                set(h2,'Marker','d','MarkerEdgeColor',[77/255 175/255 74/255])
             else set(h1,'Marker','s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerFaceColor',[228/255 26/255 28/255])
+                set(h2,'Marker','s','MarkerEdgeColor',[228/255 26/255 28/255])
             end
         end
     end
@@ -176,6 +183,7 @@ end
 % reorder data: each column of y is one variable/group
 avmav_mtrx = nan(11,8);
 dur_mtrx = nan(11,8);
+AS_mtrx = nan(11,8);
 Hoku0 = find([glide.condition] == 0 & [glide.animal] == 1);
 Hoku1 = find([glide.condition] == 1 & [glide.animal] == 1);
 Hoku3 = find([glide.condition] == 3 & [glide.animal] == 1);
@@ -184,34 +192,41 @@ Liho1 = find([glide.condition] == 1 & [glide.animal] == 2);
 Liho3 = find([glide.condition] == 3 & [glide.animal] == 2); 
 Liho5 = find([glide.condition] == 5 & [glide.animal] == 2); 
 
-% mean drag coefficients (A) and durations (C)
+% mean drag coefficients (A), drag coefficients (B) and durations (C)
 for i = 1:length(Hoku0)
 avmav_mtrx(i,1) = glide(Hoku0(i)).mnCd;
 dur_mtrx(i,1) = glide(Hoku0(i)).dur;
+AS_mtrx(i,1) = glide(Hoku0(i)).CDAS;
 end
 for i = 1:length(Hoku1)
 avmav_mtrx(i,3) = glide(Hoku1(i)).mnCd;
 dur_mtrx(i,3) = glide(Hoku1(i)).dur;
+AS_mtrx(i,3) = glide(Hoku1(i)).CDAS;
 end
 for i = 1:length(Hoku3)
 avmav_mtrx(i,5) = glide(Hoku3(i)).mnCd;
 dur_mtrx(i,5) = glide(Hoku3(i)).dur;
+AS_mtrx(i,5) = glide(Hoku3(i)).CDAS;
 end
 for i = 1:length(Liho0)
 avmav_mtrx(i,2) = glide(Liho0(i)).mnCd;
 dur_mtrx(i,2) = glide(Liho0(i)).dur;
+AS_mtrx(i,2) = glide(Liho0(i)).CDAS;
 end
 for i = 1:length(Liho1)
 avmav_mtrx(i,4) = glide(Liho1(i)).mnCd;
 dur_mtrx(i,4) = glide(Liho1(i)).dur;
+AS_mtrx(i,4) = glide(Liho1(i)).CDAS;
 end
 for i = 1:length(Liho3)
 avmav_mtrx(i,6) = glide(Liho3(i)).mnCd;
 dur_mtrx(i,6) = glide(Liho3(i)).dur;
+AS_mtrx(i,6) = glide(Liho3(i)).CDAS;
 end
 for i = 1:length(Liho5)
 avmav_mtrx(i,8) = glide(Liho5(i)).mnCd;
 dur_mtrx(i,8) = glide(Liho5(i)).dur;
+AS_mtrx(i,8) = glide(Liho5(i)).CDAS;
 end
 
 %% plot
@@ -257,17 +272,6 @@ end
 
 %%
 %% do for METHOD 2
-% meantag = nanmean([Cdtag1 Cdtag2]')';
-% 
-% tag_mtrx = nan(11,8);
-% tag_mtrx(1:7,1) = meantag(mav(:,1) == 0 & mav(:,2) == 1); % Hoku 0
-% tag_mtrx(1:4,2) = meantag(mav(:,1) == 0 & mav(:,2) == 2); % Liho 0
-% tag_mtrx(1:6,3) = meantag(mav(:,1) == 1 & mav(:,2) == 1); % Hoku 1
-% tag_mtrx(1:5,4) = meantag(mav(:,1) == 1 & mav(:,2) == 2); % Liho 1
-% tag_mtrx(1:11,5) = meantag(mav(:,1) == 3 & mav(:,2) == 1); % Hoku 3
-% tag_mtrx(1:4,6) = meantag(mav(:,1) == 3 & mav(:,2) == 2); % Liho 3
-% % tag_mtrx(:,7) = meantag(mav(:,1) == 5 & mav(:,2) == 1); % Hoku 5
-% tag_mtrx(1:8,8) = meantag(mav(:,1) == 5 & mav(:,2) == 2); % Liho 5
 
 subplot('position',[0.13 0.5 0.7750 0.2157])
 % h = notBoxPlot(tag_mtrx,x);
