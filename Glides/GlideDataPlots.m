@@ -41,11 +41,31 @@ for file = 1:45
     end
 end
 
-
-
 xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
 xlim([8E5 5E6]); ylim([3E-3 1E0])
 text(8.4E5,0.75,'A','FontSize',18,'FontWeight','bold')
+
+%% plot panel B 
+subplot('position',[0.6 0.1 0.38 0.8]); hold on
+c = linspace(1,10,length(glide));
+for file = 1:45
+    % velocity threshold? 
+    h = scatter(mean(glide(file).Cd_mn),glide(file).CDAS,60,glide(file).sspeed,'filled');
+    if glide(file).condition == 1
+        set(h,'marker','^')
+    else if glide(file).condition == 3
+            set(h,'marker','d')
+        else if glide(file).condition == 5
+                set(h,'marker','s')
+            end
+        end
+    end
+end
+plot([0 0.32],[0 0.32],'k')
+xlabel('Noren Method'); ylabel('AS Method');
+hcb = colorbar; title(hcb,'Glide Start Speed (m/s)')
+box on
+xlim([0 0.32]); ylim([0 0.32])
 
 % %% summary statistics tag glide data
 % nanmean(nanmean([Cdtag1(mav(:,1) == 3) Cdtag2(mav(:,1) == 3)]));
@@ -173,7 +193,7 @@ end
 
 set(gca,'CLim',[0 0.3]);
 colormap jet
-return
+
 %% notboxplot
 % calculate means 
 for i = 1:45;
@@ -270,33 +290,43 @@ plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[0.75 0.
 end
 
 
-%%
 %% do for METHOD 2
-
 subplot('position',[0.13 0.5 0.7750 0.2157])
-% h = notBoxPlot(tag_mtrx,x);
-% d = [h.data];
-% % set marker differences
-% set(d, 'markersize',6);
-% set(d(1), 'markerfacecolor',[55/255 126/255 184/255],'color','k','marker','^'); 
-% set(d(2:3), 'markerfacecolor',[77/255 175/255 74/255],'color','k','marker','d'); 
-% set(d(4), 'markerfacecolor',[228/255 26/255 28/255],'color','k','marker','s'); 
-% 
-% % set patch colors
-% for i = 1:8
-% set(h(i).sdPtch,'facecolor',[1 1 1],'edgecolor','k')
-% set(h(i).semPtch,'facecolor',[0.75 0.75 0.75],'edgecolor','k')
-% end
-% % set mean colors
-% l = [h.mu];
-% set(l(3:4),'color',[55/255 126/255 184/255])
-% set(l(5:6),'color',[77/255 175/255 74/255])
-% set(l(7:8),'color',[228/255 26/255 28/255])
+h = notBoxPlot(AS_mtrx,x);
+d = [h.data];
+% set marker differences
+set(d, 'markersize',6);
+set(d(1:2), 'markerfacecolor','k', 'color','k'); 
+set(d(3:4), 'markerfacecolor',[55/255 126/255 184/255],'color','k','marker','^'); 
+set(d(5:6), 'markerfacecolor',[77/255 175/255 74/255],'color','k','marker','d'); 
+set(d(7), 'markerfacecolor',[228/255 26/255 28/255],'color','k','marker','s'); 
+ 
+% set patch colors
+for i = 1:8
+set(h(i).sdPtch,'facecolor',[1 1 1],'edgecolor','k')
+set(h(i).semPtch,'facecolor',[0.75 0.75 0.75],'edgecolor','k')
+end
+% set mean colors
+l = [h.mu];
+set(l(1:2),'color','k')
+set(l(3:4),'color',[55/255 126/255 184/255])
+set(l(5:6),'color',[77/255 175/255 74/255])
+set(l(7:8),'color',[228/255 26/255 28/255])
 
 set(gca,'xtick',[])
 ylim([-0.05 0.4]); xlim([0 4])
 ylabel('Drag Coefficient, C_d')
-text(-0.6,0.35,'B','FontSize',18,'FontWeight','Bold'); box on
+text(0.1,0.35,'B','FontSize',18,'FontWeight','Bold'); box on
+
+% ADD CFD
+% plot no tag, tag, tag+4
+hold on
+for i = 1:6
+plot([x(1)-0.25 x(2)+0.25],[CFD_Cd_notag(i) CFD_Cd_notag(i)],'--','color',[0.75 0.75 0.75])
+plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[0.75 0.75 0.75])
+plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[0.75 0.75 0.75])
+end
+
 %% do for Duration
 subplot('position',[0.13 0.25 0.7750 0.2157])
 h = notBoxPlot(dur_mtrx,x);
@@ -331,6 +361,8 @@ set(gca,'position',[0.13 0.25 0.7750 0.2157])
 text(0.1,3.2,'C','FontSize',18,'FontWeight','Bold'); box on
 
 print('Glide_Boxplots','-dpng','-r300')
+
+return 
 
 %% Percent Change in Drag - following Jones et al. 2013
 PercDragDiffTag

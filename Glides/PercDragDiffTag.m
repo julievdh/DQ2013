@@ -1,10 +1,10 @@
 % Tag Percent Drag Difference
 % First following Jones 2013
 %% Percent Change in Drag - following Jones et al. 2013
-Cd_animal_vid = [nanmean(avmav(mav(:,1) == 0 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 0 & mav(:,2) == 2))];
-Cd_tag_vid = [nanmean(avmav(mav(:,1) == 1 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 1 & mav(:,2) == 2))];
-Cd_tag4_vid = [nanmean(avmav(mav(:,1) == 3 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 3 & mav(:,2) == 2))];
-Cd_tag8_vid = [nanmean(avmav(mav(:,1) == 5 & mav(:,2) == 1)) nanmean(avmav(mav(:,1) == 5 & mav(:,2) == 2))];
+Cd_animal_vid = [nanmean(avmav_mtrx(:,1)) nanmean(avmav_mtrx(:,2))];
+Cd_tag_vid = [nanmean(avmav_mtrx(:,3)) nanmean(avmav_mtrx(:,4))];
+Cd_tag4_vid = [nanmean(avmav_mtrx(:,5)) nanmean(avmav_mtrx(:,6))];
+Cd_tag8_vid = [nanmean(avmav_mtrx(:,7)) nanmean(avmav_mtrx(:,8))];
 
 Cd_animal_CFD = 0.00759;
 Cd_tag_CFD = 0.008;

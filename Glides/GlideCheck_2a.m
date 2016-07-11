@@ -2,6 +2,7 @@ close all; clear all; clc
 
 % Import glide structure
 load('GlideStructure.mat')
+%%
 for file = 1:45
     Cond = glide(file).condition;
     ZO1 = glide(file).ZO1;
@@ -20,17 +21,20 @@ for file = 1:45
     V1 = sqrt(Vx1.^2 + Vy1.^2);
     V2 = sqrt(Vx2.^2 + Vy2.^2);
     
+    glide(file).V1(:,1) = V1; % glide(file).V1 = glide(file).V1';
+    glide(file).V2(:,1) = V2; % glide(file).V2 = glide(file).V2';
+    
     %%
     % plot velocity from different body points
     figure(1); clf;
     set(gcf,'Position',[290 120 1000 520])
     subplot(311); hold on
     % plot velocity from tracker
-    plot(ZO1(:,1),ZO1(:,4),'o','color',[247/255 23/255 53/255]);
-    plot(ZO2(:,1),ZO2(:,4),'o','color',[194/255 9/255 90/255]);
+    % plot(ZO1(:,1),ZO1(:,4),'o','color',[247/255 23/255 53/255]);
+    % plot(ZO2(:,1),ZO2(:,4),'o','color',[194/255 9/255 90/255]);
     % plot velocity calculated
-    plot(ZO1(2:end,1),V1,'color',[0/255 31/255 84/255]);
-    plot(ZO2(2:end,1),V2,'color',[3/255 64/255 120/255]);
+    plot(ZO1(2:end,1),V1,'o','color',[0/255 31/255 84/255]);
+    plot(ZO2(2:end,1),V2,'o','color',[3/255 64/255 120/255]);
     xlim([min(ZO1(:,1)),max(ZO2(:,1))])
     
     ylabel('Velocity (m/s)'); box on
@@ -106,7 +110,7 @@ for file = 1:45
     % plot mean A and tracker A and calculated A
     plot([min(ZO1(:,1)),max(ZO2(:,1))],[nanmean([A1_filt; A2_filt]) nanmean([A1_filt; A2_filt])],'color',[0.75 0.75 0.75],'LineWidth',2)
     % plot(ZO1_filt(2:end,1),ZO1_filt_ax,'color',[247/255 23/255 53/255],'LineWidth',2);
-    % plot(ZO2_filt(2:end,1),ZO2_filt_ax,'color',[194/255 9/255 90/255],'LineWidth',2)
+    % plot(ZO2_filt(2:end,1),ZO2_filt_ax,'colorx',[194/255 9/255 90/255],'LineWidth',2)
     plot(V1_filt(2:end,1),A1_filt,'color',[0/255 31/255 84/255],'LineWidth',2)
     plot(V2_filt(2:end,1),A2_filt,'color',[3/255 64/255 120/255],'LineWidth',2)
     ylabel('Acceleration (m/s^2)');
@@ -116,15 +120,17 @@ for file = 1:45
     subplot(313); hold on
     % Calculate Cd from drag (D = Mb*accel)
     Cd_ZO1 = (2*abs(Mb.*A1_filt))./(rho*SAw*V1_filt(2:end,2).^2);
-    % Cd_ZO1_old = (2*abs(Mb.*ZO1_filt_ax))./(rho*SAw*ZO1_filt(2:end,4).^2);
+    Cd_ZO1_abar = (2*abs(Mb.*nanmean(A1_filt)))./(rho*SAw*V1_filt(2:end,2).^2);
     Cd_ZO1_mn = nanmean(Cd_ZO1);
     Cd_ZO2 = (2*abs(Mb.*A2_filt))./(rho*SAw*V2_filt(2:end,2).^2);
-    % Cd_ZO2_old = (2*abs(Mb.*ZO2_filt_ax))./(rho*SAw*ZO2_filt(2:end,4).^2);
+    Cd_ZO2_abar = (2*abs(Mb.*nanmean(A2_filt)))./(rho*SAw*V2_filt(2:end,2).^2);
     Cd_ZO2_mn = nanmean(Cd_ZO2);
     % plot mean Cd and calcualted Cd
     h = plot([min(ZO1(:,1)),max(ZO2(:,1))],[mean([Cd_ZO1_mn,Cd_ZO2_mn]) mean([Cd_ZO1_mn,Cd_ZO2_mn])],'color',[0.75 0.75 0.75],'LineWidth',2);
     plot(V1_filt(2:end,1),Cd_ZO1,'color',[0/255 31/255 84/255],'LineWidth',2)
     plot(V2_filt(2:end,1),Cd_ZO2,'color',[3/255 64/255 120/255],'LineWidth',2)
+    % plot(V1_filt(2:end,1),Cd_ZO1_abar,'k')
+    % plot(V2_filt(2:end,1),Cd_ZO2_abar,'k')
     % plot(ZO1_filt(2:end,1),Cd_ZO1_old,'color',[247/255 23/255 53/255],'LineWidth',2)
     % plot(ZO2_filt(2:end,1),Cd_ZO2_old,'color',[194/255 9/255 90/255],'LineWidth',2)
     
@@ -143,7 +149,7 @@ for file = 1:45
     else l = 2.37; % Liho = 2.37 m
     end
     glide(file).Re = (l*glide(file).sspeed)/0.00000105;
-    
+    glide(file).Cd_abar = nanmean([nanmean(Cd_ZO1_abar),nanmean(Cd_ZO2_abar)]);
 end
 
 

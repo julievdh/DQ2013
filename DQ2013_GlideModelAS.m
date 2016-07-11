@@ -51,7 +51,7 @@ for i = 1:length(glide)
         set(h1,'marker','s')
     end
     plot(times,fun(x(i,:),times),'k-')
-    text(xdata(end)+0.1,ydata(end),num2str(i))
+    % text(xdata(end)+0.1,ydata(end),num2str(i))
     
     %% calculate Cd from parameter estimate
     % Add condition-specific tag weights and surface areas
@@ -165,8 +165,7 @@ figure(8); clf; hold on
 % c0 - control, no tag Hoku
 allpoints = vertcat(vertcat(glide(Hc0).ZO1),vertcat(glide(Hc0).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints(:,4); % goal would be to make this = V1 and V2 instead
-fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+ydata = 1./allpoints(:,4); % goal would be to make this = V1 and V2 instead
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
@@ -180,7 +179,7 @@ Mt = 0; SAt = 0;
 Mb = 176; % using average mass of both animals
 M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
-CdH0_all = (x(2)*4*M)/(rho*SAw);
+CdH0_all = -(x(2)*2*M)/(rho*SAw);
 % calculate standard error on parameter estimates
 J = jacobian;
 r = residual;
@@ -192,14 +191,13 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_seH0 = (se(2)*4*M)/(rho*SAw);
-
+Cd_seH0 = (se(2)*2*M)/(rho*SAw);
+%%
 figure(9); clf; hold on
 % c0 - control, no tag Liho
 allpoints = vertcat(vertcat(glide(Lc0).ZO1),vertcat(glide(Lc0).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints(:,4); % goal would be to make this = V1 and V2 instead
-fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+ydata = 1./allpoints(:,4); % goal would be to make this = V1 and V2 instead
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
@@ -213,7 +211,7 @@ Mt = 0; SAt = 0;
 Mb = 154; % using average mass of both animals
 M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
-CdL0_all = (x(2)*4*M)/(rho*SAw);
+CdL0_all = -(x(2)*2*M)/(rho*SAw);
 % calculate standard error on parameter estimates
 J = jacobian;
 r = residual;
@@ -225,13 +223,12 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_seL0 = (se(2)*4*M)/(rho*SAw);
+Cd_seL0 = -(se(2)*2*M)/(rho*SAw);
 
 %% c1 - tag, Hoku
 allpoints = vertcat(vertcat(glide(Hc1).ZO1),vertcat(glide(Hc1).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints(:,4);
-fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+ydata = 1./allpoints(:,4);
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
@@ -247,7 +244,7 @@ SAt = 0.024; % tag surface area from CFD sims
 Mb = 176; % using average mass of both animals
 M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
-CdH1_all = (x(2)*4*M)/(rho*SAw);
+CdH1_all = -(x(2)*2*M)/(rho*SAw);
 
 % calculate standard error on parameter estimates
 J = jacobian;
@@ -260,13 +257,12 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_seH1 = (se(2)*4*M)/(rho*SAw);
+Cd_seH1 = -(se(2)*2*M)/(rho*SAw);
 
-% c1 - tag, Liho
+%% c1 - tag, Liho
 allpoints = vertcat(vertcat(glide(Lc1).ZO1),vertcat(glide(Lc1).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints(:,4);
-fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+ydata = 1./allpoints(:,4);
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
@@ -282,7 +278,7 @@ SAt = 0.024; % tag surface area from CFD sims
 Mb = 154; % using average mass of both animals
 M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
-CdL1_all = (x(2)*4*M)/(rho*SAw);
+CdL1_all = -(x(2)*2*M)/(rho*SAw);
 
 % calculate standard error on parameter estimates
 J = jacobian;
@@ -295,14 +291,13 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_seL1 = (se(2)*4*M)/(rho*SAw);
+Cd_seL1 = -(se(2)*2*M)/(rho*SAw);
 
 
 %% c3 - tag+4 Hoku
 allpoints = vertcat(vertcat(glide(c3).ZO1),vertcat(glide(c3).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints(:,4);
-fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+ydata = 1./allpoints(:,4);
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
@@ -318,7 +313,7 @@ SAt = 0.024+(0.0105)*4; % tag and element surface area from CFD simsMb = 165; % 
 Mb = 176;
 M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
-CdH3_all = (x(2)*4*M)/(rho*SAw);
+CdH3_all = -(x(2)*2*M)/(rho*SAw);
 
 % calculate standard error on parameter estimates
 J = jacobian;
@@ -331,13 +326,12 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_seH3 = (se(2)*4*M)/(rho*SAw);
+Cd_seH3 = -(se(2)*2*M)/(rho*SAw);
 
 %% c3 - tag+4 Liho
 allpoints = vertcat(vertcat(glide(Lc3).ZO1),vertcat(glide(Lc3).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints(:,4);
-fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+ydata = 1./allpoints(:,4);
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
@@ -353,7 +347,7 @@ SAt = 0.024+(0.0105)*4; % tag and element surface area from CFD simsMb = 165; % 
 Mb = 154;
 M = (Mb+Mt)*1.06;
 SAw = (0.08*Mb.^0.65)+SAt;
-CdL3_all = (x(2)*4*M)/(rho*SAw);
+CdL3_all = -(x(2)*2*M)/(rho*SAw);
 
 % calculate standard error on parameter estimates
 J = jacobian;
@@ -366,13 +360,12 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_seL3 = (se(2)*4*M)/(rho*SAw);
+Cd_seL3 = -(se(2)*2*M)/(rho*SAw);
 
 %% c5 - tag+8
 allpoints = vertcat(vertcat(glide(c5).ZO1),vertcat(glide(c5).ZO2));
 xdata = allpoints(:,1);
-ydata = allpoints(:,4);
-fun = @(x,xdata)(x(1)+x(2)*xdata).^(-1/3);
+ydata = 1./allpoints(:,4);
 x0 = [1,-1];
 [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
 
@@ -386,7 +379,7 @@ Mt = 0.250+(0.135)*4; % 2x elements are 135 g
 SAt = 0.024+(0.0105)*8; % tag and element surface area from CFD simsMb = 165; % using average mass of both animals
 M = (154+Mt)*1.06; % Liho only
 SAw = (0.08*Mb.^0.65)+SAt;
-Cd5_all = (x(2)*4*M)/(rho*SAw);
+Cd5_all = -(x(2)*2*M)/(rho*SAw);
 
 % calculate standard error on parameter estimates
 J = jacobian;
@@ -399,7 +392,7 @@ se = sqrt(diag(Sigma));
 se = full(se); % convert from sparse to full matrix
 
 % calculate error on Cd estimate
-Cd_se5 = (se(2)*4*M)/(rho*SAw);
+Cd_se5 = -(se(2)*2*M)/(rho*SAw);
 
 % plot labels
 xlabel('Time (sec)'); ylabel('Velocity (m/s)');
