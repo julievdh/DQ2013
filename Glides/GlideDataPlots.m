@@ -67,12 +67,7 @@ hcb = colorbar; title(hcb,'Glide Start Speed (m/s)')
 box on
 xlim([0 0.32]); ylim([0 0.32])
 
-% %% summary statistics tag glide data
-% nanmean(nanmean([Cdtag1(mav(:,1) == 3) Cdtag2(mav(:,1) == 3)]));
-% nanmean(nanstd([Cdtag1(mav(:,1) == 3) Cdtag2(mav(:,1) == 3)]));
-% nanmean(nanmean([Cdtag1(mav(:,1) == 5) Cdtag2(mav(:,1) == 5)]));
-% nanmean(nanstd([Cdtag1(mav(:,1) == 5) Cdtag2(mav(:,1) == 5)]));
-
+print('GlideMethodComparison','-dpng','-r300')
 %% DATA FROM FISH (TEST)
 load('Data_Readmatv6')
 figure(3); clf
@@ -249,6 +244,17 @@ dur_mtrx(i,8) = glide(Liho5(i)).dur;
 AS_mtrx(i,8) = glide(Liho5(i)).CDAS;
 end
 
+% %% for paper:
+% [nanmean(nanmean(avmav_mtrx(:,1:2))) nanmean(nanstd(avmav_mtrx(:,1:2)))]
+% [nanmean(nanmean(avmav_mtrx(:,3:4))) nanmean(nanstd(avmav_mtrx(:,3:4)))]
+% [nanmean(nanmean(avmav_mtrx(:,5:6))) nanmean(nanstd(avmav_mtrx(:,5:6)))]
+% [nanmean(nanmean(avmav_mtrx(:,8))) nanmean(nanstd(avmav_mtrx(:,8)))]
+% 
+% 
+% [nanmean(nanmean(AS_mtrx(:,1:2))) nanmean(nanstd(AS_mtrx(:,1:2)))]
+% [nanmean(nanmean(AS_mtrx(:,3:4))) nanmean(nanstd(AS_mtrx(:,3:4)))]
+% [nanmean(nanmean(AS_mtrx(:,5:6))) nanmean(nanstd(AS_mtrx(:,5:6)))]
+% [nanmean(nanmean(AS_mtrx(:,8))) nanmean(nanstd(AS_mtrx(:,8)))]
 %% plot
 figure(6); clf;
 set(gcf,'position',[427 108 500 565],'paperpositionmode','auto')
