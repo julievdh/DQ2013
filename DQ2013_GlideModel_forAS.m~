@@ -454,12 +454,8 @@ xdata = vertcat(glide(i).ZO1(2:end,1),glide(i).ZO2(2:end,1)); % time
     
     % plot data
     times = linspace(xdata(1),xdata(end));
-    h1 = plot(xdata,ydata,'ko');
+    h1 = plot(xdata,ydata,'o');
     plot(times,fun(x(i,:),times),'k-')
     
 xlabel('Time (sec)'); ylabel('1/Velocity (s/m)')
 adjustfigurefont
-ylim([0.5 1.5])
-box on
-
-print('GlideMethod2','-dsvg','-r300')
