@@ -47,3 +47,12 @@ perc_tag8_vidAS = ((Cd_tag8_vidAS - Cd_animal_vidAS)./Cd_animal_vidAS)*100
 
 perc_tag_CFD_2 = ((Cd_tag_CFD- Cd_animal_CFD)./Cd_animal_CFD)*100
 perc_tag4_CFD_2 = ((Cd_tag4_CFD - Cd_animal_CFD)./Cd_animal_CFD)*100
+
+%% Other CFD Results for Paper
+[min(CFD_Cd_notag) max(CFD_Cd_notag)];
+[min(notag) max(notag)];
+[min(sum(tag')'-notag) max(sum(tag')'-notag)];
+[mean(CFD_Cd_tag) std(CFD_Cd_tag)];
+[min(sum(tag4')) max(sum(tag4'))];
+[min(sum(tag4')'-notag) max(sum(tag4')'-notag)];
+[mean(CFD_Cd_tag4) std(CFD_Cd_tag4)];

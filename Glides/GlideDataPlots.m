@@ -45,8 +45,10 @@ xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
 xlim([8E5 5E6]); ylim([3E-3 1E0])
 text(8.4E5,0.75,'A','FontSize',18,'FontWeight','bold')
 
+
+
 %% plot panel B 
-subplot('position',[0.6 0.1 0.38 0.8]); hold on
+subplot('position',[0.55 0.1 0.38 0.8]); hold on
 c = linspace(1,10,length(glide));
 for file = 1:45
     % velocity threshold? 
@@ -67,6 +69,7 @@ hcb = colorbar; title(hcb,'Glide Start Speed (m/s)')
 box on
 xlim([0 0.32]); ylim([0 0.32])
 
+set(gcf,'paperpositionmode','auto')
 print('GlideMethodComparison','-dpng','-r300')
 %% DATA FROM FISH (TEST)
 load('Data_Readmatv6')
@@ -102,7 +105,11 @@ loglog(Hanson(:,1),Hanson(:,5),'.-','markersize',15,'color',[83/255 53/255 113/2
 loglog(Hanson(:,1),Hanson(:,6),'.-','markersize',15,'color',[83/255 53/255 113/255])
 loglog(Hanson(:,1),Hanson(:,7),'.-','markersize',15,'color',[83/255 53/255 113/255])
 loglog(Hanson(:,1),Hanson(:,8),'.-','markersize',15,'color',[83/255 53/255 113/255])
-
+%% Add Theoretical Flat Plates
+Re = 1E5:100:1E8;
+CdL = 1.33*Re.^(-0.5);
+CdT = 0.072*Re.^(-0.2);
+plot(Re,CdL,'k--',Re,CdT,'k')
 %% add our data
 % video only data
 for file = 1:45
@@ -128,7 +135,7 @@ xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
 adjustfigurefont
 ylim([1E-3 1.5])
 
-% add CFD data
+%% add CFD data
 load('DolphinTagSims_24Feb16')
 
 % calculate Re
