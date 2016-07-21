@@ -80,10 +80,14 @@ plot(h1,tagWa1,Wa,'o','markeredgecolor',[123/255 50/255 148/255])
 plot(h2,tagWa3,bodylength,'o','markerfacecolor',[221/255 90/255 13/255],'markeredgecolor','k')
 plot(h2,tagWa1,bodylength,'o','markeredgecolor',[221/255 90/255 13/255])
 
-%% Add known tags on market
+%% Add DTAG3+ on market
 
 TAG3 = [0.0243; 0.066; 0.108];
-plot(h1,TAG3,[2.29 2.29 2.29],'o')
+plot(h1,TAG3(1),2.29,'^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
+plot(h1,TAG3(2),2.29,'d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
+plot(h1,TAG3(3),2.29,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
+
+
 %%
 
 % save
