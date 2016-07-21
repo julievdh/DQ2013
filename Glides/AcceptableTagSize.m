@@ -50,7 +50,8 @@ NaN
 NaN
 7.76];
 
-tagWa = Wa*0.03;
+tagWa3 = Wa*0.03;
+tagWa1 = Wa*0.01;
 
 %%
 %# Some initial computations:
@@ -61,19 +62,29 @@ yWidth = 30;                      %# y axes spacing, in pixels
 figure(2); clf; hold on
 set(gca,'Position',axesPosition)
 h1 = axes('Color','w','XColor','k','YColor',[123/255 50/255 148/255],...
-          'YLim',[0 70],'Xlim',[0.01 2],'xscale','log','NextPlot','add');
+          'YLim',[0 100],'Xlim',[0.01 2],'xscale','log','yscale','log',...
+          'NextPlot','add');
 h2 = axes('Color','none','XColor','k','YColor',[221/255 90/255 13/255],...
-          'YLim',[0 20],'Xlim',[0.01 2],'xscale','log',...
+          'YLim',[0 20],'Xlim',[0.01 2],'xscale','log','yscale','log',...
           'XTick',[],'XTickLabel',[],...
           'Ytick',[0 2 5 10 15 20],...
           'Yaxislocation','right','NextPlot','add');
 
-xlabel(h1,'Tag Wetted Area Contribution (%)');
+xlabel(h1,'Tag Wetted Area (m^2)');
 ylabel(h2,'Body Length (m)');
 ylabel(h1,'Wetted Surface Area (m^2)');
 
-plot(h1,tagWa,Wa,'o','markerfacecolor',[123/255 50/255 148/255],'markeredgecolor','k')
-plot(h2,tagWa,bodylength,'o','markerfacecolor',[221/255 90/255 13/255],'markeredgecolor','k')
+plot(h1,tagWa3,Wa,'o','markerfacecolor',[123/255 50/255 148/255],'markeredgecolor','k')
+plot(h1,tagWa1,Wa,'o','markeredgecolor',[123/255 50/255 148/255])
+
+plot(h2,tagWa3,bodylength,'o','markerfacecolor',[221/255 90/255 13/255],'markeredgecolor','k')
+plot(h2,tagWa1,bodylength,'o','markeredgecolor',[221/255 90/255 13/255])
+
+%% Add known tags on market
+
+TAG3 = [0.0243; 0.066; 0.108];
+plot(h1,TAG3,[2.29 2.29 2.29],'o')
+%%
 
 % save
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
