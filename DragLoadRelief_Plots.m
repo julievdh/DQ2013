@@ -174,6 +174,8 @@ plot(h3,5,dur_removeA4,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerSize
 plot(h4,1:5,[p0A p0A1 p0A2 p0A3 p0A4],'k')
 plot(h4,5:-1:1,[pA40 pA30 pA20 pA10 pA0],'k')
 
+load(1,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
+unload(1,:) = [pA40 pA30 pA20 pA10 pA0];
 %% Kolohe
 keep h1 h2 h3 h4 p0t p0t2 p0t4; load('Kolohe_DradLoadRelief');
 
@@ -233,6 +235,9 @@ box on
 adjustfigurefont
 
 print -dpng LoadReliefSpeed
+
+load(2,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
+unload(2,:) = [pA40 pA30 pA20 pA10 pA0];
 
 %% Figure 3
 figure(3);
