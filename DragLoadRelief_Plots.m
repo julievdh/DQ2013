@@ -1,5 +1,6 @@
 % Load and plot drag build/relief data from video analysis
 warning off
+clear all
 
 % Kolohe
 load('Kolohe_DradLoadRelief');
@@ -174,10 +175,11 @@ plot(h3,5,dur_removeA4,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerSize
 plot(h4,1:5,[p0A p0A1 p0A2 p0A3 p0A4],'k')
 plot(h4,5:-1:1,[pA40 pA30 pA20 pA10 pA0],'k')
 
-load(1,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
-unload(1,:) = [pA40 pA30 pA20 pA10 pA0];
+pload(1,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
+punload(1,:) = [pA40 pA30 pA20 pA10 pA0];
 %% Kolohe
-keep h1 h2 h3 h4 p0t p0t2 p0t4; load('Kolohe_DradLoadRelief');
+keep h1 h2 h3 h4 p0t p0t2 p0t4 pload punload; 
+load('Kolohe_DradLoadRelief');
 
 % calculate durations of loadings
 dur_load0 = load0(end,1)-load0(1,1);
@@ -234,10 +236,10 @@ ylabel('Percent increase over control')
 box on
 adjustfigurefont
 
-print -dpng LoadReliefSpeed
+print -dsvg LoadReliefSpeed
 
-load(2,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
-unload(2,:) = [pA40 pA30 pA20 pA10 pA0];
+pload(2,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
+punload(2,:) = [pA40 pA30 pA20 pA10 pA0];
 
 %% Figure 3
 figure(3);
@@ -264,5 +266,8 @@ set(gca,'xticklabels',{'C','T','T+2','T+4','T+6','T+8'})
 
 print -dpng LoadReliefSpeed_2
 
+%% total change with increasing drag
+mean([pload; fliplr(punload)])
+std([pload; fliplr(punload)])
 
 
