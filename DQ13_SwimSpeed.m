@@ -103,3 +103,46 @@ xlabel('Condition'); ylabel('Lap Duration (sec)')
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('Lapspeed_averages_withboat.eps','-depsc','-r300')
+
+%% boxplot
+figure(4); clf
+% plot mean values
+% reorder data: each column of y is one variable/group
+meanlap(:,1) = nanmean(AllTrials(:,C));
+meanlap(:,2) = nanmean(AllTrials(:,A));
+meanlap(1:length(A4),3) = nanmean(AllTrials(:,A4));
+meanlap(meanlap == 0) = NaN; % replace NaNs
+x = [0 1 2]; %  x-location of boxes 
+
+h = notBoxPlot(meanlap,x); hold on
+d = [h.data];
+% set marker differences
+set(d, 'markersize',8);
+set(d(1), 'markerfacecolor','k', 'color','k'); 
+set(d(2), 'markerfacecolor',[55/255 126/255 184/255],'color','k','marker','^'); 
+set(d(3), 'markerfacecolor',[228/255 26/255 28/255],'color','k','marker','s'); 
+
+% set patch colors
+for i = 1:3
+set(h(i).sdPtch,'facecolor',[1 1 1],'edgecolor','k')
+set(h(i).semPtch,'facecolor',[0.75 0.75 0.75],'edgecolor','k')
+end
+% set mean colors
+l = [h.mu];
+set(l(1),'color','k')
+set(l(2),'color',[55/255 126/255 184/255])
+set(l(3),'color',[228/255 26/255 28/255])
+
+plot(zeros(1,length(C_BOAT))+4,nanmean(AllTrials(:,C_BOAT)),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(zeros(1,length(A_BOAT))+5,nanmean(AllTrials(:,A_BOAT)),'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',8)
+plot(zeros(1,length(A2_BOAT))+6,nanmean(AllTrials(:,A2_BOAT)),'kd','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',8)
+
+xlim([-0.5 6.5]); ylim([17 43])
+set(gca,'xtick',[0:2 4:6],'xticklabel',{'Control','Tag','Tag+8','Control','Tag','Tag+4'})
+xlabel({'';'Drag Loading Condition'}); ylabel('Lap Duration (sec)')
+adjustfigurefont
+
+text(4.15,20,'Boat Speed = 3 m/s','FontSize',12)
+text(0.7,20,'No Boat','FontSize',12); text(0.62,18.5,'Chapter 9','FontSize',12)
+
+print('C10_Fig4_NoBoatBoatLaps','-dpng','-r300')
