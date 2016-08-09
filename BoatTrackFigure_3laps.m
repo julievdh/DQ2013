@@ -110,35 +110,6 @@ adjustfigurefont
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('BoatTrackFig_3laps.eps','-depsc','-r300')
 
-return 
-
-% subplot of dolphin and boat tracks 1D in X
-subplot('position',[0.32 0.68 0.3 0.22]); hold on; xlim([0 360]) % ylim([-6 15])
-plot(Lono.C.dolphin(:,1),Lono.C.dolphin(:,2),'k.','MarkerSize',10)
-plot(Lono.C.boat(:,1),Lono.C.boat(:,2),'k-','MarkerSize',10)
-
-subplot('position',[0.32 0.39 0.3 0.22]); hold on; xlim([0 360]) % ylim([-6 15])
-plot(Lono.A.dolphin(:,1)-abs(60.74-28.99),Lono.A.dolphin(:,2),'k.','MarkerSize',10)
-plot(Lono.A.boat(:,1)-abs(60.74-28.99),Lono.A.boat(:,2),'k-','MarkerSize',10)
-
-subplot('position',[0.32 0.1 0.3 0.22]); hold on; xlim([0 360]) % ylim([-6 15])
-plot(Lono.A2.dolphin(:,1)-abs(72.17-28.99),Lono.A2.dolphin(:,2),'k.','MarkerSize',10)
-plot(Lono.A2.boat(:,1)-abs(72.17-28.99),Lono.A2.boat(:,2),'k-','MarkerSize',10)
-
-% subplot of dolphin and boat tracks 1D in Y
-subplot('position',[0.65 0.68 0.3 0.22]); hold on; xlim([0 330]) % ylim([-6 15])
-plot(Lono.C.dolphin(:,1),Lono.C.dolphin(:,3),'k.','MarkerSize',10)
-plot(Lono.C.boat(:,1),Lono.C.boat(:,3),'k-','MarkerSize',10)
-
-subplot('position',[0.65 0.39 0.3 0.22]); hold on; xlim([0 330]) % ylim([-6 15])
-plot(Lono.A.dolphin(:,1)-abs(102.65-78.09),Lono.A.dolphin(:,3),'k.','MarkerSize',10)
-plot(Lono.A.boat(:,1)-abs(102.65-78.09),Lono.A.boat(:,3),'k-','MarkerSize',10)
-
-subplot('position',[0.65 0.1 0.3 0.22]); hold on; xlim([0 330]) % ylim([-6 15])
-plot(Lono.A2.dolphin(:,1)-abs(120.42-78.09),Lono.A2.dolphin(:,3),'k.','MarkerSize',10)
-plot(Lono.A2.boat(:,1)-abs(120.42-78.09),Lono.A2.boat(:,3),'k-','MarkerSize',10)
-
-
 %% boat track fig 1 lap Nainoa
 figure(2); clf
 subplot('position',[0.1 0.5 0.4 0.48]); hold on
@@ -158,19 +129,6 @@ plot(Nainoa.A2.boat(748:840,2),Nainoa.shift_A2.boat(748:840,3),'color',[26/255 1
 set(gca,'xtick',[-10 0 10 20],'ytick',[-5 0 5 10 15])
 xlabel('X Frame Coordinate'); ylabel('Y Frame Coordinate')
 
-% %% subplot of dolphin and boat tracks 1D in X
-% subplot('position',[0.58 0.71 0.4 0.26]); hold on; xlim([0 360]) % ylim([-6 15])
-% plot(Nainoa.C.dolphin(:,1),Nainoa.C.dolphin(:,2),'k.','MarkerSize',10)
-% plot(Nainoa.C.boat(:,1),Nainoa.C.boat(:,2),'k-','MarkerSize',10)
-% 
-% subplot('position',[0.58 0.4 0.4 0.26]); hold on; xlim([0 360]) % ylim([-6 15])
-% plot(Nainoa.A.dolphin(:,1)-abs(60.74-28.99),Nainoa.A.dolphin(:,2),'k.','MarkerSize',10)
-% plot(Nainoa.A.boat(:,1)-abs(60.74-28.99),Nainoa.A.boat(:,2),'k-','MarkerSize',10)
-% 
-% subplot('position',[0.58 0.09 0.4 0.26]); hold on; xlim([0 360]) % ylim([-6 15])
-% plot(Nainoa.A2.dolphin(:,1)-abs(72.17-28.99),Nainoa.A2.dolphin(:,2),'k.','MarkerSize',10)
-% plot(Nainoa.A2.boat(:,1)-abs(72.17-28.99),Nainoa.A2.boat(:,2),'k-','MarkerSize',10)
-% xlabel('Time (sec)')
 %% add distance from boat
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013
 C = load('Nainoa_285_C_Track');
