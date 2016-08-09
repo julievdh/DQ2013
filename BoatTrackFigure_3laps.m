@@ -126,33 +126,28 @@ plot(Nainoa.A2.dolphin(470:525,2),Nainoa.shift_A2.dolphin(470:525,3),'d',...
     'MarkerSize',8,'markerfacecolor',[26/255 150/255 65/255],'markeredgecolor','k')
 plot(Nainoa.A2.boat(748:840,2),Nainoa.shift_A2.boat(748:840,3),'color',[26/255 150/255 65/255],'LineWidth',2)
 
-set(gca,'xtick',[-10 0 10 20],'ytick',[-5 0 5 10 15])
+set(gca,'xtick',[-10 0 10 20],'ytick',[-5 0 5 10 15],'ylim',[-5 15])
 xlabel('X Frame Coordinate'); ylabel('Y Frame Coordinate')
 
+%% plot Lono
+subplot('position',[0.58 0.5 0.4 0.48]); hold on
+% plot SECOND LAST lap of entire trial
+plot(Lono.C.dolphin(511:568,2), Lono.shift_C.dolphin(511:568,3),'ko',...
+    'MarkerSize',8,'markerfacecolor','k')
+plot(Lono.C.boat(776:867,2),Lono.shift_C.boat(776:867,3),'k','LineWidth',2)
+plot(Lono.A.dolphin(928:1013,2), Lono.A.dolphin(928:1013,3),'^',...
+    'MarkerSize',8,'markerfacecolor',[5/255 113/255 222/255],'markeredgecolor','k')
+plot(Lono.A.boat(1527:1684,2),Lono.A.boat(1527:1684,3),'color',[5/255 113/255 222/255],'LineWidth',2)
+plot(Lono.A2.dolphin(365:442,2),Lono.shift_A2.dolphin(365:442,3),'d',...
+     'MarkerSize',8,'markerfacecolor',[26/255 150/255 65/255],'markeredgecolor','k')
+plot(Lono.A2.boat(768:849,2),Lono.shift_A2.boat(768:849,3),'color',[26/255 150/255 65/255],'LineWidth',2)
+
+set(gca,'xtick',[-10 0 10 20],'ytick',[-5 0 5 10 15],'ylim',[-5 15])
+xlabel('X Frame Coordinate'); % ylabel('Y Frame Coordinate')
 %% add distance from boat
-cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013
-C = load('Nainoa_285_C_Track');
-A = load('Nainoa_284_A_Track');
-A2 = load('Nainoa_287_A2_Track');
 
-dC = boatDist(C.dolphin,C.boat);
-dA = boatDist(A.dolphin,A.boat);
-dA2 = boatDist(A2.dolphin,A2.boat);
-
-% distances are absolute values
-dC = abs(dC); dA = abs(dA); dA2 = abs(dA2);
-
-% plot
-figure(2)
-subplot('position',[0.1 0.09 0.4 0.3])
-myC= [0 0 0
-    5/255 113/255 222/255
-    26/255 150/255 65/255];
-colormap(myC) % force colormap
-bar(horzcat(dC,dA(2:end),dA2),'stacked')
-xlabel('Lap Number'); ylabel('Relative Distance fom Boat')
-xlim([0 12]); box off
+DolphinBoatDistVid
 
 adjustfigurefont
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print('BoatTrackFig_1lap_Nainoa.eps','-depsc','-r300')
+print('BoatTrackFigDistBoth','-dpng','-r300')
