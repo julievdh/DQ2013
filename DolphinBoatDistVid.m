@@ -15,14 +15,15 @@ dA2 = boatDist(A2.dolphin,A2.boat);
 dC = abs(dC); dA = abs(dA); dA2 = abs(dA2);
 
 figure(2)
-subplot('position',[0.58 0.08 0.4 0.35])
+subplot('position',[0.58 0.63 0.4 0.35]); hold on
 bar(abs(horzcat(dC,dA(2:end),dA2)),'stacked')
 myC= [0 0 0
     5/255 113/255 222/255
     26/255 150/255 65/255];
 colormap(myC) % force colourmap 
 xlabel('Lap Number'); box off
-xlim([0 12])
+xlim([0 12]); ylim([0 15])
+set(gca,'xtick',[0:11])
 
 %% Nainoa
 keep myC
@@ -40,9 +41,10 @@ dC = abs(dC); dA = abs(dA); dA2 = abs(dA2);
 
 % plot
 figure(2)
-subplot('position',[0.1 0.08 0.4 0.35])
+subplot('position',[0.1 0.63 0.4 0.35])
 colormap(myC) % force colormap
 bar(horzcat(dC,dA(2:end),dA2),'stacked')
 xlabel('Lap Number'); ylabel('Relative Distance fom Boat')
-xlim([0 12]); ylim([0 14]); box off
+xlim([0 12]); ylim([0 15]); box off
 legend('No Tag','Tag','Tag+4','Location','NW')
+legend 'boxoff'
