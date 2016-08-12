@@ -1,19 +1,41 @@
-% Import UWC glide .csv 
-cd /Users/julievanderhoop/Documents/P6_NOPPTagDrag/DolphinQuest2013/Glides
-UWC_A = importdata('UWC_Liho_290_2a.csv',',',2);
+% What is distance between ZO2 points? Is it consistent?
+% close all; clear all
 
-Cfluke = UWC_A.data(:,21:25);
-CZO1 = UWC_A.data(:,26:30);
-CZO2 = UWC_A.data(:,31:35);
+% Import glide structure
+% load('GlideStructure.mat')
+    
+% what is first ZO2?
+for file = 1:length(glide);
+first = glide(file).ZO2(1);
+% remove all ZO1 before first ZO2
+glide(file).ZO1 = glide(file).ZO1(glide(file).ZO1(:,1) > first,:);
 
-% set cutoff point for fluke
-ii = find(Cfluke(:,5) < 785); % frame from visual
-Cfluke = Cfluke(ii,:);
+% also will have to remove all points after
+if length(glide(file).ZO2)-length(glide(file).ZO1) > 0
+    glide(file).ZO2 = glide(file).ZO2(1:length(glide(file).ZO1),:);
+else if length(glide(file).ZO2)-length(glide(file).ZO1) < 0
+        glide(file).ZO1 = glide(file).ZO1(1:length(glide(file).ZO2),:);
+end
+end
 
 % calculate distance between ZO1 and ZO2 points
 % from first shared to last shared points
+figure (1); clf; hold on
+    plot(glide(file).ZO1(:,2),glide(file).ZO1(:,3))
+    plot(glide(file).ZO2(:,2),glide(file).ZO2(:,3))
+    % calculate distance
+    for i = 1:length(glide(file).ZO1)
+        d(i,file) = pdist([glide(file).ZO1(i,2:3);glide(file).ZO2(i,2:3)],'euclidean');
+    end
+    % replace NaNs
+     d(d == 0) = NaN;
+% plot distance
+figure(2); clf; hold on
+    plot(d)
+    xlabel('Sample Number'); ylabel('Distance between points')
+ %   pause
+    
+end
 
-for i = max([CZO1(1,5) CZO2(1,5)]):min([max(CZO1(~isnan(CZO1(:,5)),5)) max(CZO2(~isnan(CZO1(:,5)),5))])
-    % CALCULATE DISTANCE
-    
-    
+% variation in distance between the points:
+nanstd(d)
