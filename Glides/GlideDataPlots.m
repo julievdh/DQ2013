@@ -425,6 +425,12 @@ plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[0.75 0.75
 plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[0.75 0.75 0.75])
 end
 
+% add labels for Control/No Tag, Tag, Tag+4, Tag+8 condition
+text(0.25,0.3,'Control','FontSize',14)
+text(0.26,0.25,'No Tag','FontSize',14)
+text(1.35,0.3,'Tag','FontSize',14)
+text(2.25,0.3,'Tag+4','FontSize',14)
+text(3.3,0.3,'Tag+8','FontSize',14)
 
 %% do for METHOD 2
 subplot('position',[0.13 0.5 0.7750 0.2157])
@@ -487,9 +493,10 @@ set(l(5:6),'color',[77/255 175/255 74/255])
 set(l(8),'color',[228/255 26/255 28/255])
 
 xlim([0 4])
-xticklabel_rotate(x,90,{'63H4 C        ','01L5 C        ','63H4 T        ',...
-    '01L5 T        ','63H4 T+4        ','01L5 T+4        ','63H4 T+8        ',...
-    '01L5 T+8        '},'Fontsize',12)
+%xticklabel_rotate(x,90,{'63H4 C        ','01L5 C        ','63H4 T        ',...
+%    '01L5 T        ','63H4 T+4        ','01L5 T+4        ','63H4 T+8        ',...
+%    '01L5 T+8        '},'Fontsize',12)
+set(gca,'xticklabels',{'63H4','01L5','63H4','01L5','63H4','01L5','63H4','01L5',})
 xlabel('Condition');
 ylabel({'Glide Duration (sec)',''})
 adjustfigurefont
