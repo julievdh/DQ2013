@@ -64,16 +64,42 @@ for file = 1:45
     end
 end
 plot([0 0.32],[0 0.32],'k')
-xlabel('Noren Method'); ylabel('AS Method');
+xlabel('Time-Varying Method'); ylabel('Velocity Fit Method');
 hcb = colorbar; title(hcb,'Glide Start Speed (m/s)')
 box on
 xlim([0 0.32]); ylim([0 0.32])
+text(0.01,0.3,'B','FontSize',18,'FontWeight','bold')
+adjustfigurefont
 
 set(gcf,'paperpositionmode','auto')
 print('GlideMethodComparison','-dpng','-r300')
+
+%% least squares fit?
+for i = 1:45
+CDAS(i) = glide(i).CDAS;
+Cd_mn(i) = nanmean(glide(i).Cd_mn);
+end
+
+% b1 = Cd_mn/CDAS; % get slope
+% yCalc1 = b1*Cd_mn; % get Ydata fit
+% plot(Cd_mn,yCalc1,'k--')
+% 
+% X = [ones(length(Cd_mn),1) Cd_mn'];
+% b = X\CDAS'; % fit with intercept
+% yCalc2 = X*b;
+% plot(Cd_mn,yCalc2,'k:')
+% 
+% % GOF
+% Rsq1 = 1 - sum((CDAS - yCalc1).^2)/sum((CDAS - mean(CDAS)).^2); % fit with just slope
+% Rsq2 = 1 - sum((CDAS' - yCalc2).^2)/sum((CDAS - mean(CDAS)).^2) % fit with slope and intercept
+Rsq3 = 1 - sum((CDAS - Cd_mn).^2)/sum((CDAS - mean(CDAS)).^2) % fit 1:1 line
+
+
 %% DATA FROM FISH (TEST)
 load('Data_Readmatv6')
 figure(3); clf
+set(gcf,'position',[1417 276 933 384])
+subplot('position',[0.1 0.1 0.38 0.8]);
 loglog(Fish(:,1),Fish(:,2),'.-','color',[214/255 2/255 101/255],'markersize',15); hold on
 loglog(Fish(:,3),Fish(:,4),'.-','color',[214/255 2/255 101/255],'markersize',15)
 loglog(Fish(:,5),Fish(:,6),'.','color',[214/255 2/255 101/255],'markersize',15)
@@ -105,11 +131,119 @@ loglog(Hanson(:,1),Hanson(:,5),'.-','markersize',15,'color',[83/255 53/255 113/2
 loglog(Hanson(:,1),Hanson(:,6),'.-','markersize',15,'color',[83/255 53/255 113/255])
 loglog(Hanson(:,1),Hanson(:,7),'.-','markersize',15,'color',[83/255 53/255 113/255])
 loglog(Hanson(:,1),Hanson(:,8),'.-','markersize',15,'color',[83/255 53/255 113/255])
-%% Add Theoretical Flat Plates
+% Add Theoretical Flat Plates
 Re = 1E5:100:1E8;
 CdL = 1.33*Re.^(-0.5);
 CdT = 0.072*Re.^(-0.2);
 plot(Re,CdL,'k--',Re,CdT,'k')
+ylim([1E-3 1.5])
+xlim([3E5 5E7])
+xlabel('Reynolds Number, Re'); ylabel('Drag Coefficient, C_d')
+%% add our data
+% video only data
+subplot('position',[0.55 0.1 0.38 0.8])
+for file = 1:45
+    h1 = loglog(glide(file).Re,mean(glide(file).Cd_mn),'o'); hold on
+    h2 = loglog(glide(file).Re,glide(file).CDAS,'o');
+    if glide(file).condition == 0
+        set(h1,'MarkerEdgeColor','k','MarkerFaceColor','k')
+        set(h2,'MarkerEdgeColor','k')
+    else if glide(file).condition == 1
+            set(h1,'Marker','^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerFaceColor',[55/255 126/255 184/255])
+            set(h2,'Marker','^','MarkerEdgeColor',[55/255 126/255 184/255])
+        else if glide(file).condition == 3
+                set(h1,'Marker','d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerFaceColor',[77/255 175/255 74/255])
+                set(h2,'Marker','d','MarkerEdgeColor',[77/255 175/255 74/255])
+            else set(h1,'Marker','s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerFaceColor',[228/255 26/255 28/255])
+                set(h2,'Marker','s','MarkerEdgeColor',[228/255 26/255 28/255])
+            end
+        end
+    end
+end
+
+xlabel('Reynolds Number, Re'); 
+adjustfigurefont
+ylim([1E-3 1.5])
+plot(Re,CdL,'k--',Re,CdT,'k')
+
+%% add CFD data
+load('DolphinTagSims_24Feb16')
+
+% calculate Re
+L = 2.6; % length ASSUMTION - NEED DATA FROM SHORTER
+v = 1.05E-6; % kinematic viscosity
+CFD_Re = (L*vel)./v;
+
+% calculate Cd of dolphin only
+rho = 1021; % seawater density
+A = 2.3; % area
+CFD_Cd_notag = (2*notag')./(rho*A.*vel.^2);
+CFD_Cd_tag = (2*sum(tag'))./(rho*(A+0.024).*vel.^2);
+CFD_Cd_tag2 = (2*sum(tag2'))./(rho*(A+0.045).*vel.^2);
+CFD_Cd_tag4 = (2*sum(tag4'))./(rho*(A+0.066).*vel.^2);
+
+loglog(CFD_Re,CFD_Cd_notag,'color','k') % make these colours the same as the tag conditions
+loglog(CFD_Re,CFD_Cd_tag,'color',[55/255 126/255 184/255])
+loglog(CFD_Re,CFD_Cd_tag4,'color',[77/255 175/255 74/255])
+
+xlim([3E5 5E7])
+print('AllCdData','-dpng','-r300')
+
+% plot velocities and durations of glides
+figure(4); clf; hold on
+for file = 1:45
+    h1 = plot([0 glide(file).dur],[glide(file).sspeed glide(file).espeed],'o-');
+    if glide(file).condition == 0
+        set(h1,'MarkerEdgeColor','k','MarkerFaceColor','k','color','k')
+    else if glide(file).condition == 1
+            set(h1,'Marker','^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerFaceColor',[55/255 126/255 184/255],'color',[55/255 126/255 184/255])
+        else if glide(file).condition == 3
+                set(h1,'Marker','d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerFaceColor',[77/255 175/255 74/255],'Color',[77/255 175/255 74/255])
+            else set(h1,'Marker','s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerFaceColor',[228/255 26/255 28/255],'Color',[228/255 26/255 28/255])
+            end
+        end
+    end
+end
+
+xlabel('Glide Duration (sec)'); ylabel('Velocity (m/s)')
+adjustfigurefont
+
+%% try with all other data greyed out
+figure(32); clf
+loglog(Fish(:,1),Fish(:,2),'.-','color',[0.75 0.75 0.75],'markersize',15); hold on
+loglog(Fish(:,3),Fish(:,4),'.-','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,5),Fish(:,6),'.','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,9),Fish(:,10),'.','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,7),Fish(:,8),'.-','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,11),Fish(:,12),'.-','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,13),Fish(:,14),'.-','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,15),Fish(:,16),'.-','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,17),Fish(:,18),'.-','color',[0.75 0.75 0.75],'markersize',15)
+loglog(Fish(:,19),Fish(:,20),'.','color',[0.75 0.75 0.75],'markersize',15)
+% Lang Daybell Drag Collar work
+% colours are increasing drag
+loglog(repmat(LangDaybell(1,2),3,1),LangDaybell(1,3:5),'.','markersize',15,'color',[0.75 0.75 0.75])
+loglog(repmat(LangDaybell(2,2),3,1),LangDaybell(2,3:5),'.','markersize',15,'color',[0.75 0.75 0.75])
+loglog(repmat(LangDaybell(3,2),3,1),LangDaybell(3,3:5),'.','markersize',15,'color',[0.75 0.75 0.75])
+loglog(repmat(LangDaybell(4,2),3,1),LangDaybell(4,3:5),'.','markersize',15,'color',[0.75 0.75 0.75])
+% Noren Pregnancy 2011
+loglog(Noren2011(1,1),Noren2011(1,2),'.','color',[0.75 0.75 0.75],'markersize',15) % 18 months post parturition
+loglog(Noren2011(2:3,1),[Noren2011(1,2) Noren2011(1,2)],'color',[0.75 0.75 0.75])
+loglog([Noren2011(1,1) Noren2011(1,1)],Noren2011(2:3,2),'color',[0.75 0.75 0.75])
+loglog(Noren2011(1,3),Noren2011(1,4),'.','color',[0.75 0.75 0.75],'markersize',15) % pregnant
+loglog(Noren2011(2:3,3),[Noren2011(1,4) Noren2011(1,4)],'color',[0.75 0.75 0.75])
+loglog([Noren2011(1,3) Noren2011(1,3)],Noren2011(2:3,4),'color',[0.75 0.75 0.75])
+% Hanson 2001 Porpoise Tags
+loglog(Hanson(:,1),Hanson(:,2),'.-','markersize',15,'color',[0.75 0.75 0.75]) % porpoise model
+loglog(Hanson(:,1),Hanson(:,3),'.-','markersize',15,'color',[0.75 0.75 0.75]) % tags
+loglog(Hanson(:,1),Hanson(:,4),'.-','markersize',15,'color',[0.75 0.75 0.75])
+loglog(Hanson(:,1),Hanson(:,5),'.-','markersize',15,'color',[0.75 0.75 0.75])
+loglog(Hanson(:,1),Hanson(:,6),'.-','markersize',15,'color',[0.75 0.75 0.75])
+loglog(Hanson(:,1),Hanson(:,7),'.-','markersize',15,'color',[0.75 0.75 0.75])
+loglog(Hanson(:,1),Hanson(:,8),'.-','markersize',15,'color',[0.75 0.75 0.75])
+% Add Theoretical Flat Plates
+plot(Re,CdL,'--','color',[0.75 0.75 0.75])
+plot(Re,CdT,'color',[0.75 0.75 0.75])
 %% add our data
 % video only data
 for file = 1:45
@@ -131,30 +265,17 @@ for file = 1:45
     end
 end
 
-xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
+xlabel('Reynolds Number, Re'); ylabel('Drag Coefficient, C_d')
 adjustfigurefont
 ylim([1E-3 1.5])
 
-%% add CFD data
-load('DolphinTagSims_24Feb16')
+% add CFD data
+loglog(CFD_Re,CFD_Cd_notag,'color','k') % make these colours the same as the tag conditions
+loglog(CFD_Re,CFD_Cd_tag,'color',[55/255 126/255 184/255])
+loglog(CFD_Re,CFD_Cd_tag4,'color',[77/255 175/255 74/255])
 
-% calculate Re
-L = 2.6; % length ASSUMTION - NEED DATA FROM SHORTER
-v = 1.05E-6; % kinematic viscosity
-CFD_Re = (L*vel)./v;
-
-% calculate Cd of dolphin only
-rho = 1021; % seawater density
-A = 2.3; % area
-CFD_Cd_notag = (2*notag')./(rho*A.*vel.^2);
-CFD_Cd_tag = (2*sum(tag'))./(rho*(A+0.024).*vel.^2);
-CFD_Cd_tag4 = (2*sum(tag4'))./(rho*(A+0.066).*vel.^2);
-
-loglog(CFD_Re,CFD_Cd_notag,'color',[0.75 0.75 0.75])
-loglog(CFD_Re,CFD_Cd_tag,'color',[0.75 0.75 0.75])
-loglog(CFD_Re,CFD_Cd_tag4,'color',[0.75 0.75 0.75])
-
-print('AllCdData','-dpng','-r300')
+xlim([3E5 5E7])
+print('AllCdData_2','-dpng','-r300')
 
 %% plot velocities and durations of glides
 figure(4); clf; hold on
@@ -174,6 +295,8 @@ end
 
 xlabel('Glide Duration (sec)'); ylabel('Velocity (m/s)')
 adjustfigurefont
+
+
 %%
 figure(5); clf; hold on
 for file = 1:45
@@ -199,7 +322,7 @@ colormap jet
 %% notboxplot
 % calculate means 
 for i = 1:45;
-    glide(i).mnCd = mean(glide(i).Cd_mn); 
+    glide(i).mnCd = nanmean(glide(i).Cd_mn); 
 end
 
 % reorder data: each column of y is one variable/group
@@ -364,16 +487,16 @@ set(l(5:6),'color',[77/255 175/255 74/255])
 set(l(8),'color',[228/255 26/255 28/255])
 
 xlim([0 4])
-xticklabel_rotate(x,90,{'Hoku C        ','Liho C        ','Hoku T        ',...
-    'Liho T        ','Hoku T+4        ','Liho T+4        ','Hoku T+8        ',...
-    'Liho T+8        '},'Fontsize',12)
+xticklabel_rotate(x,90,{'63H4 C        ','01L5 C        ','63H4 T        ',...
+    '01L5 T        ','63H4 T+4        ','01L5 T+4        ','63H4 T+8        ',...
+    '01L5 T+8        '},'Fontsize',12)
 xlabel('Condition');
 ylabel({'Glide Duration (sec)',''})
 adjustfigurefont
 set(gca,'position',[0.13 0.25 0.7750 0.2157])
 text(0.1,3.2,'C','FontSize',18,'FontWeight','Bold'); box on
 
-print('Glide_Boxplots','-dpng','-r300')
+print('Glide_Boxplots','-dsvg','-r300')
 
 return 
 
