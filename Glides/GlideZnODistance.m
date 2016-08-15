@@ -1,8 +1,9 @@
 % What is distance between ZO2 points? Is it consistent?
-% close all; clear all
+close all; clear all
 
 % Import glide structure
-% load('GlideStructure.mat')
+
+load('GlideStructure.mat')
     
 % what is first ZO2?
 for file = 1:length(glide);
@@ -33,7 +34,7 @@ figure (1); clf; hold on
 figure(2); clf; hold on
     plot(d)
     xlabel('Sample Number'); ylabel('Distance between points')
- %   pause
+pause
     
 end
 
