@@ -45,3 +45,23 @@ print('CFDresults','-dsvg','-r300')
 p0t = (abs(Ured_tag-3)/3);
 p0t2 = (abs(Ured_tag2-3)/3);
 p0t4 = (abs(Ured_tag4-3)/3);
+
+%% calculate what tag+6 and tag+8 would be
+figure(2); hold on
+% plot difference in drag between conditions
+plot(sum(tag')'-notag,'color',[55/255 126/255 184/255])
+plot(sum(tag2')'-notag,'color',[255/255 127/255 0/255])
+plot(sum(tag4')'-notag,'color',[77/255 175/255 74/255])
+xlabel('Speed'); ylabel('Difference in Drag')
+
+% calculate difference between tag4 and tag2, tag2 and tag to determine
+% amount of drag from elements only
+diff42 = sum(tag4')'-sum(tag2')';
+diff20 = sum(tag2')'-sum(tag')';
+
+plot(diff42,'k:','linewidth',2) % AMOUNT OF DRAG ADDED BY TWO ELEMENTS
+plot(diff20,'k:','linewidth',2) % 
+
+adjustfigurefont
+
+
