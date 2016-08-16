@@ -53,6 +53,8 @@ plot(vel,tag8,':','color',[228/255 26/255 28/255],'linewidth',2)
 [c_tag(1), c_tag(2)] = curve_fit(vel',tag(:,1)+tag(:,2));
 [c_tag2(1), c_tag2(2)] = curve_fit(vel',tag2(:,1)+tag2(:,2));
 [c_tag4(1), c_tag4(2)] = curve_fit(vel',tag4(:,1)+tag4(:,2));
+[c_tag6(1), c_tag6(2)] = curve_fit(vel,tag6);
+[c_tag8(1), c_tag8(2)] = curve_fit(vel,tag8);
 % plot to check
 % plot(vel,c_tag4(1)*vel.^c_tag4(2),'r')
 
@@ -60,8 +62,12 @@ plot(vel,tag8,':','color',[228/255 26/255 28/255],'linewidth',2)
 Ured_tag = (notag(3)/c_tag(1)).^(1/c_tag(2));
 Ured_tag2 = (notag(3)/c_tag2(1)).^(1/c_tag2(2));
 Ured_tag4 = (notag(3)/c_tag4(1)).^(1/c_tag4(2));
+Ured_tag6 = (notag(3)/c_tag6(1)).^(1/c_tag6(2));
+Ured_tag8 = (notag(3)/c_tag8(1)).^(1/c_tag8(2));
 
 % plot to check
+plot(Ured_tag8,c_tag8(1)*Ured_tag8.^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(Ured_tag6,c_tag6(1)*Ured_tag6.^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255],'markersize',10)
 plot(Ured_tag4,c_tag4(1)*Ured_tag4.^c_tag4(2),'kd','markerfacecolor',[77/255 175/255 74/255],'markersize',10)
 plot(Ured_tag2,c_tag2(1)*Ured_tag2.^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255],'markersize',10)
 plot(Ured_tag,c_tag(1)*Ured_tag.^c_tag(2),'k^','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
