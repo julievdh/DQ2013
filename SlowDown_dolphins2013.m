@@ -74,9 +74,18 @@ plot(Ured_tag,c_tag(1)*Ured_tag.^c_tag(2),'k^','markerfacecolor',[55/255 126/255
 plot(vel(3),notag(3),'ko','markerfacecolor','k','markersize',10)
 box on
 
-print('CFDresults','-dsvg','-r300')
-
 % calculate percent decrease
 p0t = (abs(Ured_tag-3)/3);
 p0t2 = (abs(Ured_tag2-3)/3);
 p0t4 = (abs(Ured_tag4-3)/3);
+p0t6 = (abs(Ured_tag6-3)/3);
+p0t8 = (abs(Ured_tag8-3)/3);
+
+%% plot alternative - that they can maintain speed but increase drag
+plot(3,tag8(3),'s','markeredgecolor',[228/255 26/255 28/255],'markersize',10,'linewidth',2)
+plot(3,tag6(3),'o','markeredgecolor',[152/255 78/255 163/255],'markersize',10,'linewidth',2)
+plot(3,sum(tag4(3,:)),'d','markeredgecolor',[77/255 175/255 74/255],'markersize',10,'linewidth',2)
+plot(3,sum(tag2(3,:)),'o','markeredgecolor',[255/255 127/255 0/255],'markersize',10,'linewidth',2)
+plot(3,sum(tag(3,:)),'^','markeredgecolor',[55/255 126/255 184/255],'markersize',10,'linewidth',2)
+
+print('CFDresults','-dsvg','-r300')
