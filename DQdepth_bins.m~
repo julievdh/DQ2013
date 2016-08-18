@@ -37,15 +37,10 @@ for i = 1:4; % plot diameters
     plot([0 675],-[0.5*diam(i) 0.5*diam(i)],'k');
     plot([0 675],-[1.5*diam(i) 1.5*diam(i)],'k');
 end
-% plot average track depth = 2.01 m
-plot([0 675],[-2.01 -2.01],'color',[0.75 0.75 0.75])
-
 xlim([0 675]); ylim([-2.8 0]); box on
 xlabel('Time (Seconds)');
 text(10,-0.05,'B','FontSize',18,'FontWeight','bold')
 set(gca,'ytick',[-0.64 -0.21 0],'yticklabels',{'1.5xBD','0.5xBD','0'},'yaxislocation','right')
-
-
 
 %%
 subplot('position',[0.1 0.1 0.3 0.8]); hold on; view([90 90])
@@ -62,8 +57,7 @@ load('gamma')
 gamma(13,:) = [8 1];
 plot(gamma(:,1)*diam,gamma(:,2)/5,'k')
 
-% plot average track depth = 2.01 m
-plot([2.01 2.01],[0 1],'color',[0.75 0.75 0.75])
+% make as deep as lagoon?
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('DQ2013_TagDepth','-dpng','-r300')
@@ -117,7 +111,8 @@ plot(zeros(length(find(Cond == 4)))+0.5,n(Cond == 4,1),'s','color',[202/255 0 32
 plot(ones(length(find(Cond == 1))),n(Cond == 1,2),'^','color',[5/255 113/255 176/255])
 plot(ones(length(find(Cond == 4)))+0.5,n(Cond == 4,2),'s','color',[202/255 0 32/255])
 
-
+% plot average map depth
+plot(
 
 %% from Alex's diagram, have depths along approximate track
 pixelpoints = [0 23.6 57.8 33.20 36.87 34.83 50.49 53.27 44.51 38.94 49.24 32.80 38.43 33.04];
