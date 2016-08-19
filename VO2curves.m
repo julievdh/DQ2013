@@ -53,9 +53,9 @@ for i = 1:size(filenames,1)
     figure(5); hold on
     % plot recovery end-tidal CO2
     if isempty(strfind(filenames{i},'Lono')) == 0
-        subplot(221); hold on; title('Lono')
+        subplot(221); hold on; title('9FL3')
     else if isempty(strfind(filenames{i},'Nainoa')) == 0
-            subplot(223); hold on; title('Nainoa')
+            subplot(223); hold on; title('9ON6')
         end
     end
     if isempty(strfind(filenames{i},'C')) == 0
@@ -248,10 +248,10 @@ for i = 1:size(filenames,1)
     figure(5);
     % plot VO2 vs VCO2
     if isempty(strfind(filenames{i},'Lono')) == 0
-        subplot(222); hold on; title('Lono')
+        subplot(222); hold on; title('9FL3')
         plot([0 4],[0 4],'k:')
     else if isempty(strfind(filenames{i},'Nainoa')) == 0
-            subplot(224); hold on; title('Nainoa')
+            subplot(224); hold on; title('9ON6')
             plot([0 4],[0 4],'k:')
         end
     end
@@ -290,8 +290,8 @@ for i = 1:size(filenames,1)
 %     end
 %     
 end
-subplot(222); xlabel('VO2'); ylabel('VCO2')
-subplot(224); xlabel('VO2'); ylabel('VCO2')
+subplot(222); xlabel('VO_2'); ylabel('VCO_2')
+subplot(224); xlabel('VO_2'); ylabel('VCO_2')
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('Boat_ETCO2','-dpng','-r100')
