@@ -170,21 +170,29 @@ figure(4); clf; hold on
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
         subplot('position',[0.1 0.55 0.4 0.4]);
-        hold on; xlim([-0.5 2.5])
+        hold on; xlim([-0.5 2.5]); box on
         ylabel('PAR')
+        set(gca,'xtick',[0 1 2],'ylim',[0 16],'xticklabels',{'','',''})
+        set(gca,'ytick',[0 5 10 15])
     end
     if strfind(VO2_table{i,1},'Kolohe')
         subplot('position',[0.55 0.55 0.4 0.4]);
-        hold on; xlim([-0.5 2.5])
+        hold on; xlim([-0.5 2.5]); box on
+        set(gca,'xtick',[0 1 2],'ylim',[0 16],'xticklabels',{'','',''})
+        set(gca,'ytick',[0 5 10 15])
     end
     if strfind(VO2_table{i,1},'Liko')
         subplot('position',[0.1 0.1 0.4 0.4]); 
-        hold on; xlim([-0.5 2.5])
+        hold on; xlim([-0.5 2.5]); box on
         xlabel('Condition'); ylabel('PAR')
+        set(gca,'ytick',[0 5 10 15])
+        set(gca,'xtick',[0 1 2],'ylim',[0 16],'xticklabels',{'Control','Tag','Tag+8'})
     end
     if strfind(VO2_table{i,1},'Nainoa')
         subplot('position',[0.55 0.1 0.4 0.4]); 
-        hold on; xlim([-0.5 2.5])
+        hold on; xlim([-0.5 2.5]); box on
+        set(gca,'xtick',[0 1 2],'ylim',[0 16],'xticklabels',{'Control','Tag','Tag+8'})
+        set(gca,'ytick',[0 5 10 15])
         xlabel('Condition')
     end
     if strfind(VO2_table{i,2},'C')
@@ -196,15 +204,25 @@ for i = 1:length(VO2_table)
         end
     end
     set(h,'color','k')
-    set(gca,'xtick',[0 1 2],'ylim',[0 16],'xticklabels',{'C','T','T+8'})
 end
 
+% add labels
+subplot('position',[0.1 0.55 0.4 0.4]);
+text(-0.4,14.5,'9FL3','Fontsize',14,'fontweight','bold');
+subplot('position',[0.55 0.55 0.4 0.4]);
+text(-0.4,14.5,'6JK5','Fontsize',14,'fontweight','bold');
+subplot('position',[0.1 0.1 0.4 0.4]);
+text(-0.4,14.5,'99L7','Fontsize',14,'fontweight','bold');
+subplot('position',[0.55 0.1 0.4 0.4]); 
+text(-0.4,14.5,'9ON6','Fontsize',14,'fontweight','bold');
+
 adjustfigurefont
-print('SelfSelect_PAR','-depsc','-r300')
+print('SelfSelect_PAR','-dsvg','-r300')
 
 
 fname = 'SelectSpeedPAR';
 print(fname,'-dtiff','-r300')
+
 
 %% VO2/Kg
 
@@ -281,6 +299,8 @@ title(headers{7}); ylabel('VO_2 L/kg/min')
 adjustfigurefont
 print('SelfSelect_VO2kg.eps','-depsc','-r300')
 
+return
+
 %% set up ANOVA
 for i = 1:length(VO2_table)
     VO2_2min_rest(:,i) = VO2_table{i,4}(1);
@@ -292,10 +312,14 @@ for i = 1:length(VO2_table)
     VO2_2min_restkg(:,i) = VO2kg_table{i,4}(1);
 end
 
+
 [p,t,stats] = anovan(VO2_2min_recovkg,{Ind,Cond},'varnames',{'Individual','Condition'});
+% c = multcompare(stats,'Dim',2,'ctype','hsd')
 [p,t,stats] = anovan(VO2_2min_recov,{Ind,Cond},'varnames',{'Individual','Condition'});
 [p,t,stats] = anovan(PAR,{Ind,Cond},'varnames',{'Individual','Condition'});
+[mean(PAR) std(PAR)]; % values for paper
 
+return
 
 %% figure: VO2 and VO2/kg 
 warning off
@@ -306,14 +330,14 @@ for i = 1:length(VO2_table)
         subplot('position',[0.1 0.55 0.35 0.4]);hold on; xlim([-0.5 2.5]);
         text(-0.4,15,'Lono')
         ylabel('VO_2 (L/min)')
-        ylim([1.05 3.75]); box on
+        ylim([0.5 3.75]); box on
         set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
             'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
     end
     if strfind(VO2_table{i,1},'Kolohe')
         subplot('position',[0.6 0.55 0.35 0.4]);
         text(-0.4,15,'Kolohe'); box on
-        hold on; xlim([-0.5 2.5]); ylim([1.05 3.75])
+        hold on; xlim([-0.5 2.5]); ylim([0.5 3.75])
         ylabel('VO_2 (L/min)')
         set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
             'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
@@ -321,7 +345,7 @@ for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Liko')
         subplot('position',[0.1 0.1 0.35 0.4]); 
         text(-0.4,15,'Liko'); box on
-        hold on; xlim([-0.5 2.5]); ylim([1.3 2.05])
+        hold on; xlim([-0.5 2.5]); ylim([0.5 3.75])
         xlabel('Condition'); ylabel('VO_2 (L/min)')
         set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
             'ytick',[1.4 1.6 1.8 2.0],'yticklabels',{'1.4','1.6','1.8','2.0'})
@@ -329,7 +353,7 @@ for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Nainoa')
         subplot('position',[0.6 0.1 0.35 0.4]); 
         text(-0.4,15,'Nainoa'); box on
-        hold on; xlim([-0.5 2.5]); ylim([0.5 1.2])
+        hold on; xlim([-0.5 2.5]); ylim([0.5 3.75])
         xlabel('Condition'); ylabel('VO_2 (L/min)')
         set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
             'ytick',[0.6 0.8 1.0 1.2],'yticklabels',{'0.6','0.8','1.0','1.2'})
@@ -346,5 +370,90 @@ end
 
 adjustfigurefont
 print('SelfSelect_VO2_only.eps','-depsc','-r300')
+
+%% plot VO2kg
+%% figure: VO2 and VO2/kg 
+warning off
+figure(7); clf; hold on
+set(gcf,'position',[1 241 500 384],'paperpositionmode','auto')
+for i = 1:length(VO2_table)
+    if strfind(VO2_table{i,1},'Lono')
+        subplot('position',[0.1 0.55 0.35 0.4]);hold on; xlim([-0.5 2.5]);
+        %text(-0.4,15,'Lono')
+        ylabel('VO_2 (L/min)'); box on
+        %ylim([0.5 3.75])
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})% ,...
+            %'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
+    end
+    if strfind(VO2_table{i,1},'Kolohe')
+        subplot('position',[0.6 0.55 0.35 0.4]);
+        %text(-0.4,15,'Kolohe'); box on
+        hold on; xlim([-0.5 2.5]); %ylim([0.5 3.75])
+        ylabel('VO_2 (L/min)')
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})%,...
+            %'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
+    end
+    if strfind(VO2_table{i,1},'Liko')
+        subplot('position',[0.1 0.1 0.35 0.4]); 
+        %text(-0.4,15,'Liko'); box on
+        hold on; xlim([-0.5 2.5]); %ylim([0.5 3.75])
+        xlabel('Condition'); ylabel('VO_2 (L/min)')
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})%,...
+            %'ytick',[1.4 1.6 1.8 2.0],'yticklabels',{'1.4','1.6','1.8','2.0'})
+    end
+    if strfind(VO2_table{i,1},'Nainoa')
+        subplot('position',[0.6 0.1 0.35 0.4]); 
+        %text(-0.4,15,'Nainoa'); box on
+        hold on; xlim([-0.5 2.5]); %ylim([0.5 3.75])
+        xlabel('Condition'); ylabel('VO_2 (L/min)')
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'})%,...
+            %'ytick',[0.6 0.8 1.0 1.2],'yticklabels',{'0.6','0.8','1.0','1.2'})
+    end
+    if strfind(VO2_table{i,2},'C')
+        h = plot(0,VO2_2min_recovkg(i),'ko','markerfacecolor','k','MarkerSIze',8);
+    else if strfind(VO2_table{i,2},'A4')
+            h = plot(2,VO2_2min_recovkg(i)*1000,'s','markerfacecolor',[202/255 0 32/255],'markeredgecolor','k','MarkerSIze',8);
+        else
+            h = plot(1,VO2_2min_recovkg(i)*1000,'^','markerfacecolor',[5/255 113/255 222/255],'markeredgecolor','k','MarkerSIze',8);
+        end
+    end
+end
+
+adjustfigurefont
+print('SelfSelect_VO2kg.eps','-depsc','-r300')
+%% add boat to this plot - make sure these numbers jive. 
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/RespData/Boat
+
+load('VO2_table_boat')
+headers = {'Filename';'Condition';'Rest all';'Rest last 2 min';...
+    'Recov all';'Recov min 1';'Recov 0-2 min';'Recov min 2';...
+    'Recov 5 min';'Recov 3-5 min'};
+for i = 1:6
+    if strfind(VO2_table{i,1},'Lono')
+        subplot('position',[0.1 0.55 0.35 0.4]);hold on; xlim([-0.5 2.5]);
+        text(-0.4,15,'Lono')
+        ylabel('VO_2 (L/min)')
+        ylim([0.5 3.75]); box on
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
+            'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
+    end
+    if strfind(VO2_table{i,1},'Nainoa')
+        subplot('position',[0.6 0.1 0.35 0.4]); 
+        text(-0.4,15,'Nainoa'); box on
+        hold on; xlim([-0.5 2.5]); ylim([0.5 3.75])
+        xlabel('Condition'); ylabel('VO_2 (L/min)')
+        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
+            'ytick',[0.6 0.8 1.0 1.2],'yticklabels',{'0.6','0.8','1.0','1.2'})
+    end
+    if strfind(VO2_table{i,2},'C')
+        h = plot(0,VO2_2min_recov(i),'ko','MarkerSize',8);
+    else if strfind(VO2_table{i,2},'A2')
+            h = plot(2,VO2_2min_recov(i),'d','markeredgecolor',[77/255 175/255 74/255],'MarkerSize',8);
+        else
+            h = plot(1,VO2_2min_recov(i),'^','markerfacecolor',[5/255 113/255 222/255],'MarkerSize',8);
+        end
+    end
+end
+
 
 
