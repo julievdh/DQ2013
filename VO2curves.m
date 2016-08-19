@@ -53,9 +53,9 @@ for i = 1:size(filenames,1)
     figure(5); hold on
     % plot recovery end-tidal CO2
     if isempty(strfind(filenames{i},'Lono')) == 0
-        subplot(211); hold on; title('Lono')
+        subplot(221); hold on; title('Lono')
     else if isempty(strfind(filenames{i},'Nainoa')) == 0
-            subplot(212); hold on; title('Nainoa')
+            subplot(223); hold on; title('Nainoa')
         end
     end
     if isempty(strfind(filenames{i},'C')) == 0
@@ -202,10 +202,10 @@ end
 % cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 % print('Boat_RER','-dpng','-r100')
 % 
-figure(5); title('Recovery End-Tidal CO_2')
-xlabel('Time (min)'); ylabel('End-Tidal CO_2 (%)')
-print('Boat_ETCO2','-dpng','-r100')
-% 
+figure(5); 
+subplot(221); xlabel('Time (min)'); ylabel('End-Tidal CO_2 (%)'); ylim([0 10]); xlim([0 6])
+subplot(223); xlabel('Time (min)'); ylabel('End-Tidal CO_2 (%)'); ylim([0 10]); xlim([0 6])
+
 % figure(6); title('Recovery Tidal Volume')
 % xlabel('Time (min)'); ylabel('Tidal Volume (L)')
 % print('Boat_TV','-dpng','-r100')
@@ -245,13 +245,13 @@ for i = 1:size(filenames,1)
     minvol = -post(:,9).*(1./diff([0 ;post(:,12)/12000]));
     
     
-    figure(20);
+    figure(5);
     % plot VO2 vs VCO2
     if isempty(strfind(filenames{i},'Lono')) == 0
-        subplot(211); hold on; title('Lono')
+        subplot(222); hold on; title('Lono')
         plot([0 4],[0 4],'k:')
     else if isempty(strfind(filenames{i},'Nainoa')) == 0
-            subplot(212); hold on; title('Nainoa')
+            subplot(224); hold on; title('Nainoa')
             plot([0 4],[0 4],'k:')
         end
     end
@@ -268,27 +268,32 @@ for i = 1:size(filenames,1)
         end
     end
     
-    figure(21); 
-    % plot VCO2 vs minvol
-    if isempty(strfind(filenames{i},'Lono')) == 0
-        subplot(211); hold on; title('Lono')
-    else if isempty(strfind(filenames{i},'Nainoa')) == 0
-            subplot(212); hold on; title('Nainoa')
-        end
-    end
-    if isempty(strfind(filenames{i},'C')) == 0
-        plot(VO2,minvol,'ko')
-        % xlim([0 7]); ylim([0.65 1.1])
-        % text(0.2,1.05,'Lono','FontSize',14); box on
-    else
-        if isempty(strfind(filenames{i},'A2')) == 0
-            plot(VO2,minvol,'d','color',[26/255 150/255 65/255])
-            % xlim([0 7]); ylim([0.65 1.1])
-        else
-            plot(VO2,minvol,'^','color',[5/255 113/255 222/255])
-        end
-    end
-    
+%     figure(21); 
+%     % plot VCO2 vs minvol
+%     if isempty(strfind(filenames{i},'Lono')) == 0
+%         subplot(211); hold on; title('Lono')
+%     else if isempty(strfind(filenames{i},'Nainoa')) == 0
+%             subplot(212); hold on; title('Nainoa')
+%         end
+%     end
+%     if isempty(strfind(filenames{i},'C')) == 0
+%         plot(VO2,minvol,'ko')
+%         % xlim([0 7]); ylim([0.65 1.1])
+%         % text(0.2,1.05,'Lono','FontSize',14); box on
+%     else
+%         if isempty(strfind(filenames{i},'A2')) == 0
+%             plot(VO2,minvol,'d','color',[26/255 150/255 65/255])
+%             % xlim([0 7]); ylim([0.65 1.1])
+%         else
+%             plot(VO2,minvol,'^','color',[5/255 113/255 222/255])
+%         end
+%     end
+%     
 end
-figure(20); xlabel('VO2'); ylabel('VCO2')
-figure(21); xlabel('VCO2'); ylabel('VE')
+subplot(222); xlabel('VO2'); ylabel('VCO2')
+subplot(224); xlabel('VO2'); ylabel('VCO2')
+
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('Boat_ETCO2','-dpng','-r100')
+% 
+% figure(21); xlabel('VCO2'); ylabel('VE')
