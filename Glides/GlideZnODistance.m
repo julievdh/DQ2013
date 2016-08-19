@@ -9,7 +9,7 @@ load('GlideStructure.mat')
 for file = 1:length(glide);
 first = glide(file).ZO2(1);
 % remove all ZO1 before first ZO2
-glide(file).ZO1 = glide(file).ZO1(glide(file).ZO1(:,1) > first,:);
+glide(file).ZO1 = glide(file).ZO1(glide(file).ZO1(:,1) >= first,:);
 
 % also will have to remove all points after
 if length(glide(file).ZO2)-length(glide(file).ZO1) > 0
@@ -39,4 +39,4 @@ pause
 end
 
 % variation in distance between the points:
-nanstd(d)
+[nanmean(nanstd(d).^2) nanstd(nanstd(d).^2)]
