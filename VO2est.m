@@ -2,7 +2,7 @@ clear all; close all
 
 % for a file
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/RespData
-filename = 'Nainoa_276_C';
+filename = 'Lono_281_A4';
 load(filename);
 %%
 % plot corrected instantaneous VO2 for entire rest period
@@ -135,6 +135,6 @@ for i = 1:length(VO2_table)
 %        VO2_table{i,10} = VO2_min35_post;
     end
 end
-
+%%
 
 save('VO2_table','VO2_table')

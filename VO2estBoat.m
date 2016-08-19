@@ -2,7 +2,7 @@ clear all; close all
 
 % for a file
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/RespData/Boat
-filename = 'Lono_287_A2';
+filename = 'Nainoa_287_A2';
 load(filename);
 %%
 % plot corrected instantaneous VO2 for entire rest period
@@ -12,7 +12,7 @@ corravVO2 = pre(:,22).*pre(:,34);
 corravVCO2 = pre(:,23).*pre(:,34);
 
 figure(1); clf; hold on; ylim([0 4])
-plot(pre(:,12)/12000,corrinstVO2)
+plot(pre(:,12)/12000,corrinstVO2,'.-')
 plot(pre(:,12)/12000,corravVO2)
 legend('Instantaneous VO2','Running average VO2')
 xlabel('Time (min)'); ylabel('Corrected VO_2 (L/min)')
