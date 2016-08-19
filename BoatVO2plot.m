@@ -229,8 +229,9 @@ h = errorbar(1,VO2_table{2,6}(1),VO2_table{2,6}(1)-VO2_table{2,6}(2),'d','color'
 plot([0 1],[VO2_table{2,4}(1) VO2_table{2,6}(1)],':','color',[26/255 150/255 65/255])
 
 set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5])
-ylabel('VO_2 L/min')
-text(-0.4,2.7,'Lono','FontSize',18,'FontWeight','Bold')
+set(gca,'ytick',[0:0.5:3],'yticklabels',{'0','0.5','1.0','1.5','2.0','2.5','3.0'})
+ylabel('VO_2 (L/min)')
+text(-0.4,2.7,'9FL3','FontSize',18,'FontWeight','Bold')
 
 subplot('position',[0.1 0.075 0.4 0.4]); hold on
 % control
@@ -248,12 +249,15 @@ h = errorbar(0,VO2_table{6,4}(1),VO2_table{6,4}(1)-VO2_table{6,4}(2),'d','color'
 h = errorbar(1,VO2_table{6,6}(1),VO2_table{6,6}(1)-VO2_table{6,6}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
 plot([0 1],[VO2_table{6,4}(1) VO2_table{6,6}(1)],':','color',[26/255 150/255 65/255])
 
-set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5]); ylim([0 2])
 set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5]); ylim([0 3])
-ylabel('VO_2 L/min')
-text(-0.4,2.7,'Nainoa','FontSize',18,'FontWeight','Bold')
+set(gca,'ytick',[0:0.5:3],'yticklabels',{'0','0.5','1.0','1.5','2.0','2.5','3.0'})
+ylabel('VO_2 (L/min)')
+text(-0.4,2.7,'9ON6','FontSize',18,'FontWeight','Bold')
 
-
+%% percent increase in VO2
+% tag after VO2 compared to control after VO2
+% (VO2_table{1,6}(1)-VO2_table{3,6}(1))/VO2_table{3,6}(1) % Lono
+% (VO2_table{4,6}(1)- VO2_table{5,6}(1))/VO2_table{5,6}(1) % Nainoa
 
 %% PAR: Calculated based on first minute post, and last 2 min pre.
 
@@ -271,8 +275,9 @@ for i = 1:3
 end
 
 set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 4'}); xlim([-1 3])
+set(gca,'ytick',[0:0.5:4],'yticklabels',{'0','0.5','1.0','1.5','2.0','2.5','3.0','3.5','4.0'})
 xlabel('Condition'); ylabel('Physical Activity Ratio')
-text(-0.75,3.65,'Lono','FontSize',18,'FontWeight','Bold')
+text(-0.75,3.65,'9FL3','FontSize',18,'FontWeight','Bold')
 
 
 subplot('position',[0.6 0.075 0.4 0.4]); hold on
@@ -289,11 +294,20 @@ for i = 4:6
 end
 
 set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag + 4'}); xlim([-1 3]);  ylim([1 2])
+set(gca,'ytick',[1 1.2 1.4 1.6 1.8 2],'yticklabels',{'1.0','1.2','1.4','1.6','1.8','2.0'})
 xlabel('Condition'); ylabel('Physical Activity Ratio')
-text(-0.75,1.9,'Nainoa','FontSize',18,'FontWeight','Bold')
+text(-0.75,1.9,'9ON6','FontSize',18,'FontWeight','Bold')
 
 adjustfigurefont
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print -depsc BoatVO2.eps
 print -dtiff BoatVO2
+
+LonoPARTag = VO2_table{1,6}(1)/VO2_table{1,4}(1);
+LonoPARC = VO2_table{3,6}(1)/VO2_table{3,4}(1);
+LonoPARTag4 = VO2_table{2,6}(1)/VO2_table{2,4}(1);
+
+NainoaPARTag = VO2_table{4,6}(1)/VO2_table{4,4}(1);
+NainoaPARC = VO2_table{5,6}(1)/VO2_table{5,4}(1);
+NainoaPARTag4 = VO2_table{6,6}(1)/VO2_table{6,4}(1);
