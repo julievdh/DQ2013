@@ -34,21 +34,21 @@ NaN
 64];
 
 % frontal area 
-Fa = [0.342119151
+Fa = [2.0734494
 NaN
-0.754295759
-0.264207719
-0.20428189
-0.049664342
-0.054820966
-0.079577539
-0.114591656
-0.116509475
-0.466037898
-0.413675878
-0.997233885
+3.0787582
+1.8221222
+1.6022109
+0.79
+0.83
+1
+1.2
+1.21
+2.42
+2.28
+3.54
 NaN
-4.791968398];
+7.76];
 
 tagWa3 = Wa*0.03;
 tagWa1 = Wa*0.01;
@@ -104,10 +104,10 @@ print('Glide_AcceptableTagSize','-dsvg','-r300')
 figure(2); clf; hold on
 set(gca,'Position',axesPosition)
 h1 = axes('Color','w','XColor','k','YColor',[123/255 50/255 148/255],...
-          'YLim',[0 10],'Xlim',[0.0005 2],'xscale','log','yscale','log',...
+          'YLim',[0 10],'Xlim',[0.005 2],'xscale','log','yscale','log',...
           'NextPlot','add');
 h2 = axes('Color','none','XColor','k','YColor',[221/255 90/255 13/255],...
-          'YLim',[0 20],'Xlim',[0.0005 2],'xscale','log','yscale','log',...
+          'YLim',[0 20],'Xlim',[0.005 2],'xscale','log','yscale','log',...
           'XTick',[],'XTickLabel',[],...
           'Ytick',[0 2 5 10 15 20],...
           'Yaxislocation','right','NextPlot','add');
@@ -124,15 +124,15 @@ plot(h2,tagFa2,bodylength,'o','markeredgecolor',[221/255 90/255 13/255])
 
 
 %% add our tags
-TAG3FA = [0.0022; 0.0110; 0.0198];
-plot(h2,TAG3FA(1),2.29,'^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
-plot(h2,TAG3FA(2),2.29,'d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
-plot(h2,TAG3FA(3),2.29,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
+TAG3FA = [0.0022; 0.0066; 0.108];
+plot(h1,TAG3FA(1),2.29,'^','MarkerEdgeColor',[55/255 126/255 184/255],'MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
+plot(h1,TAG3FA(2),2.29,'d','MarkerEdgeColor',[77/255 175/255 74/255],'MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
+plot(h1,TAG3FA(3),2.29,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
 
-%tag268 = 0.01785; 
-%tag333 = 0.00739;
-%plot(h1,[tag268 tag268],[0.58 100],'k:')
-%plot(h1,[tag333 tag333],[0.58 100],'k:')
+tag268 = 0.01785; 
+tag333 = 0.00739;
+plot(h1,[tag268 tag268],[0.58 100],'k:')
+plot(h1,[tag333 tag333],[0.58 100],'k:')
 
 
 
