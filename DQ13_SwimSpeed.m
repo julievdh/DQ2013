@@ -136,9 +136,9 @@ set(l(3),'color',[228/255 26/255 28/255])
 plot(4,nanmean(AllTrials(:,C_BOAT(1))),'ko','MarkerFaceColor','k','MarkerSize',8)
 plot(4,nanmean(AllTrials(:,C_BOAT(2))),'ko','MarkerSize',8)
 plot(5,nanmean(AllTrials(:,A_BOAT(1))),'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',8)
-plot(5,nanmean(AllTrials(:,A_BOAT(2))),'k^','MarkerSize',8)
+plot(5,nanmean(AllTrials(:,A_BOAT(2))),'^','Color',[55/255 126/255 184/255],'MarkerSize',8)
 plot(6,nanmean(AllTrials(:,A2_BOAT(1))),'kd','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',8)
-plot(6,nanmean(AllTrials(:,A2_BOAT(2))),'kd','MarkerSize',8)
+plot(6,nanmean(AllTrials(:,A2_BOAT(2))),'d','Color',[77/255 175/255 74/255],'MarkerSize',8)
 
 xlim([-0.5 6.5]); ylim([17 43])
 set(gca,'xtick',[0:2 4:6],'xticklabel',{'Control','Tag','Tag+8','Control','Tag','Tag+4'})
@@ -148,4 +148,4 @@ adjustfigurefont
 text(4.15,20,'Boat Speed = 3 m/s','FontSize',12)
 text(0.7,20,'No Boat','FontSize',12); text(0.62,18.5,'Chapter 9','FontSize',12)
 
-print('C10_Fig4_NoBoatBoatLaps','-dpng','-r300')
+print('C10_2_NoBoatBoatLaps','-dpng','-r300')

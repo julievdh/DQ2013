@@ -214,18 +214,18 @@ figure(5); clf
 subplot('position',[0.1 0.55 0.4 0.4]); hold on
 
 % control
-h = errorbar(0,VO2_table{3,4}(1),VO2_table{3,4}(1)-VO2_table{3,4}(2),'ko','MarkerFaceColor','k');
-h = errorbar(1,VO2_table{3,6}(1),VO2_table{3,6}(1)-VO2_table{3,6}(2),'ko','MarkerFaceColor','k');
+h = errorbar(0,VO2_table{3,4}(1),VO2_table{3,4}(1)-VO2_table{3,4}(2),'ko','MarkerFaceColor','w');
+h = errorbar(1,VO2_table{3,6}(1),VO2_table{3,6}(1)-VO2_table{3,6}(2),'ko','MarkerFaceColor','w');
 plot([0 1],[VO2_table{3,4}(1) VO2_table{3,6}(1)],'k')
 
 % Tag
-h = errorbar(0,VO2_table{1,4}(1),VO2_table{1,4}(1)-VO2_table{1,4}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor',[5/255 113/255 222/255]);
-h = errorbar(1,VO2_table{1,6}(1),VO2_table{1,6}(1)-VO2_table{1,6}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor',[5/255 113/255 222/255]);
+h = errorbar(0,VO2_table{1,4}(1),VO2_table{1,4}(1)-VO2_table{1,4}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor','w','MarkerEdgeColor',[5/255 113/255 222/255]);
+h = errorbar(1,VO2_table{1,6}(1),VO2_table{1,6}(1)-VO2_table{1,6}(2),'^','color',[5/255 113/255 222/255],'MarkerFaceColor','w','MarkerEdgeColor',[5/255 113/255 222/255]);
 plot([0 1],[VO2_table{1,4}(1) VO2_table{1,6}(1)],'--','color',[5/255 113/255 222/255])
 
 % Tag + 4
-h = errorbar(0,VO2_table{2,4}(1),VO2_table{2,4}(1)-VO2_table{2,4}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
-h = errorbar(1,VO2_table{2,6}(1),VO2_table{2,6}(1)-VO2_table{2,6}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
+h = errorbar(0,VO2_table{2,4}(1),VO2_table{2,4}(1)-VO2_table{2,4}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor','w');
+h = errorbar(1,VO2_table{2,6}(1),VO2_table{2,6}(1)-VO2_table{2,6}(2),'d','color',[26/255 150/255 65/255],'MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor','w');
 plot([0 1],[VO2_table{2,4}(1) VO2_table{2,6}(1)],':','color',[26/255 150/255 65/255])
 
 set(gca,'xtick',[0 1],'xticklabels',{'Before','After'}); xlim([-0.5 1.5])
@@ -265,11 +265,11 @@ text(-0.4,2.7,'9ON6','FontSize',18,'FontWeight','Bold')
 subplot('position',[0.6 0.55 0.4 0.4]); hold on
 for i = 1:3
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,VO2_table{i,6}(1)/VO2_table{i,4}(1),'ko','MarkerFaceColor','k');
+        h = plot(0,VO2_table{i,6}(1)/VO2_table{i,4}(1),'ko','MarkerFaceColor','w');
     else if strfind(VO2_table{i,2},'A2')
-            h = plot(2,VO2_table{i,6}(1)/VO2_table{i,4}(1),'d','MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255]);
+            h = plot(2,VO2_table{i,6}(1)/VO2_table{i,4}(1),'d','MarkerEdgecolor',[26/255 150/255 65/255],'MarkerFaceColor','w');
         else
-            h = plot(1,VO2_table{i,6}(1)/VO2_table{i,4}(1),'^','MarkerEdgeColor',[5/255 113/255 222/255],'MarkerFaceColor',[5/255 113/255 222/255]);
+            h = plot(1,VO2_table{i,6}(1)/VO2_table{i,4}(1),'^','MarkerEdgeColor',[5/255 113/255 222/255],'MarkerFaceColor','w');
         end
     end
 end
@@ -301,8 +301,8 @@ text(-0.75,1.9,'9ON6','FontSize',18,'FontWeight','Bold')
 adjustfigurefont
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print -depsc BoatVO2.eps
-print -dtiff BoatVO2
+print -dpng BoatVO2
+
 
 LonoPARTag = VO2_table{1,6}(1)/VO2_table{1,4}(1);
 LonoPARC = VO2_table{3,6}(1)/VO2_table{3,4}(1);
