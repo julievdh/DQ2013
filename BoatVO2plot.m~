@@ -59,15 +59,8 @@ box on
 set(gca,'xticklabels',{'Control','Tag','Tag+4'})
 adjustfigurefont
 
-%% calculate resting VO2/kg/min 
-rest = [VO2_table{:,4}];
-rest = rest(1:2:end);
-% Lono = 240.25 kg 
-restkg(1:3) = 1000*rest(1:3)/240.25;
-% Nainoa = 171.0 kg
-restkg(4:6) = 1000*rest(4:6)/171.0;
+%% calculate resting 
 
-[mean(restkg) std(restkg)]
 
 %% plot recovery 5 methods
 figure(2); clf

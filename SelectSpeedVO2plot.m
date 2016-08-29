@@ -40,6 +40,7 @@ set(gca,'xtick',[0 1 2]); xlim([-1 3])
 xlabel('Condition'); ylabel('VO_2 L/min')
 title(headers{4})
 
+
 %% plot recovery first minute
 subplot(212); hold on
 for i = 1:length(VO2_table)
@@ -265,6 +266,18 @@ for i = 1:length(VO2_table)
         end
     end
 end
+%% calculate resting rates 
+rest = [VO2_table{:,4}];
+rest = rest(1:2:end);
+restkg = [VO2kg_table{:,4}];
+restkg = restkg(1:2:end);
+
+% calculate for individuals
+[mean(rest(Ind == 1)) std(rest(Ind ==1))] % Lono
+[mean(rest(Ind == 2)) std(rest(Ind ==2))] % Kolohe
+[mean(rest(Ind == 3)) std(rest(Ind ==3))] % Liko
+[mean(rest(Ind == 4)) std(rest(Ind ==4))] % Nainoa
+
 
 %%
 figure(5); clf; hold on
