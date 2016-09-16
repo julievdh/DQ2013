@@ -33,7 +33,7 @@ plot(removeA3(:,2),removeA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
 plot(removeA4(:,2),removeA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
 adjustfigurefont
 
-% Lono
+%% Lono
 clear all
 load('Lono_DradLoadRelief');
 padAll
@@ -71,7 +71,7 @@ set(h2,'position',[-0.01 0.5 0],'FontSize',16)
 set(h1,'position',[0.5 -0.02 0],'FontSize',16)
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print -dpng LoadReliefLaps
+print -dsvg LoadReliefLaps
 
 %% Duration of loading/unloading laps
 % calculate durations of loadings
@@ -91,41 +91,46 @@ dur_removeA2 = removeA2(end,1)-removeA2(1,1);
 dur_removeA3 = removeA3(end,1)-removeA3(1,1);
 dur_removeA4 = removeA4(end,1)-removeA4(1,1);
 
-figure(2); clf; hold on
+figure(20); clf; hold on
 axesPosition = [110 40 200 200];  %# Axes position, in pixels
 set(gca,'Position',axesPosition);
 h1 = axes('Color','w','XColor','k','YColor','k',...
-          'YLim',[10 50],'Xlim',[-0.5 11.5],...
-          'XTick',[],'XTickLabel',[],...
+          'YLim',[10 30],'Xlim',[-0.5 11.5],...
+          'XTick',0:11,'XTickLabel',{'T+8','T+6','T+4','T+2','T','C','C','T','T+2','T+4','T+6','T+8'},...
           'NextPlot','add');
-h2 = axes('Color','none','XColor','k','YColor','k',...
-          'YLim',[0 2],'Xlim',[-0.5 11.5],...
-          'Ytick',[0 .25 .5 1.25],...
-          'Yticklabels',{'0','25','50','125'},...
-          'Yaxislocation','right','NextPlot','add');
+% h2 = axes('Color','none','XColor','k','YColor','k',...
+%           'YLim',[0 1],'Xlim',[-0.5 11.5],...
+%           'Ytick',[0 .25 .5 1],...
+%           'Yticklabels',{'0','25','50','100'},...
+%           'Yaxislocation','right','NextPlot','add');
+% 
 
 plot(h1,6,dur_load0,'ko','MarkerFaceColor','k','MarkerSize',10)
-plot(h1,7,dur_loadA,'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
+plot(h1,7,dur_loadA,'ko','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
 plot(h1,8,dur_loadA1,'ko','MarkerFaceColor',[255/255 127/255 0/255],'MarkerSize',10)
-plot(h1,9,dur_loadA2,'kd','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',10)
+plot(h1,9,dur_loadA2,'ko','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',10)
 plot(h1,10,dur_loadA3,'ko','MarkerFaceColor',[152/255 78/255 163/255],'MarkerSize',10)
-plot(h1,11,dur_loadA4,'ks','MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',10)
+plot(h1,11,dur_loadA4,'ko','MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',10)
 
 plot(h1,5,dur_remove0,'ko','MarkerFaceColor','k','MarkerSize',10)
-plot(h1,4,dur_removeA,'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
+plot(h1,4,dur_removeA,'ko','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
 plot(h1,3,dur_removeA1,'ko','MarkerFaceColor',[255/255 127/255 0/255],'MarkerSize',10)
-plot(h1,2,dur_removeA2,'kd','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',10)
+plot(h1,2,dur_removeA2,'ko','MarkerFaceColor',[77/255 175/255 74/255],'MarkerSize',10)
 plot(h1,1,dur_removeA3,'ko','MarkerFaceColor',[152/255 78/255 163/255],'MarkerSize',10)
-plot(h1,0,dur_removeA4,'ks','MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',10)
+plot(h1,0,dur_removeA4,'ko','MarkerFaceColor',[228/255 26/255 28/255],'MarkerSize',10)
 
 ylabel(h1,'Lap Duration (s)')
+
+set(gcf,'paperpositionmode','auto')
+adjustfigurefont
+print -dpng -r300 LoadReliefSpeed_Pres
 
 %% add predicted speed change
 SlowDown_dolphins2013
 
-figure(2)
-plot(h2,7:9,[p0t p0t2 p0t4],'color',[0.75 0.75 0.75],'LineWidth',2)
-plot(h2,2:4,[p0t4 p0t2 p0t],'color',[0.75 0.75 0.75],'LineWidth',2)
+figure(20)
+plot(h2,7:11,[p0t p0t2 p0t4 p0t6 p0t8],'color',[0.75 0.75 0.75],'LineWidth',2)
+plot(h2,0:4,[p0t8 p0t6 p0t4 p0t2 p0t],'color',[0.75 0.75 0.75],'LineWidth',2)
 %% percent change between tag condition and CONTROL
 p0A = (dur_loadA-dur_load0)/dur_load0;
 p0A1= (dur_loadA1-dur_load0)/dur_load0;
@@ -177,6 +182,7 @@ plot(h4,5:-1:1,[pA40 pA30 pA20 pA10 pA0],'k')
 
 pload(1,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
 punload(1,:) = [pA40 pA30 pA20 pA10 pA0];
+return 
 %% Kolohe
 keep h1 h2 h3 h4 p0t p0t2 p0t4 pload punload; 
 load('Kolohe_DradLoadRelief');
@@ -198,7 +204,7 @@ dur_removeA2 = removeA2(end,1)-removeA2(1,1);
 dur_removeA3 = removeA3(end,1)-removeA3(1,1);
 dur_removeA4 = removeA4(end,1)-removeA4(1,1);
 
-figure(2); 
+figure(20); 
 plot(h1,6,dur_load0,'ko','MarkerFaceColor','k','MarkerSize',10)
 plot(h1,7,dur_loadA,'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
 plot(h1,8,dur_loadA1,'ko','MarkerFaceColor',[255/255 127/255 0/255],'MarkerSize',10)
@@ -236,7 +242,7 @@ ylabel('Percent increase over control')
 box on
 adjustfigurefont
 
-print -dsvg LoadReliefSpeed
+print -dpng LoadReliefSpeed_Pres
 
 pload(2,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
 punload(2,:) = [pA40 pA30 pA20 pA10 pA0];
@@ -267,7 +273,13 @@ set(gca,'xticklabels',{'C','T','T+2','T+4','T+6','T+8'})
 print -dpng LoadReliefSpeed_2
 
 %% total change with increasing drag
-mean([pload; fliplr(punload)])
-std([pload; fliplr(punload)])
+mean([pload; fliplr(punload)]);
+std([pload; fliplr(punload)]);
 
+% per animal
+mean([pload(1,:); fliplr(punload(1,:))])
+std([pload(1,:); fliplr(punload(1,:))])
+
+mean([pload(2,:); fliplr(punload(2,:))])
+std([pload(2,:); fliplr(punload(2,:))])
 
