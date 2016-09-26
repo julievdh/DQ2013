@@ -44,11 +44,11 @@ end
 xlabel('Reynolds Number, \it{Re}'); ylabel('Drag Coefficient, \it{C_d}')
 xlim([8E5 5E6]); ylim([3E-3 1E0])
 text(8.4E5,0.75,'A','FontSize',18,'FontWeight','bold')
-
-
+set(gca,'fontsize',14)
 
 %% plot panel B 
-subplot('position',[0.55 0.1 0.38 0.8]); hold on
+figure; hold on
+%subplot('position',[0.55 0.1 0.38 0.8]); hold on
 c = linspace(1,10,length(glide));
 for file = 1:45
     % velocity threshold? 
@@ -68,11 +68,11 @@ xlabel('Time-Varying Method'); ylabel('Velocity Fit Method');
 hcb = colorbar; title(hcb,'Glide Start Speed (m/s)')
 box on
 xlim([0 0.32]); ylim([0 0.32])
-text(0.01,0.3,'B','FontSize',18,'FontWeight','bold')
+% text(0.01,0.3,'B','FontSize',18,'FontWeight','bold')
 adjustfigurefont
 
 set(gcf,'paperpositionmode','auto')
-print('GlideMethodComparison','-dpng','-r300')
+print('GlideMethodComparison','-dsvg','-r300')
 
 %% least squares fit?
 for i = 1:45
@@ -98,7 +98,7 @@ Rsq3 = 1 - sum((CDAS - Cd_mn).^2)/sum((CDAS - mean(CDAS)).^2) % fit 1:1 line
 %% DATA FROM FISH (TEST)
 load('Data_Readmatv6')
 figure(3); clf
-set(gcf,'position',[1417 276 933 384])
+set(gcf,'position',[432   289   933   384])
 subplot('position',[0.1 0.1 0.38 0.8]);
 loglog(Fish(:,1),Fish(:,2),'.-','color',[214/255 2/255 101/255],'markersize',15); hold on
 loglog(Fish(:,3),Fish(:,4),'.-','color',[214/255 2/255 101/255],'markersize',15)
@@ -136,9 +136,12 @@ Re = 1E5:100:1E8;
 CdL = 1.33*Re.^(-0.5);
 CdT = 0.072*Re.^(-0.2);
 plot(Re,CdL,'k--',Re,CdT,'k')
+text(3.8E5,0.9,'A','FontSize',20,'FontWeight','Bold')
+
 ylim([1E-3 1.5])
 xlim([3E5 5E7])
 xlabel('Reynolds Number, Re'); ylabel('Drag Coefficient, C_d')
+set(gca,'fontsize',14)
 %% add our data
 % video only data
 subplot('position',[0.55 0.1 0.38 0.8])
@@ -185,11 +188,13 @@ CFD_Cd_tag4 = (2*sum(tag4'))./(rho*(A+0.066).*vel.^2);
 loglog(CFD_Re,CFD_Cd_notag,'color','k') % make these colours the same as the tag conditions
 loglog(CFD_Re,CFD_Cd_tag,'color',[55/255 126/255 184/255])
 loglog(CFD_Re,CFD_Cd_tag4,'color',[77/255 175/255 74/255])
-
+text(3.8E5,0.9,'B','FontSize',20,'FontWeight','Bold')
+set(gcf,'paperpositionmode','auto')
 xlim([3E5 5E7])
+set(gca,'fontsize',14)
 print('AllCdData','-dpng','-r300')
 
-% plot velocities and durations of glides
+%% plot velocities and durations of glides
 figure(4); clf; hold on
 for file = 1:45
     h1 = plot([0 glide(file).dur],[glide(file).sspeed glide(file).espeed],'o-');
@@ -420,9 +425,9 @@ text(0.1,0.35,'A','FontSize',18,'FontWeight','Bold'); box on
 % plot no tag, tag, tag+4
 hold on
 for i = 1:6
-plot([x(1)-0.25 x(2)+0.25],[CFD_Cd_notag(i) CFD_Cd_notag(i)],'--','color',[0.75 0.75 0.75])
-plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[0.75 0.75 0.75])
-plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[0.75 0.75 0.75])
+plot([x(1)-0.25 x(2)+0.25],[CFD_Cd_notag(i) CFD_Cd_notag(i)],'--','color',[253/255 174/255 97/255])
+plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[253/255 174/255 97/255])
+plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[253/255 174/255 97/255])
 end
 
 % add labels for Control/No Tag, Tag, Tag+4, Tag+8 condition
@@ -464,9 +469,9 @@ text(0.1,0.35,'B','FontSize',18,'FontWeight','Bold'); box on
 % plot no tag, tag, tag+4
 hold on
 for i = 1:6
-plot([x(1)-0.25 x(2)+0.25],[CFD_Cd_notag(i) CFD_Cd_notag(i)],'--','color',[0.75 0.75 0.75])
-plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[0.75 0.75 0.75])
-plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[0.75 0.75 0.75])
+plot([x(1)-0.25 x(2)+0.25],[CFD_Cd_notag(i) CFD_Cd_notag(i)],'--','color',[253/255 174/255 97/255])
+plot([x(3)-0.25 x(4)+0.25],[CFD_Cd_tag(i) CFD_Cd_tag(i)],'--','color',[253/255 174/255 97/255])
+plot([x(5)-0.25 x(6)+0.25],[CFD_Cd_tag4(i) CFD_Cd_tag4(i)],'--','color',[253/255 174/255 97/255])
 end
 
 %% do for Duration
@@ -492,16 +497,17 @@ set(l(3:4),'color',[55/255 126/255 184/255])
 set(l(5:6),'color',[77/255 175/255 74/255])
 set(l(8),'color',[228/255 26/255 28/255])
 
-xlim([0 4])
+xlim([0 4]); ylim([0.75 4.1])
 %xticklabel_rotate(x,90,{'63H4 C        ','01L5 C        ','63H4 T        ',...
 %    '01L5 T        ','63H4 T+4        ','01L5 T+4        ','63H4 T+8        ',...
 %    '01L5 T+8        '},'Fontsize',12)
 set(gca,'xticklabels',{'63H4','01L5','63H4','01L5','63H4','01L5','63H4','01L5',})
+set(gca,'ytick',1:4);
 xlabel('Condition');
 ylabel({'Glide Duration (sec)',''})
 adjustfigurefont
 set(gca,'position',[0.13 0.25 0.7750 0.2157])
-text(0.1,3.2,'C','FontSize',18,'FontWeight','Bold'); box on
+text(0.1,3.6,'C','FontSize',18,'FontWeight','Bold'); box on
 
 print('Glide_Boxplots','-dsvg','-r300')
 

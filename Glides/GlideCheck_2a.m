@@ -3,7 +3,7 @@ close all; clear all; clc
 % Import glide structure
 load('GlideStructure.mat')
 %%
-for file = 1:45
+for file = 43
     Cond = glide(file).condition;
     ZO1 = glide(file).ZO1;
     ZO2 = glide(file).ZO2;
@@ -27,15 +27,15 @@ for file = 1:45
     %%
     % plot velocity from different body points
     figure(1); clf;
-    set(gcf,'Position',[290 120 1000 520])
+    set(gcf,'Position',[290 120 650 520])
     subplot(311); hold on
     % plot velocity from tracker
     % plot(ZO1(:,1),ZO1(:,4),'o','color',[247/255 23/255 53/255]);
     % plot(ZO2(:,1),ZO2(:,4),'o','color',[194/255 9/255 90/255]);
     % plot velocity calculated
-    plot(ZO1(2:end,1),V1,'o','color',[0/255 31/255 84/255]);
-    plot(ZO2(2:end,1),V2,'o','color',[3/255 64/255 120/255]);
-    xlim([min(ZO1(:,1)),max(ZO2(:,1))])
+    plot(ZO1(2:end,1),V1,'ko','markerfacecolor','k');
+    plot(ZO2(2:end,1),V2,'ko','markerfacecolor','k');
+    xlim([min(ZO1(:,1)),max(ZO2(:,1))+0.02])
     
     ylabel('Velocity (m/s)'); box on
     
@@ -99,7 +99,7 @@ for file = 1:45
     V2_filt = filter(ones(1,windowSize)/windowSize,1,[ZO2(2:end,1) V2]);
     V1_filt(1:29,:) = NaN; V2_filt(1:29,:) = NaN;
     h1 = plot(V1_filt(:,1),V1_filt(:,2),V2_filt(:,1),V2_filt(:,2));
-    set(h1,'color',[0/255 31/255 84/255],'LineWidth',2);
+    set(h1,'color','k','LineWidth',2);
     
     subplot(312); hold on
     % compute acceleration from smoothed velocity
@@ -108,14 +108,15 @@ for file = 1:45
     A1_filt = diff(V1_filt(:,2))./diff(V1_filt(:,1)); % on calculated data
     A2_filt = diff(V2_filt(:,2))./diff(V2_filt(:,1));
     % plot mean A and tracker A and calculated A
-    plot([min(ZO1(:,1)),max(ZO2(:,1))],[nanmean([A1_filt; A2_filt]) nanmean([A1_filt; A2_filt])],'color',[0.75 0.75 0.75],'LineWidth',2)
+    plot([min(ZO1(:,1)),max(ZO2(:,1))+0.02],[nanmean([A1_filt; A2_filt]) nanmean([A1_filt; A2_filt])],'color',[0.75 0.75 0.75],'LineWidth',2)
     % plot(ZO1_filt(2:end,1),ZO1_filt_ax,'color',[247/255 23/255 53/255],'LineWidth',2);
     % plot(ZO2_filt(2:end,1),ZO2_filt_ax,'colorx',[194/255 9/255 90/255],'LineWidth',2)
-    plot(V1_filt(2:end,1),A1_filt,'color',[0/255 31/255 84/255],'LineWidth',2)
-    plot(V2_filt(2:end,1),A2_filt,'color',[3/255 64/255 120/255],'LineWidth',2)
+    plot(V1_filt(2:end,1),A1_filt,'color','k','LineWidth',2)
+    plot(V2_filt(2:end,1),A2_filt,'color','k','LineWidth',2)
     ylabel('Acceleration (m/s^2)');
     adjustfigurefont; box on
-    xlim([min(ZO1(:,1)),max(ZO2(:,1))])
+    xlim([min(ZO1(:,1)),max(ZO2(:,1))+0.02])
+    ylim([-0.5 0.1])
     
     subplot(313); hold on
     % Calculate Cd from drag (D = Mb*accel)
@@ -126,9 +127,9 @@ for file = 1:45
     Cd_ZO2_abar = (2*abs(Mb.*nanmean(A2_filt)))./(rho*SAw*V2_filt(2:end,2).^2);
     Cd_ZO2_mn = nanmean(Cd_ZO2);
     % plot mean Cd and calcualted Cd
-    h = plot([min(ZO1(:,1)),max(ZO2(:,1))],[mean([Cd_ZO1_mn,Cd_ZO2_mn]) mean([Cd_ZO1_mn,Cd_ZO2_mn])],'color',[0.75 0.75 0.75],'LineWidth',2);
-    plot(V1_filt(2:end,1),Cd_ZO1,'color',[0/255 31/255 84/255],'LineWidth',2)
-    plot(V2_filt(2:end,1),Cd_ZO2,'color',[3/255 64/255 120/255],'LineWidth',2)
+    h = plot([min(ZO1(:,1)),max(ZO2(:,1))+0.02],[mean([Cd_ZO1_mn,Cd_ZO2_mn]) mean([Cd_ZO1_mn,Cd_ZO2_mn])],'color',[0.75 0.75 0.75],'LineWidth',2);
+    plot(V1_filt(2:end,1),Cd_ZO1,'color','k','LineWidth',2)
+    plot(V2_filt(2:end,1),Cd_ZO2,'color','k','LineWidth',2)
     % plot(V1_filt(2:end,1),Cd_ZO1_abar,'k')
     % plot(V2_filt(2:end,1),Cd_ZO2_abar,'k')
     % plot(ZO1_filt(2:end,1),Cd_ZO1_old,'color',[247/255 23/255 53/255],'LineWidth',2)
@@ -136,7 +137,8 @@ for file = 1:45
     
     xlabel('Time (s)'); ylabel('Drag Coefficient, C_d');
     adjustfigurefont; box on
-    xlim([min(ZO1(:,1)),max(ZO2(:,1))])
+    xlim([min(ZO1(:,1)),max(ZO2(:,1))+0.02])
+    ylim([-0.01 0.07])
     
     % to export: CD from ZO1, from ZO2, duration of glide
     glide(file).Cd_mn = abs([Cd_ZO1_mn Cd_ZO2_mn]); % Cd estimate
@@ -155,3 +157,8 @@ end
 
 % save glide structure
 save('GlideStructure','glide')
+
+%% Figure for Methods
+
+set(gcf,'paperpositionmode','auto')
+print('GlideMethod1','-dsvg','-r300')

@@ -37,3 +37,5 @@ print('TagDragContrib','-dsvg','-r300')
 
 %% calculate increase in contribution
 contrib = data(2,:)./data(1,:);
+
+%% calculate tag+2 info

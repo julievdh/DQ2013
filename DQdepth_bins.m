@@ -41,9 +41,9 @@ end
 plot([0 675],[-2.01 -2.01],'color',[0.75 0.75 0.75])
 
 xlim([0 675]); ylim([-2.8 0]); box on
-xlabel('Time (Seconds)');
-text(10,-0.1,'B','FontSize',18,'FontWeight','bold')
-set(gca,'ytick',[-0.64 -0.21 0],'yticklabels',{'1.5xBD','0.5xBD','0'},'yaxislocation','right')
+xlabel('Time (Seconds)','FontSize',16);
+text(10,-0.1,'B','FontSize',20,'FontWeight','bold')
+set(gca,'ytick',[-0.64 -0.21 0],'yticklabels',{'1.5xBD','0.5xBD','0'},'yaxislocation','right','FontSize',14)
 
 
 
@@ -53,9 +53,9 @@ xlabel('Depth (m)'); xlim([0 2.8]); box on;
 ylabel('Normalized Frequency')
 set(gca,'ytick',0:0.2:1)
 set(gcf,'position',[384   241   675   384])
-text(0.1,0.015, 'A','FontSize',18,'FontWeight','bold')
-text(-0.07,0.2, 'Surface Drag Effect','FontSize',14)
-adjustfigurefont
+text(0.1,0.015, 'A','FontSize',20,'FontWeight','bold')
+text(-0.07,0.2, 'Surface Drag Effect','FontSize',16)
+set(gca,'fontsize',14)
 
 load('gamma')
 % add deeper depths to gamma
