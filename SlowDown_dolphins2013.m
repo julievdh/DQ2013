@@ -52,7 +52,7 @@ plot(velHD,c_tag6(1)*velHD.^c_tag6(2),':','color',[152/255 78/255 163/255],'line
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),':','color',[228/255 26/255 28/255],'linewidth',2)
 
 xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
-xlim([1 4])
+xlim([1 4.5])
 adjustfigurefont
 
 
@@ -95,3 +95,42 @@ plot(3,sum(tag(3,:)),'^','markeredgecolor',[55/255 126/255 184/255],'markersize'
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('CFDresults','-dsvg','-r300')
+
+%% for Introduction
+% figure(2); hold on
+% plot(velHD,c_notag(1)*velHD.^c_notag(2),'k','LineWidth',2)
+% plot(velHD,c_tag8(1)*velHD.^c_tag8(2),'color',[228/255 26/255 28/255],'linewidth',2)
+% 
+% plot(Ured_tag8,c_tag8(1)*Ured_tag8.^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+% plot(vel(3),notag(3),'ko','markerfacecolor','k','markersize',10)
+% plot(3,tag8(3),'s','markeredgecolor',[228/255 26/255 28/255],'markersize',10,'linewidth',2)
+% 
+% box on
+% 
+% xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
+% xlim([1 4])
+% adjustfigurefont
+% 
+% cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+% print('DragTradeoff','-dsvg','-r300')
+return 
+%% Plot actual dolphin speeds from Alex's Analysis
+load('all_vel_vec.mat')
+
+% plot on figure
+figure(1);
+plot(mean(Lono_C),c_notag(1)*mean(Lono_C).^c_notag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Lono_A),c_tag(1)*mean(Lono_A).^c_tag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Lono_A4),c_tag8(1)*mean(Lono_A4).^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+
+plot(mean(Kolohe_C),c_notag(1)*mean(Kolohe_C).^c_notag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Kolohe_A),c_tag(1)*mean(Kolohe_A).^c_tag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Kolohe_A4),c_tag8(1)*mean(Kolohe_A4).^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+
+plot(mean(Liko_C),c_notag(1)*mean(Liko_C).^c_notag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Liko_A),c_tag(1)*mean(Liko_A).^c_tag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Liko_A4),c_tag8(1)*mean(Liko_A4).^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+
+plot(mean(Nainoa_C),c_notag(1)*mean(Nainoa_C).^c_notag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Nainoa_A),c_tag(1)*mean(Nainoa_A).^c_tag(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
+plot(mean(Nainoa_A4),c_tag8(1)*mean(Nainoa_A4).^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
