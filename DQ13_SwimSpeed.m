@@ -111,22 +111,26 @@ plot(Nainoa_C,'color',[0 0 0 0.5],'LineWidth',2)
 xlabel('Time (?)'); ylabel('Speed (m/s)')
 
 % plot mean values
-% plot(zeros(1,length(C))-2.5,nanmean(97.34./AllTrials(:,C)),'ko','MarkerFaceColor','k','MarkerSize',8)
-% plot(zeros(1,length(A))-1.25,nanmean(97.34./AllTrials(:,A)),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
-% plot(zeros(1,length(A4)),nanmean(97.34./AllTrials(:,A4)),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
-% plot(zeros(1,length(C_BOAT))-3.75,nanmean(97.34./AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
-% plot(zeros(1,length(A_BOAT))-3.75,nanmean(97.34./AllTrials(:,A_BOAT)),'^','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
-% plot(zeros(1,length(A2_BOAT))-3.75,nanmean(97.34./AllTrials(:,A2_BOAT)),'d','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+plot(-1.5E4,nanmean(Kolohe_C),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(-1.5E4,nanmean(Liko_C),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(-1.5E4,nanmean(Lono_C),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(-1.5E4,nanmean(Nainoa_C),'ko','MarkerFaceColor','k','MarkerSize',8)
 
-xlim([-4.5 14E4])
-set(gca,'xtick',[-3.75 -2.5 -1.25 0 1 10 25],...
-    'xticklabel',{'','','','','1','10','25'},...
-    'position',[0.100 0.1500 0.85 0.80])
-text(-3.75,7.5,'Boat','rotation',90,'FontSize',14)
-text(-2.5,7.5,'Control','rotation',90,'FontSize',14)
-text(-1.25,7.5,'Tag','rotation',90,'FontSize',14)
-text(0,7.5,'Tag+8','rotation',90,'FontSize',14)
-xlabel('Lap Number'); ylabel('Speed (m/s)')
+plot(-1E4,nanmean(Kolohe_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(-1E4,nanmean(Liko_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(-1E4,nanmean(Lono_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(-1E4,nanmean(Nainoa_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+
+plot(-0.5E4,nanmean(Kolohe_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(-0.5E4,nanmean(Liko_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(-0.5E4,nanmean(Lono_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(-0.5E4,nanmean(Nainoa_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+
+xlim([-2E4 13E4])
+% text(-2.5,7.5,'Control','rotation',90,'FontSize',14)
+% text(-1.25,7.5,'Tag','rotation',90,'FontSize',14)
+% text(0,7.5,'Tag+8','rotation',90,'FontSize',14)
+
 adjustfigurefont
 
 
