@@ -86,23 +86,84 @@ adjustfigurefont
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('Lapspeed_wboat','-dpng','-r300')
 
+%% plot but divide distance by time
+% total distance between trainers in 1 lap = 97.34 from Alex Shorter ppt
+figure(9); clf; hold on
+plot(nanmean(97.34./AllTrials(:,A4)'),'color',[202/255 0 32/255],'LineWidth',2)
+plot(nanmean(97.34./AllTrials(:,A)'),'color',[5/255 113/255 222/255],'LineWidth',2)
+plot(nanmean(97.34./AllTrials(:,C)'),'k','LineWidth',2)
+%plot(nanmean(AllTrials(:,horzcat(A_BOAT,A2_BOAT,C_BOAT))'),'color',[255/255 127/255 0],'LineWidth',2)
+%legend('A+4','A','C')
+
+hA4Lines = plot(97.34./AllTrials(:,A4),'color',[244/255 165/255 130/255]);hold on
+hALines = plot(97.34./AllTrials(:,A),'color',[146/255 197/255 222/255]);
+hCLines = plot(97.34./AllTrials(:,C),'color',[0.75 0.75 0.75]);
+%hCBLines = plot(AllTrials(:,C_BOAT),'color',[252/255 191/255 48/255]);
+%hABLines = plot(AllTrials(:,A_BOAT),'color',[252/255 191/255 48/255]);
+%hA2BLines = plot(AllTrials(:,A2_BOAT),'color',[252/255 191/255 48/255]);
+
+hA4Group = hggroup; hAGroup = hggroup; hCGroup = hggroup;
+%hCBGroup = hggroup; hABGroup = hggroup; hA2BGroup = hggroup;
+set(hA4Lines,'Parent',hA4Group)
+set(hALines,'Parent',hAGroup)
+set(hCLines,'Parent',hCGroup)
+%set(hCBLines,'Parent',hCBGroup)
+%set(hABLines,'Parent',hABGroup)
+%set(hA2BLines,'Parent',hA2BGroup)
+set(get(get(hA4Group,'Annotation'),'LegendInformation'),...
+    'IconDisplayStyle','on'); 
+set(get(get(hAGroup,'Annotation'),'LegendInformation'),...
+    'IconDisplayStyle','on'); 
+set(get(get(hCGroup,'Annotation'),'LegendInformation'),...
+    'IconDisplayStyle','on'); 
+% set(get(get(hCBGroup,'Annotation'),'LegendInformation'),...
+%     'IconDisplayStyle','on');
+% set(get(get(hABGroup,'Annotation'),'LegendInformation'),...
+%     'IconDisplayStyle','on');
+% set(get(get(hA2BGroup,'Annotation'),'LegendInformation'),...
+%     'IconDisplayStyle','on');
+
+plot(nanmean(97.34./AllTrials(:,A4)'),'color',[202/255 0 32/255],'LineWidth',2)
+plot(nanmean(97.34./AllTrials(:,A)'),'color',[5/255 113/255 222/255],'LineWidth',2)
+plot(nanmean(97.34./AllTrials(:,C)'),'k','LineWidth',2)
+plot(nanmean(97.34./AllTrials(:,horzcat(A_BOAT,A2_BOAT,C_BOAT))'),'color',[255/255 127/255 0],'LineWidth',2)
+
+% plot mean values
+plot(zeros(1,length(C))-2.5,nanmean(97.34./AllTrials(:,C)),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(zeros(1,length(A))-1.25,nanmean(97.34./AllTrials(:,A)),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(A4)),nanmean(97.34./AllTrials(:,A4)),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(C_BOAT))-3.75,nanmean(97.34./AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(A_BOAT))-3.75,nanmean(97.34./AllTrials(:,A_BOAT)),'^','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(A2_BOAT))-3.75,nanmean(97.34./AllTrials(:,A2_BOAT)),'d','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+
+xlim([-4.5 30])
+set(gca,'xtick',[-3.75 -2.5 -1.25 0 1 10 25],...
+    'xticklabel',{'','','','','1','10','25'},...
+    'position',[0.100 0.1500 0.85 0.80])
+text(-3.75,7.5,'Boat','rotation',90,'FontSize',14)
+text(-2.5,7.5,'Control','rotation',90,'FontSize',14)
+text(-1.25,7.5,'Tag','rotation',90,'FontSize',14)
+text(0,7.5,'Tag+8','rotation',90,'FontSize',14)
+xlabel('Lap Number'); ylabel('Speed (m/s)')
+adjustfigurefont
+
 %% Second figure with no time series
 
 figure(3); clf; hold on
 % plot mean values
-plot(zeros(1,length(C)),nanmean(AllTrials(:,C)),'ko','MarkerFaceColor','k','MarkerSize',8)
-plot(zeros(1,length(A))+1,nanmean(AllTrials(:,A)),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
-plot(zeros(1,length(A4))+2,nanmean(AllTrials(:,A4)),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
-plot(zeros(1,length(C_BOAT))+3,nanmean(AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
-plot(zeros(1,length(A_BOAT))+3,nanmean(AllTrials(:,A_BOAT)),'^','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
-plot(zeros(1,length(A2_BOAT))+3,nanmean(AllTrials(:,A2_BOAT)),'d','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+plot(zeros(1,length(C)),nanmean(AllTrials(:,C)),'ko','MarkerFaceColor','k','MarkerSize',10)
+plot(zeros(1,length(A))+1,nanmean(AllTrials(:,A)),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',10)
+plot(zeros(1,length(A4))+2,nanmean(AllTrials(:,A4)),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',10)
+plot(zeros(1,length(C_BOAT))+3,nanmean(AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',10)
+plot(zeros(1,length(A_BOAT))+3,nanmean(AllTrials(:,A_BOAT)),'^','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',10)
+plot(zeros(1,length(A2_BOAT))+3,nanmean(AllTrials(:,A2_BOAT)),'d','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',10)
 
 xlim([-0.5 3.5])
 set(gca,'xtick',0:3,'xticklabel',{'C','T','T+8','All Boat'},'FontSize',18)
 xlabel('Condition'); ylabel('Lap Duration (sec)')
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print('Lapspeed_averages_withboat.eps','-depsc','-r300')
+print('Lapspeed_averages_withboat','-dpng','-r300')
 
 %% boxplot
 figure(4); clf
