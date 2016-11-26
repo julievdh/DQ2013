@@ -23,6 +23,7 @@ A_BOAT = find(A_BOAT == 1);
 A2_BOAT = strcmp('A2_BOAT',txt(2,:));
 A2_BOAT = find(A2_BOAT == 1);
 
+
 %% plot
 figure(2); clf; hold on
 plot(nanmean(AllTrials(:,A4)'),'color',[202/255 0 32/255],'LineWidth',2)
@@ -84,7 +85,52 @@ xlabel('Lap Number'); ylabel('Lap Duration (sec)')
 adjustfigurefont
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print('Lapspeed_wboat','-dpng','-r300')
+% print('Lapspeed_wboat','-dpng','-r300')
+
+
+%% load speed data from Alex 
+load('all_vel_vec.mat')
+
+figure(3); clf; hold on
+plot(Kolohe_A4,'color',[202/255 0 32/255 0.5],'LineWidth',2)
+plot(Kolohe_A,'color',[5/255 113/255 222/255 0.5],'LineWidth',2)
+plot(Kolohe_C,'color',[0 0 0 0.5],'LineWidth',2)
+
+plot(Lono_A4,'color',[202/255 0 32/255 0.5],'LineWidth',2)
+plot(Lono_A,'color',[5/255 113/255 222/255 0.5],'LineWidth',2)
+plot(Lono_C,'color',[0 0 0 0.5],'LineWidth',2)
+
+plot(Liko_A4,'color',[202/255 0 32/255 0.5],'LineWidth',2)
+plot(Liko_A,'color',[5/255 113/255 222/255 0.5],'LineWidth',2)
+plot(Liko_C,'color',[0 0 0 0.5],'LineWidth',2)
+
+plot(Nainoa_A4,'color',[202/255 0 32/255 0.5],'LineWidth',2)
+plot(Nainoa_A,'color',[5/255 113/255 222/255 0.5],'LineWidth',2)
+plot(Nainoa_C,'color',[0 0 0 0.5],'LineWidth',2)
+
+xlabel('Time (?)'); ylabel('Speed (m/s)')
+
+% plot mean values
+% plot(zeros(1,length(C))-2.5,nanmean(97.34./AllTrials(:,C)),'ko','MarkerFaceColor','k','MarkerSize',8)
+% plot(zeros(1,length(A))-1.25,nanmean(97.34./AllTrials(:,A)),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+% plot(zeros(1,length(A4)),nanmean(97.34./AllTrials(:,A4)),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+% plot(zeros(1,length(C_BOAT))-3.75,nanmean(97.34./AllTrials(:,C_BOAT)),'o','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+% plot(zeros(1,length(A_BOAT))-3.75,nanmean(97.34./AllTrials(:,A_BOAT)),'^','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+% plot(zeros(1,length(A2_BOAT))-3.75,nanmean(97.34./AllTrials(:,A2_BOAT)),'d','MarkerFaceColor',[255/255 127/255 0],'MarkerEdgeColor','k','MarkerSize',8)
+
+xlim([-4.5 14E4])
+set(gca,'xtick',[-3.75 -2.5 -1.25 0 1 10 25],...
+    'xticklabel',{'','','','','1','10','25'},...
+    'position',[0.100 0.1500 0.85 0.80])
+text(-3.75,7.5,'Boat','rotation',90,'FontSize',14)
+text(-2.5,7.5,'Control','rotation',90,'FontSize',14)
+text(-1.25,7.5,'Tag','rotation',90,'FontSize',14)
+text(0,7.5,'Tag+8','rotation',90,'FontSize',14)
+xlabel('Lap Number'); ylabel('Speed (m/s)')
+adjustfigurefont
+
+
+return
 
 %% plot but divide distance by time
 % total distance between trainers in 1 lap = 97.34 from Alex Shorter ppt
