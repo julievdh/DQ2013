@@ -34,21 +34,33 @@ plot(removeA3(:,2),removeA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
 plot(removeA4(:,2),removeA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
 adjustfigurefont
 
-% from Alex
+%% from Alex
 load 287_Kolohe_Loading
 laps = [1 74 137 185 247 303]';  
+% 1 = Control; 2 = Tag; 3 = Tag+2; 4 = Tag+4; 5 = Tag+6; 6 = Tag+8
 indx_lap_1 = idx_match_L1(1,1);
 
 figure(2); subplot('position',[0.55 0.1 0.4 0.4]); hold on;
-plot(surf_arr_L1(laps(1,1):laps(2,1),2),surf_arr_L1(laps(1,1):laps(2,1),3),'ok')
-plot(surf_arr_L1(laps(2,1):laps(3,1),2),surf_arr_L1(laps(2,1):laps(3,1),3),'ok')
-plot(surf_arr_L1(laps(3,1):laps(4,1),2),surf_arr_L1(laps(3,1):laps(4,1),3),'ok')
-plot(surf_arr_L1(laps(4,1):laps(5,1),2),surf_arr_L1(laps(4,1):laps(5,1),3),'ok')
-plot(surf_arr_L1(laps(5,1):laps(6,1),2),surf_arr_L1(laps(5,1):laps(6,1),3),'ok')
-plot(surf_arr_L2(:,2),surf_arr_L2(:,3),'ok')
+text(-19,32,'D','FontWeight','Bold','FontSize',18)
+plot(surf_arr_L1(laps(1,1):laps(2,1),2),surf_arr_L1(laps(1,1):laps(2,1),3),'ok') % control
+plot(surf_arr_L1(laps(2,1):laps(3,1),2),surf_arr_L1(laps(2,1):laps(3,1),3),'ok') % tag
+plot(surf_arr_L1(laps(3,1):laps(4,1),2),surf_arr_L1(laps(3,1):laps(4,1),3),'ok') % tag+2
+plot(surf_arr_L1(laps(4,1):laps(5,1),2),surf_arr_L1(laps(4,1):laps(5,1),3),'ok') % tag+4
+plot(surf_arr_L1(laps(5,1):laps(6,1),2),surf_arr_L1(laps(5,1):laps(6,1),3),'ok') % tag+6
+plot(surf_arr_L2(:,2),surf_arr_L2(:,3),'ok') % tag+8
 
 load KoloheUnloading_287
 laps = [1 120 240 332 432 522 593]';  
+
+subplot('position',[0.1 0.1 0.4 0.4]); hold on;
+text(-19,32,'C','FontWeight','Bold','FontSize',18)
+plot(surf_arr(laps(1,1):laps(2,1),2),surf_arr(laps(1,1):laps(2,1),3),'ok') % tag+8
+plot(surf_arr(laps(2,1):laps(3,1),2),surf_arr(laps(2,1):laps(3,1),3),'ok') % tag+6
+plot(surf_arr(laps(3,1):laps(4,1),2),surf_arr(laps(3,1):laps(4,1),3),'ok') % tag+4
+plot(surf_arr(laps(4,1):laps(5,1),2),surf_arr(laps(4,1):laps(5,1),3),'ok') % tag+2
+plot(surf_arr(laps(5,1):laps(6,1),2),surf_arr(laps(5,1):laps(6,1),3),'ok') % tag
+plot(surf_arr(laps(6,1):laps(7,1),2),surf_arr(laps(6,1):laps(7,1),3),'ok') %
+
 
 %% Lono
 clear all
