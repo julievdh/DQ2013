@@ -38,7 +38,8 @@ C.Utrack = U.track_itp(ii,:);
 C.Uspeed = U.speed(ii);
 
 % plot to check
-plot(T8.Utrack(:,1),T8.Uspeed); plot(C.Utrack(:,1),C.Uspeed); 
+plot(T8.Utrack(:,1),T8.Uspeed,'Color',[228/255 26/255 28/255])
+plot(C.Utrack(:,1),C.Uspeed,'k'); 
 
 %% load loading data
 L1 = load('tt13_287_L1_vel');
@@ -83,38 +84,47 @@ T8.Ltrack = L_track_itp(ii,:);
 T8.Lspeed = L_speed(ii);
 
 % plot
-plot(C.Ltrack(:,2),C.Ltrack(:,3)); plot(T.Ltrack(:,2),T.Ltrack(:,3)); 
-plot(T8.Ltrack(:,2),T8.Ltrack(:,3))
+plot(C.Ltrack(:,2),C.Ltrack(:,3),'k'); 
+plot(T.Ltrack(:,2),T.Ltrack(:,3),'Color',[55/255 126/255 184/255]); 
+plot(T8.Ltrack(:,2),T8.Ltrack(:,3),'Color',[228/255 26/255 28/255])
 
 figure(2); clf; hold on
 plot(L_track_itp(:,1),L_track_itp(:,2))
-plot(C.Ltrack(:,1),C.Ltrack(:,2))
-plot(T.Ltrack(:,1),T.Ltrack(:,2))
-plot(T2.Ltrack(:,1),T2.Ltrack(:,2))
-plot(T4.Ltrack(:,1),T4.Ltrack(:,2))
-plot(T6.Ltrack(:,1),T6.Ltrack(:,2))
-plot(T8.Ltrack(:,1),T8.Ltrack(:,2))
+plot(C.Ltrack(:,1),C.Ltrack(:,2),'k')
+plot(T.Ltrack(:,1),T.Ltrack(:,2),'Color',[55/255 126/255 184/255])
+plot(T2.Ltrack(:,1),T2.Ltrack(:,2),'Color',[255/255 127/255 0/255])
+plot(T4.Ltrack(:,1),T4.Ltrack(:,2),'Color',[77/255 175/255 74/255])
+plot(T6.Ltrack(:,1),T6.Ltrack(:,2),'Color',[152/255 78/255 163/255])
+plot(T8.Ltrack(:,1),T8.Ltrack(:,2),'Color',[228/255 26/255 28/255])
 
 figure(3); clf; hold on
 plot(L_track_itp(:,1),L_speed); 
-plot(C.Ltrack(:,1),C.Lspeed);
-plot(T.Ltrack(:,1),T.Lspeed);
-plot(T2.Ltrack(:,1),T2.Lspeed);
-plot(T4.Ltrack(:,1),T4.Lspeed);
-plot(T6.Ltrack(:,1),T6.Lspeed);
-plot(T8.Ltrack(:,1),T8.Lspeed);
+plot(C.Ltrack(:,1),C.Lspeed,'k');
+plot(T.Ltrack(:,1),T.Lspeed,'Color',[55/255 126/255 184/255]);
+plot(T2.Ltrack(:,1),T2.Lspeed,'Color',[255/255 127/255 0/255]);
+plot(T4.Ltrack(:,1),T4.Lspeed,'Color',[77/255 175/255 74/255]);
+plot(T6.Ltrack(:,1),T6.Lspeed,'Color',[152/255 78/255 163/255]);
+plot(T8.Ltrack(:,1),T8.Lspeed,'Color',[228/255 26/255 28/255]);
 
 
 
 %% plot speed 
 figure(4); clf; hold on
 
-errorbar(-8,mean(T8.Uspeed),std(T8.Uspeed),'o')
+errorbar(-8,mean(T8.Uspeed),std(T8.Uspeed),'o','Color',[228/255 26/255 28/255])
+errorbar(-6,mean(T6.Uspeed),std(T6.Uspeed),'o','Color',[152/255 78/255 163/255])
+errorbar(-4,mean(T4.Uspeed),std(T4.Uspeed),'o','Color',[77/255 175/255 74/255])
+errorbar(-2,mean(T2.Uspeed),std(T2.Uspeed),'o','Color',[255/255 127/255 0/255])
+errorbar(-1,mean(T.Uspeed),std(T.Uspeed),'o','Color',[55/255 126/255 184/255])
+errorbar(-0.25,mean(C.Uspeed),std(C.Uspeed),'o','color',[0 0 0])
 
+errorbar(0.25,mean(C.Lspeed),std(C.Lspeed),'o','color',[0 0 0])
+errorbar(1,mean(T.Lspeed),std(T.Lspeed),'o','Color',[55/255 126/255 184/255])
+errorbar(2,mean(T2.Lspeed),std(T2.Lspeed),'o','Color',[255/255 127/255 0/255])
+errorbar(4,mean(T4.Lspeed),std(T4.Lspeed),'o','Color',[77/255 175/255 74/255])
+errorbar(6,mean(T6.Lspeed),std(T6.Lspeed),'o','Color',[152/255 78/255 163/255])
+errorbar(8,mean(T8.Lspeed),std(T8.Lspeed),'o','Color',[228/255 26/255 28/255])
 
-errorbar(0,mean(C.Lspeed),std(C.Lspeed),'o')
-errorbar(1,mean(T.Lspeed),std(T.Lspeed),'o')
-errorbar(2,mean(T2.Lspeed),std(T2.Lspeed),'o')
-errorbar(4,mean(T4.Lspeed),std(T4.Lspeed),'o')
-errorbar(6,mean(T6.Lspeed),std(T6.Lspeed),'o')
-errorbar(8,mean(T8.Lspeed),std(T8.Lspeed),'o')
+set(gca,'xtick',[-8 -6 -4 -2 -1 0 1 2 4 6 8],'xticklabels',{'Tag+8','Tag+6'...
+    'Tag+4','Tag+2','Tag','Control','Tag','Tag+2','Tag+4','Tag+6','Tag+8'})
+ylabel('Speed (m/s)')
