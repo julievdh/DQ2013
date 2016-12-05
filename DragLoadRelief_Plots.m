@@ -38,28 +38,43 @@ adjustfigurefont
 load 287_Kolohe_Loading
 laps = [1 74 137 185 247 303]';  
 % 1 = Control; 2 = Tag; 3 = Tag+2; 4 = Tag+4; 5 = Tag+6; 6 = Tag+8
-indx_lap_1 = idx_match_L1(1,1);
+for i = 1:length(laps)
+lapind(i) = find(track_itp(:,1) == laps(i));
+end
 
-figure(2); subplot('position',[0.55 0.1 0.4 0.4]); hold on;
+%% 
+refvec1 = [surf_arr_L1(1,1):0.2:surf_arr_L1(end,1)]';
+datamat1 = surf_arr_L1;
+newmat1=nan(numel(refvec1),size(datamat1,2)); % create NaN matrix
+kx = nearest(refvec1,datamat1(:,1),NaN); % find nearest values for indices (gets around rounding errors)
+for i = 1:length(datamat1) % insert values into NaN matrix
+if ismember(i,kx)
+newmat1(kx(i),:) = datamat1(i,:); % SOMETHING WRONG IN HERE 
+end
+end
+
+%%
+figure(2); clf; 
+subplot('position',[0.55 0.1 0.4 0.4]); hold on;
 text(-19,32,'D','FontWeight','Bold','FontSize',18)
-plot(surf_arr_L1(laps(1,1):laps(2,1),2),surf_arr_L1(laps(1,1):laps(2,1),3),'ok') % control
-plot(surf_arr_L1(laps(2,1):laps(3,1),2),surf_arr_L1(laps(2,1):laps(3,1),3),'ok') % tag
-plot(surf_arr_L1(laps(3,1):laps(4,1),2),surf_arr_L1(laps(3,1):laps(4,1),3),'ok') % tag+2
-plot(surf_arr_L1(laps(4,1):laps(5,1),2),surf_arr_L1(laps(4,1):laps(5,1),3),'ok') % tag+4
-plot(surf_arr_L1(laps(5,1):laps(6,1),2),surf_arr_L1(laps(5,1):laps(6,1),3),'ok') % tag+6
-plot(surf_arr_L2(:,2),surf_arr_L2(:,3),'ok') % tag+8
+plot(surf_arr_L1(laps(1,1):laps(2,1),2),surf_arr_L1(laps(1,1):laps(2,1),3),'k') % control
+plot(surf_arr_L1(laps(2,1):laps(3,1),2),surf_arr_L1(laps(2,1):laps(3,1),3),'Color',[55/255 126/255 184/255]) % tag
+plot(surf_arr_L1(laps(3,1):laps(4,1),2),surf_arr_L1(laps(3,1):laps(4,1),3),'Color',[255/255 127/255 0/255]) % tag+2
+plot(surf_arr_L1(laps(4,1):laps(5,1),2),surf_arr_L1(laps(4,1):laps(5,1),3),'Color',[77/255 175/255 74/255]) % tag+4
+plot(surf_arr_L1(laps(5,1):laps(6,1),2),surf_arr_L1(laps(5,1):laps(6,1),3),'Color',[152/255 78/255 163/255]) % tag+6
+plot(surf_arr_L2(:,2),surf_arr_L2(:,3),'Color',[228/255 26/255 28/255]) % tag+8
 
 load KoloheUnloading_287
 laps = [1 120 240 332 432 522 593]';  
 
 subplot('position',[0.1 0.1 0.4 0.4]); hold on;
 text(-19,32,'C','FontWeight','Bold','FontSize',18)
-plot(surf_arr(laps(1,1):laps(2,1),2),surf_arr(laps(1,1):laps(2,1),3),'ok') % tag+8
-plot(surf_arr(laps(2,1):laps(3,1),2),surf_arr(laps(2,1):laps(3,1),3),'ok') % tag+6
-plot(surf_arr(laps(3,1):laps(4,1),2),surf_arr(laps(3,1):laps(4,1),3),'ok') % tag+4
-plot(surf_arr(laps(4,1):laps(5,1),2),surf_arr(laps(4,1):laps(5,1),3),'ok') % tag+2
-plot(surf_arr(laps(5,1):laps(6,1),2),surf_arr(laps(5,1):laps(6,1),3),'ok') % tag
-plot(surf_arr(laps(6,1):laps(7,1),2),surf_arr(laps(6,1):laps(7,1),3),'ok') % control
+plot(surf_arr(laps(1,1):laps(2,1),2),surf_arr(laps(1,1):laps(2,1),3),'Color',[228/255 26/255 28/255]) % tag+8
+plot(surf_arr(laps(2,1):laps(3,1),2),surf_arr(laps(2,1):laps(3,1),3),'Color',[152/255 78/255 163/255]) % tag+6
+plot(surf_arr(laps(3,1):laps(4,1),2),surf_arr(laps(3,1):laps(4,1),3),'Color',[77/255 175/255 74/255]) % tag+4
+plot(surf_arr(laps(4,1):laps(5,1),2),surf_arr(laps(4,1):laps(5,1),3),'Color',[255/255 127/255 0/255]) % tag+2
+plot(surf_arr(laps(5,1):laps(6,1),2),surf_arr(laps(5,1):laps(6,1),3),'Color',[55/255 126/255 184/255]) % tag
+plot(surf_arr(laps(6,1):laps(7,1),2),surf_arr(laps(6,1):laps(7,1),3),'k') % control
 
 
 %% Lono
