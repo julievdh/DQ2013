@@ -1,0 +1,114 @@
+% kolohe loading and unloading
+% load unloading data
+U = load('tt13_287_U_vel');
+
+% plot
+figure(10); clf; 
+subplot(121); hold on
+plot(U.track_itp(:,2),U.track_itp(:,3)); hold on
+title('Track'); xlabel('x (m)'); ylabel('y (m)')
+subplot(122); hold on
+plot(U.track_itp(:,1),U.speed)
+title('Speed'); xlabel('Time (sample)'); ylabel('Speed (m/s)')
+
+%% separate into conditions and laps
+% start and stop points of laps
+Ulaps = [0 63; 180 207; 308 329; 390 411; 513 534; 571 587];
+% 1 = Tag+8; 2 = Tag+6; 3 = Tag+4; 4 = Tag+2; 5 = Tag; 6 = Control;  
+
+ii = find(iswithin(U.track_itp(:,1),Ulaps(1,:)) == 1);
+T8.Utrack = U.track_itp(ii,:);
+T8.Uspeed = U.speed(ii);
+ii = find(iswithin(U.track_itp(:,1),Ulaps(2,:)) == 1);
+T6.Utrack = U.track_itp(ii,:);
+T6.Uspeed = U.speed(ii);
+ii = find(iswithin(U.track_itp(:,1),Ulaps(3,:)) == 1);
+T4.Utrack = U.track_itp(ii,:);
+T4.Uspeed = U.speed(ii);
+ii = find(iswithin(U.track_itp(:,1),Ulaps(4,:)) == 1);
+T2.Utrack = U.track_itp(ii,:);
+T2.Uspeed = U.speed(ii);
+ii = find(iswithin(U.track_itp(:,1),Ulaps(5,:)) == 1);
+T.Utrack = U.track_itp(ii,:);
+T.Uspeed = U.speed(ii);
+ii = find(iswithin(U.track_itp(:,1),Ulaps(6,:)) == 1);
+C.Utrack = U.track_itp(ii,:);
+C.Uspeed = U.speed(ii);
+
+% plot to check
+plot(T8.Utrack(:,1),T8.Uspeed); plot(C.Utrack(:,1),C.Uspeed); 
+
+%% load loading data
+L1 = load('tt13_287_L1_vel');
+L2 = load('tt13_287_L2_vel');
+
+% append L2 to L1
+L2.track_itp(:,1) = L2.track_itp(:,1)+L1.track_itp(end,1);
+
+% concatenate all:
+L_track_itp = vertcat(L1.track_itp,L2.track_itp);
+L_speed = vertcat(L1.speed,L2.speed);
+
+% plot as test
+figure(1); clf; 
+subplot(122); 
+plot(L_speed)
+title('Speed'); xlabel('Time (sample)'); ylabel('Speed (m/s)')
+subplot(121); hold on
+plot(L_track_itp(:,2),L_track_itp(:,3)); hold on
+title('Track'); xlabel('x (m)'); ylabel('y (m)')
+
+%% separate into conditions and laps
+% start and stop points of laps
+Llaps = [0 19.3; 58 80.6; 171.4 196; 401.4 425; 691.6 716.8; 727 753.2];
+ii = find(iswithin(L_track_itp(:,1),Llaps(1,:)) == 1);
+C.Ltrack = L_track_itp(ii,:);
+C.Lspeed = L_speed(ii);
+ii = find(iswithin(L_track_itp(:,1),Llaps(2,:)) == 1);
+T.Ltrack = L_track_itp(ii,:);
+T.Lspeed = L_speed(ii);
+ii = find(iswithin(L_track_itp(:,1),Llaps(3,:)) == 1);
+T2.Ltrack = L_track_itp(ii,:);
+T2.Lspeed = L_speed(ii);
+ii = find(iswithin(L_track_itp(:,1),Llaps(4,:)) == 1);
+T4.Ltrack = L_track_itp(ii,:);
+T4.Lspeed = L_speed(ii);
+ii = find(iswithin(L_track_itp(:,1),Llaps(5,:)) == 1);
+T6.Ltrack = L_track_itp(ii,:);
+T6.Lspeed = L_speed(ii);
+ii = find(iswithin(L_track_itp(:,1),Llaps(6,:)) == 1);
+T8.Ltrack = L_track_itp(ii,:);
+T8.Lspeed = L_speed(ii);
+
+% plot
+plot(C.track(:,2),C.track(:,3)); plot(T.track(:,2),T.track(:,3)); 
+plot(T8.track(:,2),T8.track(:,3))
+
+figure(2); clf; hold on
+plot(L_track_itp(:,1),L_track_itp(:,2))
+plot(C.track(:,1),C.track(:,2))
+plot(T.track(:,1),T.track(:,2))
+plot(T2.track(:,1),T2.track(:,2))
+plot(T4.track(:,1),T4.track(:,2))
+plot(T6.track(:,1),T6.track(:,2))
+plot(T8.track(:,1),T8.track(:,2))
+
+figure(3); clf; hold on
+plot(L_track_itp(:,1),L_speed); 
+plot(C.track(:,1),C.speed);
+plot(T.track(:,1),T.speed);
+plot(T2.track(:,1),T2.speed);
+plot(T4.track(:,1),T4.speed);
+plot(T6.track(:,1),T6.speed);
+plot(T8.track(:,1),T8.speed);
+
+
+
+%% plot speed 
+figure(4); clf; hold on
+errorbar(0,mean(C.speed),std(C.speed),'o')
+errorbar(1,mean(T.speed),std(T.speed),'o')
+errorbar(2,mean(T2.speed),std(T2.speed),'o')
+errorbar(4,mean(T4.speed),std(T4.speed),'o')
+errorbar(6,mean(T6.speed),std(T6.speed),'o')
+errorbar(8,mean(T8.speed),std(T8.speed),'o')
