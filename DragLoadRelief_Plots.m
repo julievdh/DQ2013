@@ -36,46 +36,86 @@ adjustfigurefont
 
 %% from Alex
 load 287_Kolohe_Loading
-laps = [1 74 137 185 247 303]';  
+laps = [0 19.5; 58 80.6; 171.4 196; 401.4 425; 691.6 716.8; 727 753.2];
 % 1 = Control; 2 = Tag; 3 = Tag+2; 4 = Tag+4; 5 = Tag+6; 6 = Tag+8
-for i = 1:length(laps)
-lapind(i) = find(track_itp(:,1) == laps(i));
-end
 
-%% 
-refvec1 = [surf_arr_L1(1,1):0.2:surf_arr_L1(end,1)]';
-datamat1 = surf_arr_L1;
-newmat1=nan(numel(refvec1),size(datamat1,2)); % create NaN matrix
-kx = nearest(refvec1,datamat1(:,1),NaN); % find nearest values for indices (gets around rounding errors)
-for i = 1:length(datamat1) % insert values into NaN matrix
-if ismember(i,kx)
-newmat1(kx(i),:) = datamat1(i,:); % SOMETHING WRONG IN HERE 
-end
-end
+% find range indices + pull entire range (not just == because will not == NaN pads)
+ii = find(surf_arr_pad >= laps(1,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(1,2)); nd = ii(end);
+C = surf_arr_pad(st:nd,:); 
 
-%%
-figure(2); clf; 
+ii = find(surf_arr_pad >= laps(2,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(2,2)); nd = ii(end);
+T = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(3,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(3,2)); nd = ii(end);
+T2 = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(4,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(4,2)); nd = ii(end);
+T4 = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(5,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(5,2)); nd = ii(end);
+T6 = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(6,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(6,2)); nd = ii(end);
+T8 = surf_arr_pad(st:nd,:); 
+
+figure(2); clf;
 subplot('position',[0.55 0.1 0.4 0.4]); hold on;
 text(-19,32,'D','FontWeight','Bold','FontSize',18)
-plot(surf_arr_L1(laps(1,1):laps(2,1),2),surf_arr_L1(laps(1,1):laps(2,1),3),'k') % control
-plot(surf_arr_L1(laps(2,1):laps(3,1),2),surf_arr_L1(laps(2,1):laps(3,1),3),'Color',[55/255 126/255 184/255]) % tag
-plot(surf_arr_L1(laps(3,1):laps(4,1),2),surf_arr_L1(laps(3,1):laps(4,1),3),'Color',[255/255 127/255 0/255]) % tag+2
-plot(surf_arr_L1(laps(4,1):laps(5,1),2),surf_arr_L1(laps(4,1):laps(5,1),3),'Color',[77/255 175/255 74/255]) % tag+4
-plot(surf_arr_L1(laps(5,1):laps(6,1),2),surf_arr_L1(laps(5,1):laps(6,1),3),'Color',[152/255 78/255 163/255]) % tag+6
-plot(surf_arr_L2(:,2),surf_arr_L2(:,3),'Color',[228/255 26/255 28/255]) % tag+8
 
+plot(C(:,2),C(:,3),'k','Linewidth',2)
+plot(T(:,2),T(:,3),'Color',[55/255 126/255 184/255],'Linewidth',2)
+plot(T2(:,2),T2(:,3),'Color',[255/255 127/255 0/255],'Linewidth',2)
+plot(T4(:,2),T4(:,3),'Color',[77/255 175/255 74/255],'Linewidth',2)
+plot(T6(:,2),T6(:,3),'Color',[152/255 78/255 163/255],'Linewidth',2)
+plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
+
+%%
 load KoloheUnloading_287
-laps = [1 120 240 332 432 522 593]';  
+% added NaNs to pad Alex's data
+% laps = [1 120 240 332 432 522 593]';
+laps = [0 63; 180 207; 308 329; 390 411; 513 534; 571 587];
+% 1 = Tag+8; 2 = Tag+6; 3 = Tag+4; 4 = Tag+2; 5 = Tag; 6 = Control;  
 
+% find range indices + pull entire range (not just == because will not == NaN pads)
+ii = find(surf_arr_pad >= laps(1,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(1,2)); nd = ii(end);
+T8 = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(2,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(2,2)); nd = ii(end);
+T6 = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(3,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(3,2)); nd = ii(end);
+T4 = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(4,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(4,2)); nd = ii(end);
+T2 = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(5,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(5,2)); nd = ii(end);
+T = surf_arr_pad(st:nd,:); 
+
+ii = find(surf_arr_pad >= laps(6,1)); st = ii(1);
+ii = find(surf_arr_pad(:,1) <= laps(6,2)); nd = ii(end);
+C = surf_arr_pad(st:nd,:); 
+
+% plot(surf_arr_pad(:,2),surf_arr_pad(:,3))
 subplot('position',[0.1 0.1 0.4 0.4]); hold on;
 text(-19,32,'C','FontWeight','Bold','FontSize',18)
-plot(surf_arr(laps(1,1):laps(2,1),2),surf_arr(laps(1,1):laps(2,1),3),'Color',[228/255 26/255 28/255]) % tag+8
-plot(surf_arr(laps(2,1):laps(3,1),2),surf_arr(laps(2,1):laps(3,1),3),'Color',[152/255 78/255 163/255]) % tag+6
-plot(surf_arr(laps(3,1):laps(4,1),2),surf_arr(laps(3,1):laps(4,1),3),'Color',[77/255 175/255 74/255]) % tag+4
-plot(surf_arr(laps(4,1):laps(5,1),2),surf_arr(laps(4,1):laps(5,1),3),'Color',[255/255 127/255 0/255]) % tag+2
-plot(surf_arr(laps(5,1):laps(6,1),2),surf_arr(laps(5,1):laps(6,1),3),'Color',[55/255 126/255 184/255]) % tag
-plot(surf_arr(laps(6,1):laps(7,1),2),surf_arr(laps(6,1):laps(7,1),3),'k') % control
-
+plot(C(:,2),C(:,3),'k','Linewidth',2)
+plot(T(:,2),T(:,3),'Color',[55/255 126/255 184/255],'Linewidth',2)
+plot(T2(:,2),T2(:,3),'Color',[255/255 127/255 0/255],'Linewidth',2)
+plot(T4(:,2),T4(:,3),'Color',[77/255 175/255 74/255],'Linewidth',2)
+plot(T6(:,2),T6(:,3),'Color',[152/255 78/255 163/255],'Linewidth',2)
+plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
 
 %% Lono
 clear all
@@ -117,6 +157,8 @@ set(h1,'position',[0.5 -0.02 0],'FontSize',16)
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print -dsvg LoadReliefLaps
 
+return 
+
 %% Duration of loading/unloading laps
 % calculate durations of loadings
 dur_load0 = load0(end,1)-load0(1,1);
@@ -139,15 +181,15 @@ figure(20); clf; hold on
 axesPosition = [110 40 200 200];  %# Axes position, in pixels
 set(gca,'Position',axesPosition);
 h1 = axes('Color','w','XColor','k','YColor','k',...
-          'YLim',[10 30],'Xlim',[-0.5 11.5],...
-          'XTick',0:11,'XTickLabel',{'T+8','T+6','T+4','T+2','T','C','C','T','T+2','T+4','T+6','T+8'},...
-          'NextPlot','add');
+    'YLim',[10 30],'Xlim',[-0.5 11.5],...
+    'XTick',0:11,'XTickLabel',{'T+8','T+6','T+4','T+2','T','C','C','T','T+2','T+4','T+6','T+8'},...
+    'NextPlot','add');
 % h2 = axes('Color','none','XColor','k','YColor','k',...
 %           'YLim',[0 1],'Xlim',[-0.5 11.5],...
 %           'Ytick',[0 .25 .5 1],...
 %           'Yticklabels',{'0','25','50','100'},...
 %           'Yaxislocation','right','NextPlot','add');
-% 
+%
 
 plot(h1,6,dur_load0,'ko','MarkerFaceColor','k','MarkerSize',10)
 plot(h1,7,dur_loadA,'ko','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
@@ -198,14 +240,14 @@ figure(3); clf; hold on
 axesPosition = [110 40 200 200];  %# Axes position, in pixels
 set(gca,'Position',axesPosition);
 h3 = axes('Color','w','XColor','k','YColor','k',...
-          'YLim',[10 50],'Xlim',[-0.5 5.5],...
-          'XTick',[],'XTickLabel',[],...
-          'NextPlot','add');
+    'YLim',[10 50],'Xlim',[-0.5 5.5],...
+    'XTick',[],'XTickLabel',[],...
+    'NextPlot','add');
 h4 = axes('Color','none','XColor','k','YColor','k',...
-          'YLim',[0 2],'Xlim',[-0.5 5.5],...
-          'Ytick',[0 .25 .5 1.25],...
-          'Yticklabels',{'0','25','50','125'},...
-          'Yaxislocation','right','NextPlot','add');
+    'YLim',[0 2],'Xlim',[-0.5 5.5],...
+    'Ytick',[0 .25 .5 1.25],...
+    'Yticklabels',{'0','25','50','125'},...
+    'Yaxislocation','right','NextPlot','add');
 
 plot(h3,0,dur_load0,'ko','MarkerFaceColor','k','MarkerSize',10)
 plot(h3,1,dur_loadA,'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
@@ -224,11 +266,11 @@ plot(h3,5,dur_removeA4,'s','MarkerEdgeColor',[228/255 26/255 28/255],'MarkerSize
 plot(h4,1:5,[p0A p0A1 p0A2 p0A3 p0A4],'k')
 plot(h4,5:-1:1,[pA40 pA30 pA20 pA10 pA0],'k')
 
-pload(1,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
+pload(1,:) = [p0A p0A1 p0A2 p0A3 p0A4];
 punload(1,:) = [pA40 pA30 pA20 pA10 pA0];
-return 
+return
 %% Kolohe
-keep h1 h2 h3 h4 p0t p0t2 p0t4 pload punload; 
+keep h1 h2 h3 h4 p0t p0t2 p0t4 pload punload;
 load('Kolohe_DradLoadRelief');
 
 % calculate durations of loadings
@@ -248,7 +290,7 @@ dur_removeA2 = removeA2(end,1)-removeA2(1,1);
 dur_removeA3 = removeA3(end,1)-removeA3(1,1);
 dur_removeA4 = removeA4(end,1)-removeA4(1,1);
 
-figure(20); 
+figure(20);
 plot(h1,6,dur_load0,'ko','MarkerFaceColor','k','MarkerSize',10)
 plot(h1,7,dur_loadA,'k^','MarkerFaceColor',[55/255 126/255 184/255],'MarkerSize',10)
 plot(h1,8,dur_loadA1,'ko','MarkerFaceColor',[255/255 127/255 0/255],'MarkerSize',10)
@@ -288,7 +330,7 @@ adjustfigurefont
 
 print -dpng LoadReliefSpeed_Pres
 
-pload(2,:) = [p0A p0A1 p0A2 p0A3 p0A4]; 
+pload(2,:) = [p0A p0A1 p0A2 p0A3 p0A4];
 punload(2,:) = [pA40 pA30 pA20 pA10 pA0];
 
 %% Figure 3
