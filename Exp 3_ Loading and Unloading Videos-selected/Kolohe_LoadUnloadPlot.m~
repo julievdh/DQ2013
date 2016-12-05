@@ -39,7 +39,6 @@ T6.track = L_track_itp(ii,:);
 T6.speed = L_speed(ii);
 ii = find(iswithin(L_track_itp(:,1),laps(6,:)) == 1);
 T8.track = L_track_itp(ii,:);
-T8.speed = L_speed(ii);
 
 % plot
 plot(C.track(:,2),C.track(:,3)); plot(T.track(:,2),T.track(:,3)); 
@@ -53,12 +52,3 @@ plot(T2.track(:,1),T2.track(:,2))
 plot(T4.track(:,1),T4.track(:,2))
 plot(T6.track(:,1),T6.track(:,2))
 plot(T8.track(:,1),T8.track(:,2))
-
-figure(3); clf; hold on
-plot(L_track_itp(:,1),L_speed); 
-plot(C.track(:,1),C.speed);
-plot(T.track(:,1),T.speed);
-plot(T2.track(:,1),T2.speed);
-plot(T4.track(:,1),T4.speed);
-plot(T6.track(:,1),T6.speed);
-plot(T8.track(:,1),T8.speed);
