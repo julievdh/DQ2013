@@ -1,5 +1,5 @@
 % kolohe loading and unloading
-clear all
+clear all; close all
 
 % load unloading data
 U = load('tt13_287_U_vel');
@@ -15,7 +15,7 @@ title('Speed'); xlabel('Time (sample)'); ylabel('Speed (m/s)')
 
 %% separate into conditions and laps
 % start and stop points of laps
-Ulaps = [0 63; 180 207; 308 329; 390 411; 513 534; 571 587];
+Ulaps = [35 63; 180 207; 308 329; 390 411; 513 534; 571 587];
 % 1 = Tag+8; 2 = Tag+6; 3 = Tag+4; 4 = Tag+2; 5 = Tag; 6 = Control;  
 
 ii = find(iswithin(U.track_itp(:,1),Ulaps(1,:)) == 1);
@@ -128,3 +128,19 @@ errorbar(8,mean(T8.Lspeed),std(T8.Lspeed),'o','Color',[228/255 26/255 28/255])
 set(gca,'xtick',[-8 -6 -4 -2 -1 0 1 2 4 6 8],'xticklabels',{'Tag+8','Tag+6'...
     'Tag+4','Tag+2','Tag','Control','Tag','Tag+2','Tag+4','Tag+6','Tag+8'})
 ylabel('Speed (m/s)')
+
+%% print speed by duration? 
+figure(5); hold on
+plot(C.Uspeed,'k')
+plot(C.Lspeed,'k')
+plot(T.Lspeed,'Color',[55/255 126/255 184/255]);
+plot(T.Uspeed,'Color',[55/255 126/255 184/255]);
+plot(T2.Lspeed,'Color',[255/255 127/255 0/255]);
+plot(T2.Uspeed,'Color',[255/255 127/255 0/255]);
+plot(T4.Lspeed,'Color',[77/255 175/255 74/255]);
+plot(T4.Uspeed,'Color',[77/255 175/255 74/255]);
+plot(T6.Lspeed,'Color',[152/255 78/255 163/255]);
+plot(T6.Uspeed,'Color',[152/255 78/255 163/255]);
+plot(T8.Lspeed,'Color',[228/255 26/255 28/255]);
+plot(T8.Uspeed,'Color',[228/255 26/255 28/255]);
+
