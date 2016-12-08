@@ -20,22 +20,22 @@ Ulaps = [35 63; 180 207; 308 329; 390 411; 513 534; 571 587];
 
 ii = find(iswithin(U.track_itp(:,1),Ulaps(1,:)) == 1);
 T8.Utrack = U.track_itp(ii,:);
-T8.Uspeed = U.speed(ii); T8.Uspeed(T8.Uspeed <= 0) = NaN;
+T8.Uspeed = U.speed(ii);
 ii = find(iswithin(U.track_itp(:,1),Ulaps(2,:)) == 1);
 T6.Utrack = U.track_itp(ii,:);
-T6.Uspeed = U.speed(ii); T6.Uspeed(T6.Uspeed <= 0) = NaN;
+T6.Uspeed = U.speed(ii);
 ii = find(iswithin(U.track_itp(:,1),Ulaps(3,:)) == 1);
 T4.Utrack = U.track_itp(ii,:);
-T4.Uspeed = U.speed(ii); T4.Uspeed(T4.Uspeed <= 0) = NaN;
+T4.Uspeed = U.speed(ii);
 ii = find(iswithin(U.track_itp(:,1),Ulaps(4,:)) == 1);
 T2.Utrack = U.track_itp(ii,:);
-T2.Uspeed = U.speed(ii); T2.Uspeed(T2.Uspeed <= 0) = NaN;
+T2.Uspeed = U.speed(ii);
 ii = find(iswithin(U.track_itp(:,1),Ulaps(5,:)) == 1);
 T.Utrack = U.track_itp(ii,:);
-T.Uspeed = U.speed(ii); T.Uspeed(T.Uspeed <= 0) = NaN;
+T.Uspeed = U.speed(ii);
 ii = find(iswithin(U.track_itp(:,1),Ulaps(6,:)) == 1);
 C.Utrack = U.track_itp(ii,:);
-C.Uspeed = U.speed(ii); C.Uspeed(C.Uspeed <= 0) = NaN;
+C.Uspeed = U.speed(ii);
 
 % plot to check
 plot(T8.Utrack(:,1),T8.Uspeed,'Color',[228/255 26/255 28/255])
@@ -66,22 +66,22 @@ title('Track'); xlabel('x (m)'); ylabel('y (m)')
 Llaps = [0 19.3; 58 80.6; 171.4 196; 401.4 425; 691.6 716.8; 727 753.2];
 ii = find(iswithin(L_track_itp(:,1),Llaps(1,:)) == 1);
 C.Ltrack = L_track_itp(ii,:);
-C.Lspeed = L_speed(ii); C.Lspeed(C.Lspeed <= 0) = NaN;
+C.Lspeed = L_speed(ii);
 ii = find(iswithin(L_track_itp(:,1),Llaps(2,:)) == 1);
 T.Ltrack = L_track_itp(ii,:);
-T.Lspeed = L_speed(ii);  T.Lspeed(T.Lspeed <= 0) = NaN;
+T.Lspeed = L_speed(ii);  T.Lspeed(T.Lspeed < 0) = NaN;
 ii = find(iswithin(L_track_itp(:,1),Llaps(3,:)) == 1);
 T2.Ltrack = L_track_itp(ii,:);
-T2.Lspeed = L_speed(ii); T2.Lspeed(T2.Lspeed <= 0) = NaN;
+T2.Lspeed = L_speed(ii); T2.Lspeed(T2.Lspeed < 0) = NaN;
 ii = find(iswithin(L_track_itp(:,1),Llaps(4,:)) == 1);
 T4.Ltrack = L_track_itp(ii,:);
-T4.Lspeed = L_speed(ii); T4.Lspeed(T4.Lspeed <= 0) = NaN;
+T4.Lspeed = L_speed(ii); T4.Lspeed(T2.Lspeed < 0) = NaN;
 ii = find(iswithin(L_track_itp(:,1),Llaps(5,:)) == 1);
 T6.Ltrack = L_track_itp(ii,:);
-T6.Lspeed = L_speed(ii); T6.Lspeed(T6.Lspeed <= 0) = NaN;
+T6.Lspeed = L_speed(ii);
 ii = find(iswithin(L_track_itp(:,1),Llaps(6,:)) == 1);
 T8.Ltrack = L_track_itp(ii,:);
-T8.Lspeed = L_speed(ii); T8.Lspeed(T8.Lspeed <= 0) = NaN;
+T8.Lspeed = L_speed(ii);
 
 % plot
 plot(C.Ltrack(:,2),C.Ltrack(:,3),'k'); 
