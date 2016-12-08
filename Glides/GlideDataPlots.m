@@ -392,7 +392,7 @@ end
 %% plot
 figure(6); clf;
 set(gcf,'position',[427 108 500 565],'paperpositionmode','auto')
-subplot('position',[0.13 0.75 0.7750 0.2157]); hold on
+subplot('position',[0.13 0.55 0.7750 0.4]); hold on
 x = [0.3 0.7 1.3 1.7 2.3 2.7 3.3 3.7]; % x axis locations for boxes
 h = notBoxPlot(avmav_mtrx,x);
 d = [h.data];
@@ -416,7 +416,7 @@ set(l(5:6),'color',[77/255 175/255 74/255])
 set(l(8),'color',[228/255 26/255 28/255])
 
 set(gca,'xtick',[])
-ylim([-0.02 0.06]); xlim([0 4])
+ylim([-0.01 0.06]); xlim([0 4])
 ylabel('Drag Coefficient, C_d')
 text(0.1,0.35,'A','FontSize',18,'FontWeight','Bold'); box on
 
@@ -430,11 +430,11 @@ for i = 1:6
 end
 
 % add labels for Control/No Tag, Tag, Tag+4, Tag+8 condition
-text(0.25,0.3,'Control','FontSize',14)
-text(0.26,0.25,'No Tag','FontSize',14)
-text(1.35,0.3,'Tag','FontSize',14)
-text(2.25,0.3,'Tag+4','FontSize',14)
-text(3.3,0.3,'Tag+8','FontSize',14)
+text(0.25,0.05,'Control','FontSize',14)
+text(0.26,0.045,'No Tag','FontSize',14)
+text(1.35,0.05,'Tag','FontSize',14)
+text(2.25,0.05,'Tag+4','FontSize',14)
+text(3.3,0.05,'Tag+8','FontSize',14)
 
 %% do for Duration
 subplot('position',[0.13 0.25 0.7750 0.2157])
