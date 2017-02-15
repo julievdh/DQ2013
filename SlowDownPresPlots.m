@@ -61,6 +61,14 @@ Upath(:,2) = [c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Uspe
     c_tag4(1)*nanmean(T4.Uspeed).^c_tag4(2), c_tag2(1)*nanmean(T2.Uspeed).^c_tag2(2), ...
     c_tag(1)*nanmean(T.Uspeed).^c_tag(2), c_notag(1)*mean(C.Uspeed).^c_notag(2)];
 plot(Upath(:,1),Upath(:,2),'k--')
+
+xlabel('Velocity (m/s)'); xlim([1 5.5])
+ylabel('Drag (N')
+adjustfigurefont('Helvetica',16)
+
+% save
+print -dpng LoadReliefK_DragCurve_unloadonly
+
 %% loading
 plot(mean(C.Lspeed),c_notag(1)*mean(C.Lspeed).^c_notag(2),'ko','markerfacecolor','k','markersize',10)
 plot(nanmean(T.Lspeed),c_tag(1)*nanmean(T.Lspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
@@ -77,10 +85,6 @@ Lpath(:,2) = [c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Lspe
     c_tag4(1)*nanmean(T4.Lspeed).^c_tag4(2), c_tag2(1)*nanmean(T2.Lspeed).^c_tag2(2), ...
     c_tag(1)*nanmean(T.Lspeed).^c_tag(2), c_notag(1)*mean(C.Lspeed).^c_notag(2)];
 plot(Lpath(:,1),Lpath(:,2),'k-')
-
-xlabel('Velocity (m/s)'); xlim([1 5.5])
-ylabel('Drag (N')
-adjustfigurefont('Helvetica',16)
 
 % save
 print -dpng LoadReliefK_DragCurve
