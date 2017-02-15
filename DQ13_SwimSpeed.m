@@ -1,3 +1,4 @@
+warning off
 close all; clear all; clc
 
 % load data
@@ -133,6 +134,36 @@ xlim([-100 650])
 
 adjustfigurefont
 
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('LapSpeed_PerspFilt','-dpng','-r300')
+
+%% do it without time series
+figure(5); clf; hold on
+set(gcf,'position',[427   250   346   380],'paperpositionmode','auto')
+
+ylabel('Speed (m/s)','Fontsize',18)
+
+% plot mean values
+plot(0,nanmean(Kolohe_C),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(0,nanmean(Liko_C),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(0,nanmean(Lono_C),'ko','MarkerFaceColor','k','MarkerSize',8)
+plot(0,nanmean(Nainoa_C),'ko','MarkerFaceColor','k','MarkerSize',8)
+
+plot(1,nanmean(Kolohe_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(1,nanmean(Liko_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(1,nanmean(Lono_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(1,nanmean(Nainoa_A),'^','MarkerFaceColor',[5/255 113/255 222/255],'MarkerEdgeColor','k','MarkerSize',8)
+
+plot(2,nanmean(Kolohe_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(2,nanmean(Liko_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(2,nanmean(Lono_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+plot(2,nanmean(Nainoa_A4),'s','MarkerFaceColor',[202/255 0 32/255],'MarkerEdgeColor','k','MarkerSize',8)
+
+xlim([-1 3]); ylim([2 4.5])
+set(gca,'xtick',0:2,'xticklabels',{'','',''},...
+    'ytick',2:0.5:4.5,'fontsize',16)
+
+print('LapSpeed_PerspFilt_Mean','-dpng','-r300')
 
 return
 
