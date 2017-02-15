@@ -53,7 +53,7 @@ plot(velHD,c_tag6(1)*velHD.^c_tag6(2),':','color',[152/255 78/255 163/255],'line
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),':','color',[228/255 26/255 28/255],'linewidth',2)
 
 xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
-xlim([1 4.5])
+xlim([1 5.5])
 adjustfigurefont
 
 
@@ -109,7 +109,7 @@ print('CFDresults','-dsvg','-r300')
 % box on
 % 
 % xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
-% xlim([1 4])
+% xlim([1 5.5])
 % adjustfigurefont
 % 
 % cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
@@ -127,7 +127,7 @@ plot(velHD,c_tag4(1)*velHD.^c_tag4(2),'color',[77/255 175/255 74/255],'linewidth
 plot(velHD,c_tag6(1)*velHD.^c_tag6(2),':','color',[152/255 78/255 163/255],'linewidth',2)
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),':','color',[228/255 26/255 28/255],'linewidth',2)
 
-xlabel('Velocity (m/s)'); xlim([1 4.5])
+xlabel('Velocity (m/s)'); xlim([1 5.5])
 adjustfigurefont
 
 plot(mean(Lono_C),c_notag(1)*mean(Lono_C).^c_notag(2),'ko','markerfacecolor','k','markersize',10)
@@ -146,4 +146,22 @@ plot(mean(Nainoa_C),c_notag(1)*mean(Nainoa_C).^c_notag(2),'ko','markerfacecolor'
 plot(mean(Nainoa_A),c_tag(1)*mean(Nainoa_A).^c_tag(2),'k^','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
 plot(mean(Nainoa_A4),c_tag8(1)*mean(Nainoa_A4).^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
 
+
 %% add velocities from loading/unloading trials
+
+load('KoloheLoadUnloadSpeed') 
+% unloading
+plot(mean(C.Uspeed),c_notag(1)*mean(C.Uspeed).^c_notag(2),'ko')
+plot(nanmean(T.Uspeed),c_tag(1)*nanmean(T.Uspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255])
+plot(nanmean(T2.Uspeed),c_tag2(1)*nanmean(T2.Uspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255])
+plot(nanmean(T4.Uspeed),c_tag4(1)*nanmean(T4.Uspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255])
+plot(nanmean(T6.Uspeed),c_tag6(1)*nanmean(T6.Uspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255])
+plot(nanmean(T8.Uspeed),c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255])
+
+% loading
+plot(mean(C.Lspeed),c_notag(1)*mean(C.Lspeed).^c_notag(2),'ko')
+plot(nanmean(T.Lspeed),c_tag(1)*nanmean(T.Lspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255])
+plot(nanmean(T2.Lspeed),c_tag2(1)*nanmean(T2.Lspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255])
+plot(nanmean(T4.Lspeed),c_tag4(1)*nanmean(T4.Lspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255])
+plot(nanmean(T6.Lspeed),c_tag6(1)*nanmean(T6.Lspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255])
+plot(nanmean(T8.Lspeed),c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255])
