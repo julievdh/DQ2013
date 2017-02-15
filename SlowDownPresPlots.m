@@ -9,7 +9,8 @@ plot(velHD,c_tag(1)*velHD.^c_tag(2),'color',[55/255 126/255 184/255],'linewidth'
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),'color',[228/255 26/255 28/255],'linewidth',2)
 
 xlabel('Velocity (m/s)'); xlim([1 5.5])
-ylabel('Drag (N')
+ylabel('Drag (N)')
+set(gca,'xtick',[1 2.5 4 5.5])
 adjustfigurefont('Helvetica',16)
 
 plot(mean(Lono_C),c_notag(1)*mean(Lono_C).^c_notag(2),'ko','markerfacecolor','k','markersize',10)
@@ -29,6 +30,7 @@ plot(mean(Nainoa_A),c_tag(1)*mean(Nainoa_A).^c_tag(2),'k^','markerfacecolor',[55
 plot(mean(Nainoa_A4),c_tag8(1)*mean(Nainoa_A4).^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
 
 % save
+box off
 print -dpng MetabolicSpeed_DragCurve
 
 %% add velocities from loading/unloading trials
@@ -42,8 +44,9 @@ plot(velHD,c_tag6(1)*velHD.^c_tag6(2),'color',[152/255 78/255 163/255],'linewidt
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),'color',[228/255 26/255 28/255],'linewidth',2)
 xlim([1 5.5])
 
-%% add patch in between
-patch([1 5.5 5.5 1 1],[0 0 800 800 0],'w','facealpha',0.75)
+%% add patch in between (and make it so patches don't go over ticks)
+patch([1.1 5.5 5.5 1.1 1.1],[10 10 800 800 10],'w','facealpha',0.75,'edgealpha',0)
+patch([1 1.1 1.1 1 1],[0 0 50 50 0],'w','facealpha',0.75,'edgealpha',0)
 
 %% load data
 load('KoloheLoadUnloadSpeed') 
@@ -63,10 +66,12 @@ Upath(:,2) = [c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Uspe
 plot(Upath(:,1),Upath(:,2),'k--')
 
 xlabel('Velocity (m/s)'); xlim([1 5.5])
-ylabel('Drag (N')
+ylabel('Drag (N)')
+set(gca,'xtick',[1 2.5 4 5.5])
 adjustfigurefont('Helvetica',16)
 
 % save
+box off
 print -dpng LoadReliefK_DragCurve_unloadonly
 
 %% loading
@@ -87,4 +92,5 @@ Lpath(:,2) = [c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Lspe
 plot(Lpath(:,1),Lpath(:,2),'k-')
 
 % save
+box off
 print -dpng LoadReliefK_DragCurve
