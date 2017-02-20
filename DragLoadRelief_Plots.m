@@ -3,36 +3,6 @@ warning off
 clear all
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013
-% Kolohe
-load('Kolohe_DradLoadRelief');
-
-% pad all with NaN for better plotting
-padAll
-
-figure(1); clf
-subplot('position',[0.55 0.1 0.4 0.4]); hold on;
-% title('Kolohe - Drag Loading')
-text(-18,13,'D','FontWeight','Bold','FontSize',18)
-plot(trainers(:,1),trainers(:,2),'k*','Markersize',8)
-plot(load0(:,2),load0(:,3),'k','LineWidth',2)
-plot(loadA(:,2),loadA(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
-plot(loadA1(:,2),loadA1(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
-plot(loadA2(:,2),loadA2(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
-plot(loadA3(:,2),loadA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
-plot(loadA4(:,2),loadA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
-adjustfigurefont
-
-subplot('position',[0.1 0.1 0.4 0.4]); hold on;
-% title('Kolohe - Drag Relief')
-text(-18,13,'C','FontWeight','Bold','FontSize',18)
-plot(trainers(:,1),trainers(:,2),'k*','Markersize',8)
-plot(remove0(:,2),remove0(:,3),'k','LineWidth',2)
-plot(removeA(:,2),removeA(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
-plot(removeA1(:,2),removeA1(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
-plot(removeA2(:,2),removeA2(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
-plot(removeA3(:,2),removeA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
-plot(removeA4(:,2),removeA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
-adjustfigurefont
 
 %% from Alex
 load 287_Kolohe_Loading
@@ -120,8 +90,14 @@ plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
 axis equal; ylim([0 35])
 %% Lono
 clear all
-load('Lono_DradLoadRelief');
-padAll
+load('LonoLoadUnloadSpeed');
+Ulaps = [53.5 82.4; 140 172; 286 316; 425 454; 544 566; 597 615];
+% 1 = Tag+8; 2 = Tag+6; 3 = Tag+4; 4 = Tag+2; 5 = Tag; 6 = Control;  
+
+ii = find(U.surf_arr_pad >= Ulaps(1,1)); st = ii(1);
+ii = find(U.surf_arr_pad(:,1) <= Ulaps(1,2)); nd = ii(end);
+C = U.surf_arr_pad(st:nd,:); 
+
 
 subplot('position',[0.55 0.58 0.4 0.4]); hold on;
 % title('Lono - Drag Loading')
