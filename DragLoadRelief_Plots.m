@@ -36,7 +36,7 @@ T8 = surf_arr_pad(st:nd,:);
 
 figure(2); clf;
 subplot('position',[0.55 0.1 0.4 0.4]); hold on;
-text(-19,32,'D','FontWeight','Bold','FontSize',18)
+text(-26,32,'D','FontWeight','Bold','FontSize',18)
 
 plot(C(:,2),C(:,3),'k','Linewidth',2)
 plot(T(:,2),T(:,3),'Color',[55/255 126/255 184/255],'Linewidth',2)
@@ -80,7 +80,7 @@ C = surf_arr_pad(st:nd,:);
 
 % plot(surf_arr_pad(:,2),surf_arr_pad(:,3))
 subplot('position',[0.1 0.1 0.4 0.4]); hold on;
-text(-19,32,'C','FontWeight','Bold','FontSize',18)
+text(-26,32,'C','FontWeight','Bold','FontSize',18)
 plot(C(:,2),C(:,3),'k','Linewidth',2)
 plot(T(:,2),T(:,3),'Color',[55/255 126/255 184/255],'Linewidth',2)
 plot(T2(:,2),T2(:,3),'Color',[255/255 127/255 0/255],'Linewidth',2)
@@ -103,7 +103,7 @@ Ulaps = [53.5 82.4; 140 172; 286 316; 425 454; 544 566; 597 615];
 
 subplot('position',[0.1 0.58 0.4 0.4]); hold on;
 % title('Lono - Drag Relief')
-text(-18,32,'A','FontWeight','Bold','FontSize',18)
+text(-26,32,'A','FontWeight','Bold','FontSize',18)
 plot(C.Utrack(:,2),C.Utrack(:,3),'k','LineWidth',2)
 plot(T.Utrack(:,2),T.Utrack(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
 plot(T2.Utrack(:,2),T2.Utrack(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
@@ -114,7 +114,7 @@ axis equal; ylim([0 35])
 
 subplot('position',[0.55 0.58 0.4 0.4]); hold on;
 % title('Lono - Drag Loading')
-text(-22,32,'B','FontWeight','Bold','FontSize',18)
+text(-26,32,'B','FontWeight','Bold','FontSize',18)
 plot(C.Ltrack(:,2),C.Ltrack(:,3),'k','LineWidth',2)
 plot(T.Ltrack(:,2),T.Ltrack(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
 plot(T2.Ltrack(:,2),T2.Ltrack(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
