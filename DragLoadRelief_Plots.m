@@ -89,41 +89,45 @@ plot(T6(:,2),T6(:,3),'Color',[152/255 78/255 163/255],'Linewidth',2)
 plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
 axis equal; ylim([0 35])
 %% Lono
+% Unloading
 clear all
 load('LonoLoadUnloadSpeed');
 Ulaps = [53.5 82.4; 140 172; 286 316; 425 454; 544 566; 597 615];
 % 1 = Tag+8; 2 = Tag+6; 3 = Tag+4; 4 = Tag+2; 5 = Tag; 6 = Control;  
 
-ii = find(U.surf_arr_pad >= Ulaps(1,1)); st = ii(1);
-ii = find(U.surf_arr_pad(:,1) <= Ulaps(1,2)); nd = ii(end);
-C = U.surf_arr_pad(st:nd,:); 
-
-
-subplot('position',[0.55 0.58 0.4 0.4]); hold on;
-% title('Lono - Drag Loading')
-text(-22,12,'B','FontWeight','Bold','FontSize',18)
-plot(trainers(:,1),trainers(:,2),'k*','Markersize',8)
-plot(load0(:,2),load0(:,3),'k','LineWidth',2)
-plot(loadA(:,2),loadA(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
-plot(loadA1(:,2),loadA1(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
-plot(loadA2(:,2),loadA2(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
-plot(loadA3(:,2),loadA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
-plot(loadA4(:,2),loadA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
-adjustfigurefont
-% legend('Trainers','0','A','A1','A2','A3','A4','location','NW')
-% legend('boxoff')
-
+% have to make something NaNs here?
+%U.surf_arr_pad = U.surf_arr;
+%ii = find(U.surf_arr_pad >= Ulaps(1,1)); st = ii(1);
+%ii = find(U.surf_arr_pad(:,1) <= Ulaps(1,2)); nd = ii(end);
+%C = U.surf_arr_pad(st:nd,:); 
 
 subplot('position',[0.1 0.58 0.4 0.4]); hold on;
 % title('Lono - Drag Relief')
-text(-18,12,'A','FontWeight','Bold','FontSize',18)
-plot(trainers(:,1),trainers(:,2),'k*','Markersize',8)
-plot(remove0(:,2),remove0(:,3),'k','LineWidth',2)
-plot(removeA(:,2),removeA(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
-plot(removeA1(:,2),removeA1(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
-plot(removeA2(:,2),removeA2(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
-plot(removeA3(:,2),removeA3(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
-plot(removeA4(:,2),removeA4(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
+text(-18,32,'A','FontWeight','Bold','FontSize',18)
+plot(C.Utrack(:,2),C.Utrack(:,3),'k','LineWidth',2)
+plot(T.Utrack(:,2),T.Utrack(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
+plot(T2.Utrack(:,2),T2.Utrack(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
+plot(T4.Utrack(:,2),T4.Utrack(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
+plot(T6.Utrack(:,2),T6.Utrack(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
+plot(T8.Utrack(:,2),T8.Utrack(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
+axis equal; ylim([0 35])
+
+subplot('position',[0.55 0.58 0.4 0.4]); hold on;
+% title('Lono - Drag Loading')
+text(-22,32,'B','FontWeight','Bold','FontSize',18)
+plot(C.Ltrack(:,2),C.Ltrack(:,3),'k','LineWidth',2)
+plot(T.Ltrack(:,2),T.Ltrack(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
+plot(T2.Ltrack(:,2),T2.Ltrack(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
+plot(T4.Ltrack(:,2),T4.Ltrack(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
+plot(T6.Ltrack(:,2),T6.Ltrack(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
+plot(T8.Ltrack(:,2),T8.Ltrack(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
+adjustfigurefont
+axis equal; ylim([0 35])
+
+% legend('boxoff')
+
+
+
 adjustfigurefont
 
 [ax1,h1]=suplabel('X video coordinate');
