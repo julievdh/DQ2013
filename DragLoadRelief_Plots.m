@@ -44,7 +44,7 @@ plot(T2(:,2),T2(:,3),'Color',[255/255 127/255 0/255],'Linewidth',2)
 plot(T4(:,2),T4(:,3),'Color',[77/255 175/255 74/255],'Linewidth',2)
 plot(T6(:,2),T6(:,3),'Color',[152/255 78/255 163/255],'Linewidth',2)
 plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
-axis equal; ylim([0 35])
+axis equal; ylim([0 35]); xlim([-30 20])
 
 %%
 load KoloheUnloading_287
@@ -87,7 +87,7 @@ plot(T2(:,2),T2(:,3),'Color',[255/255 127/255 0/255],'Linewidth',2)
 plot(T4(:,2),T4(:,3),'Color',[77/255 175/255 74/255],'Linewidth',2)
 plot(T6(:,2),T6(:,3),'Color',[152/255 78/255 163/255],'Linewidth',2)
 plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
-axis square; ylim([0 35])
+axis equal; ylim([0 35]); xlim([-30 20])
 %% Lono
 % Unloading
 clear all
@@ -104,26 +104,20 @@ plot(T2.Usurf_arr(:,2),T2.Usurf_arr(:,3),'Color',[255/255 127/255 0/255],'LineWi
 plot(T4.Usurf_arr(:,2),T4.Usurf_arr(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
 plot(T6.Usurf_arr(:,2),T6.Usurf_arr(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
 plot(T8.Usurf_arr(:,2),T8.Usurf_arr(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
-axis square; ylim([0 35])
+axis equal; ylim([0 35]); xlim([- 30 20])
 
-return
 %% Lono Loading
-
-
-% laps
-Llaps = [18.8; 110.1; 263.5; 23.3; 313.8; 595.5]; 
-% control, tag, tag+2
 subplot('position',[0.55 0.58 0.4 0.4]); hold on;
 % title('Lono - Drag Loading')
 text(-26,32,'B','FontWeight','Bold','FontSize',18)
-plot(C.Ltrack(:,2),C.Ltrack(:,3),'k','LineWidth',2)
-plot(T.Ltrack(:,2),T.Ltrack(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
-plot(T2.Ltrack(:,2),T2.Ltrack(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
-plot(T4.Ltrack(:,2),T4.Ltrack(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
-plot(T6.Ltrack(:,2),T6.Ltrack(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
-plot(T8.Ltrack(:,2),T8.Ltrack(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
+plot(C.Lsurf_arr(:,2),C.Lsurf_arr(:,3),'k','LineWidth',2)
+plot(T.Lsurf_arr(:,2),T.Lsurf_arr(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
+plot(T2.Lsurf_arr(:,2),T2.Lsurf_arr(:,3),'Color',[255/255 127/255 0/255],'LineWidth',2)
+plot(T4.Lsurf_arr(:,2),T4.Lsurf_arr(:,3),'Color',[77/255 175/255 74/255],'LineWidth',2)
+plot(T6.Lsurf_arr(:,2),T6.Lsurf_arr(:,3),'Color',[152/255 78/255 163/255],'LineWidth',2)
+plot(T8.Lsurf_arr(:,2),T8.Lsurf_arr(:,3),'Color',[228/255 26/255 28/255],'LineWidth',2)
 adjustfigurefont
-axis equal; ylim([0 35])
+axis equal; ylim([0 35]); xlim([-30 20])
 
 % legend('boxoff')
 
@@ -138,6 +132,7 @@ set(h1,'position',[0.5 -0.02 0],'FontSize',16)
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print -dsvg LoadReliefLaps
+print -dpng LoadReliefLaps
 
 return 
 
