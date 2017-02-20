@@ -21,21 +21,44 @@ Ulaps = [53.5 82.4; 140 172; 286 316; 425 454; 544 566; 597 615];
 ii = find(iswithin(U.track_itp(:,1),Ulaps(1,:)) == 1);
 T8.Utrack = U.track_itp(ii,:);
 T8.Uspeed = U.speed(ii); T8.Uspeed(T8.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(1,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T8.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(2,:)) == 1);
 T6.Utrack = U.track_itp(ii,:);
 T6.Uspeed = U.speed(ii); T6.Uspeed(T6.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(2,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T6.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(3,:)) == 1);
 T4.Utrack = U.track_itp(ii,:);
 T4.Uspeed = U.speed(ii); T4.Uspeed(T4.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(3,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T4.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(4,:)) == 1);
 T2.Utrack = U.track_itp(ii,:);
 T2.Uspeed = U.speed(ii); T2.Uspeed(T2.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(4,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T2.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(5,:)) == 1);
 T.Utrack = U.track_itp(ii,:);
 T.Uspeed = U.speed(ii); T.Uspeed(T.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(5,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(6,:)) == 1);
 C.Utrack = U.track_itp(ii,:);
 C.Uspeed = U.speed(ii); C.Uspeed(C.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(6,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+C.Usurf_arr = U.surf_arr(ii,:);
 
 % plot to check
 plot(T8.Utrack(:,1),T8.Uspeed,'Color',[228/255 26/255 28/255])
@@ -51,10 +74,12 @@ L2 = load('tt13_288_L2_vel');
 
 % append L2 to L1
 L2.track_itp(:,1) = L2.track_itp(:,1)+L1.track_itp(end,1);
+L2.surf_arr(:,1) = L2.surf_arr(:,1)+L1.surf_arr(end,1);
 
 % concatenate all:
 L_track_itp = vertcat(L1.track_itp,L2.track_itp);
 L_speed = vertcat(L1.speed,L2.speed);
+L_surf_arr = vertcat(L1.surf_arr,L2.surf_arr); 
 
 % plot as test
 figure(1); clf; 
@@ -71,21 +96,45 @@ Llaps = [3 22.5; 94 117; 248 267; 271 293; 561 585; 838 866];
 ii = find(iswithin(L_track_itp(:,1),Llaps(1,:)) == 1);
 C.Ltrack = L_track_itp(ii,:);
 C.Lspeed = L_speed(ii); C.Lspeed(C.Lspeed <= 0) = NaN;
+ii = find(iswithin(L_surf_arr(:,1),Llaps(1,:)) == 1); % get surfacing positions within that lap
+% plot(L_surf_arr(ii,2),L_surf_arr(ii,3)) 
+C.Lsurf_arr = L_surf_arr(ii,:);
+
+
 ii = find(iswithin(L_track_itp(:,1),Llaps(2,:)) == 1);
 T.Ltrack = L_track_itp(ii,:);
 T.Lspeed = L_speed(ii);  T.Lspeed(T.Lspeed <= 0) = NaN;
+ii = find(iswithin(L_surf_arr(:,1),Llaps(2,:)) == 1); % get surfacing positions within that lap
+% plot(L_surf_arr(ii,2),L_surf_arr(ii,3)) 
+T.Lsurf_arr = L_surf_arr(ii,:);
+
 ii = find(iswithin(L_track_itp(:,1),Llaps(3,:)) == 1);
 T2.Ltrack = L_track_itp(ii,:);
 T2.Lspeed = L_speed(ii); T2.Lspeed(T2.Lspeed <= 0) = NaN;
+ii = find(iswithin(L_surf_arr(:,1),Llaps(3,:)) == 1); % get surfacing positions within that lap
+% plot(L_surf_arr(ii,2),L_surf_arr(ii,3)) 
+T2.Lsurf_arr = L_surf_arr(ii,:);
+
 ii = find(iswithin(L_track_itp(:,1),Llaps(4,:)) == 1);
 T4.Ltrack = L_track_itp(ii,:);
 T4.Lspeed = L_speed(ii); T4.Lspeed(T4.Lspeed <= 0) = NaN;
+ii = find(iswithin(L_surf_arr(:,1),Llaps(4,:)) == 1); % get surfacing positions within that lap
+% plot(L_surf_arr(ii,2),L_surf_arr(ii,3)) 
+T4.Lsurf_arr = L_surf_arr(ii,:);
+
 ii = find(iswithin(L_track_itp(:,1),Llaps(5,:)) == 1);
 T6.Ltrack = L_track_itp(ii,:);
 T6.Lspeed = L_speed(ii); T6.Lspeed(T6.Lspeed <= 0) = NaN;
+ii = find(iswithin(L_surf_arr(:,1),Llaps(5,:)) == 1); % get surfacing positions within that lap
+% plot(L_surf_arr(ii,2),L_surf_arr(ii,3)) 
+T6.Lsurf_arr = L_surf_arr(ii,:);
+
 ii = find(iswithin(L_track_itp(:,1),Llaps(6,:)) == 1);
 T8.Ltrack = L_track_itp(ii,:);
 T8.Lspeed = L_speed(ii); T8.Lspeed(T8.Lspeed <= 0) = NaN;
+ii = find(iswithin(L_surf_arr(:,1),Llaps(6,:)) == 1); % get surfacing positions within that lap
+% plot(L_surf_arr(ii,2),L_surf_arr(ii,3)) 
+T8.Lsurf_arr = L_surf_arr(ii,:);
 
 % plot
 plot(C.Ltrack(:,2),C.Ltrack(:,3),'k'); 

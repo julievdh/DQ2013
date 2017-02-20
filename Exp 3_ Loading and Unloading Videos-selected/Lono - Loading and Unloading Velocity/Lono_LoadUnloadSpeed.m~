@@ -21,21 +21,44 @@ Ulaps = [53.5 82.4; 140 172; 286 316; 425 454; 544 566; 597 615];
 ii = find(iswithin(U.track_itp(:,1),Ulaps(1,:)) == 1);
 T8.Utrack = U.track_itp(ii,:);
 T8.Uspeed = U.speed(ii); T8.Uspeed(T8.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(1,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T8.Usurf_arr = U.surf_arr(ii);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(2,:)) == 1);
 T6.Utrack = U.track_itp(ii,:);
 T6.Uspeed = U.speed(ii); T6.Uspeed(T6.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(2,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T6.Usurf_arr = U.surf_arr(ii);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(3,:)) == 1);
 T4.Utrack = U.track_itp(ii,:);
 T4.Uspeed = U.speed(ii); T4.Uspeed(T4.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(3,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T4.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(4,:)) == 1);
 T2.Utrack = U.track_itp(ii,:);
 T2.Uspeed = U.speed(ii); T2.Uspeed(T2.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(4,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T2.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(5,:)) == 1);
 T.Utrack = U.track_itp(ii,:);
 T.Uspeed = U.speed(ii); T.Uspeed(T.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(5,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+T.Usurf_arr = U.surf_arr(ii,:);
+
 ii = find(iswithin(U.track_itp(:,1),Ulaps(6,:)) == 1);
 C.Utrack = U.track_itp(ii,:);
 C.Uspeed = U.speed(ii); C.Uspeed(C.Uspeed <= 0) = NaN;
+ii = find(iswithin(U.surf_arr(:,1),Ulaps(6,:)) == 1); % get surfacing positions within that lap
+% plot(U.surf_arr(ii,2),U.surf_arr(ii,3)) 
+C.Usurf_arr = U.surf_arr(ii,:);
 
 % plot to check
 plot(T8.Utrack(:,1),T8.Uspeed,'Color',[228/255 26/255 28/255])
@@ -59,7 +82,7 @@ L_speed = vertcat(L1.speed,L2.speed);
 % plot as test
 figure(1); clf; 
 subplot(122); 
-plot(L_speed)
+plot(L_track_itp(:,1),L_speed)
 title('Speed'); xlabel('Time (sample)'); ylabel('Speed (m/s)')
 subplot(121); hold on
 plot(L_track_itp(:,2),L_track_itp(:,3)); hold on
@@ -67,7 +90,7 @@ title('Track'); xlabel('x (m)'); ylabel('y (m)')
 
 %% separate into conditions and laps
 % start and stop points of laps
-Llaps = [0 19.3; 58 80.1; 171.4 194.87; 401.4 425; 691.6 11754; 16784 17485];
+Llaps = [3 22.5; 94 117; 248 267; 271 293; 561 585; 838 866];
 ii = find(iswithin(L_track_itp(:,1),Llaps(1,:)) == 1);
 C.Ltrack = L_track_itp(ii,:);
 C.Lspeed = L_speed(ii); C.Lspeed(C.Lspeed <= 0) = NaN;
@@ -110,8 +133,6 @@ plot(T4.Ltrack(:,1),T4.Lspeed,'Color',[77/255 175/255 74/255]);
 plot(T6.Ltrack(:,1),T6.Lspeed,'Color',[152/255 78/255 163/255]);
 plot(T8.Ltrack(:,1),T8.Lspeed,'Color',[228/255 26/255 28/255]);
 
-
-
 %% plot speed 
 figure(4); clf; hold on
 
@@ -152,4 +173,4 @@ plot(T8.Lspeed,'Color',[228/255 26/255 28/255]);
 plot(T8.Uspeed,'Color',[228/255 26/255 28/255]);
 
 % save these parameters
-save('KoloheLoadUnloadSpeed','C','T','T2','T4','T6','T8')
+save('LonoLoadUnloadSpeed','C','T','T2','T4','T6','T8')
