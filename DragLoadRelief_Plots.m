@@ -74,6 +74,7 @@ plot(T2(:,2),T2(:,3),'Color',[255/255 127/255 0/255],'Linewidth',2)
 plot(T4(:,2),T4(:,3),'Color',[77/255 175/255 74/255],'Linewidth',2)
 plot(T6(:,2),T6(:,3),'Color',[152/255 78/255 163/255],'Linewidth',2)
 plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
+axis equal; ylim([0 35])
 
 %%
 load KoloheUnloading_287
@@ -116,7 +117,7 @@ plot(T2(:,2),T2(:,3),'Color',[255/255 127/255 0/255],'Linewidth',2)
 plot(T4(:,2),T4(:,3),'Color',[77/255 175/255 74/255],'Linewidth',2)
 plot(T6(:,2),T6(:,3),'Color',[152/255 78/255 163/255],'Linewidth',2)
 plot(T8(:,2),T8(:,3),'Color',[228/255 26/255 28/255],'Linewidth',2)
-
+axis equal; ylim([0 35])
 %% Lono
 clear all
 load('Lono_DradLoadRelief');
@@ -124,7 +125,7 @@ padAll
 
 subplot('position',[0.55 0.58 0.4 0.4]); hold on;
 % title('Lono - Drag Loading')
-text(-18,12,'B','FontWeight','Bold','FontSize',18)
+text(-22,12,'B','FontWeight','Bold','FontSize',18)
 plot(trainers(:,1),trainers(:,2),'k*','Markersize',8)
 plot(load0(:,2),load0(:,3),'k','LineWidth',2)
 plot(loadA(:,2),loadA(:,3),'Color',[55/255 126/255 184/255],'LineWidth',2)
