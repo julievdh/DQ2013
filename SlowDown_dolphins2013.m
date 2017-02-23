@@ -53,7 +53,7 @@ velHD = 0:0.1:6;
 % plot(velHD,c_tag8(1)*velHD.^c_tag8(2),':','color',[228/255 26/255 28/255],'linewidth',2)
 
 xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
-xlim([1 5.5])
+xlim([1 6])
 adjustfigurefont
 
 
@@ -125,7 +125,7 @@ plot(velHD,c_notag(1)*velHD.^c_notag(2),'k','LineWidth',2); box on
 plot(velHD,c_tag(1)*velHD.^c_tag(2),'color',[55/255 126/255 184/255],'linewidth',2)
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),'color',[228/255 26/255 28/255],'linewidth',2)
 
-xlabel('Velocity (m/s)'); xlim([1 5.5])
+xlabel('Velocity (m/s)'); xlim([1 6])
 adjustfigurefont
 
 plot(mean(Lono_C),c_notag(1)*mean(Lono_C).^c_notag(2),'ko','markerfacecolor','k','markersize',10)
@@ -151,24 +151,24 @@ print -dsvg SpeedPerspFilt
 %% add velocities from loading/unloading trials
 % plot on figure
 figure(2); clf; set(gcf,'position',[23   290   850   380])
-subplot('position',[0.1 0.1 0.4 0.8]); hold on
+subplot('position',[0.58 0.1 0.4 0.8]); hold on 
 plot(velHD,c_notag(1)*velHD.^c_notag(2),'k','LineWidth',2); box on
 plot(velHD,c_tag(1)*velHD.^c_tag(2),'color',[55/255 126/255 184/255],'linewidth',2)
 plot(velHD,c_tag2(1)*velHD.^c_tag2(2),'color',[255/255 127/255 0/255],'linewidth',2)
 plot(velHD,c_tag4(1)*velHD.^c_tag4(2),'color',[77/255 175/255 74/255],'linewidth',2)
 plot(velHD,c_tag6(1)*velHD.^c_tag6(2),':','color',[152/255 78/255 163/255],'linewidth',2)
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),':','color',[228/255 26/255 28/255],'linewidth',2)
-xlim([1 5.5])
+xlim([1 6])
 
 
 load('KoloheLoadUnloadSpeed') 
 %% unloading
-plot(mean(C.Uspeed),c_notag(1)*mean(C.Uspeed).^c_notag(2),'ko')
-plot(nanmean(T.Uspeed),c_tag(1)*nanmean(T.Uspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255])
-plot(nanmean(T2.Uspeed),c_tag2(1)*nanmean(T2.Uspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255])
-plot(nanmean(T4.Uspeed),c_tag4(1)*nanmean(T4.Uspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255])
-plot(nanmean(T6.Uspeed),c_tag6(1)*nanmean(T6.Uspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255])
-plot(nanmean(T8.Uspeed),c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255])
+plot(mean(C.Uspeed),c_notag(1)*mean(C.Uspeed).^c_notag(2),'ko','markersize',10)
+plot(nanmean(T.Uspeed),c_tag(1)*nanmean(T.Uspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
+plot(nanmean(T2.Uspeed),c_tag2(1)*nanmean(T2.Uspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255],'markersize',10)
+plot(nanmean(T4.Uspeed),c_tag4(1)*nanmean(T4.Uspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255],'markersize',10)
+plot(nanmean(T6.Uspeed),c_tag6(1)*nanmean(T6.Uspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255],'markersize',10)
+plot(nanmean(T8.Uspeed),c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
 %% lines in between
 % t8 - t6 - t4 - t2 - t - c
 Upath(:,1) = [nanmean(T8.Uspeed) nanmean(T6.Uspeed) nanmean(T4.Uspeed) nanmean(T2.Uspeed) nanmean(T.Uspeed) mean(C.Uspeed)];
@@ -177,12 +177,12 @@ Upath(:,2) = [c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Uspe
     c_tag(1)*nanmean(T.Uspeed).^c_tag(2), c_notag(1)*mean(C.Uspeed).^c_notag(2)];
 plot(Upath(:,1),Upath(:,2),'k--')
 %% loading
-plot(mean(C.Lspeed),c_notag(1)*mean(C.Lspeed).^c_notag(2),'ko')
-plot(nanmean(T.Lspeed),c_tag(1)*nanmean(T.Lspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255])
-plot(nanmean(T2.Lspeed),c_tag2(1)*nanmean(T2.Lspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255])
-plot(nanmean(T4.Lspeed),c_tag4(1)*nanmean(T4.Lspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255])
-plot(nanmean(T6.Lspeed),c_tag6(1)*nanmean(T6.Lspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255])
-plot(nanmean(T8.Lspeed),c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255])
+plot(mean(C.Lspeed),c_notag(1)*mean(C.Lspeed).^c_notag(2),'ko','markersize',10)
+plot(nanmean(T.Lspeed),c_tag(1)*nanmean(T.Lspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
+plot(nanmean(T2.Lspeed),c_tag2(1)*nanmean(T2.Lspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255],'markersize',10)
+plot(nanmean(T4.Lspeed),c_tag4(1)*nanmean(T4.Lspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255],'markersize',10)
+plot(nanmean(T6.Lspeed),c_tag6(1)*nanmean(T6.Lspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255],'markersize',10)
+plot(nanmean(T8.Lspeed),c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
 
 %% lines in between
 % c - t - t2 - t4 - t6 - t8 % i guess the direction of plotting doesn't
@@ -193,28 +193,31 @@ Lpath(:,2) = [c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Lspe
     c_tag(1)*nanmean(T.Lspeed).^c_tag(2), c_notag(1)*mean(C.Lspeed).^c_notag(2)];
 plot(Lpath(:,1),Lpath(:,2),'k-')
 
+text(1.15,925,'B','fontsize',18,'fontweight','bold')
+xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
+
 %%
 %% add velocities from loading/unloading trials
-% plot on figure
-figure(2); subplot('position',[0.58 0.1 0.4 0.8]); hold on
+% plot on figure % Lono first, then Kolohe 
+figure(2); subplot('position',[0.1 0.1 0.4 0.8]); hold on
 plot(velHD,c_notag(1)*velHD.^c_notag(2),'k','LineWidth',2); box on
 plot(velHD,c_tag(1)*velHD.^c_tag(2),'color',[55/255 126/255 184/255],'linewidth',2)
 plot(velHD,c_tag2(1)*velHD.^c_tag2(2),'color',[255/255 127/255 0/255],'linewidth',2)
 plot(velHD,c_tag4(1)*velHD.^c_tag4(2),'color',[77/255 175/255 74/255],'linewidth',2)
 plot(velHD,c_tag6(1)*velHD.^c_tag6(2),':','color',[152/255 78/255 163/255],'linewidth',2)
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),':','color',[228/255 26/255 28/255],'linewidth',2)
-xlim([1 5.5])
+xlim([1 6])
 
 
 
 load('LonoLoadUnloadSpeed') 
 %% unloading
-plot(mean(C.Uspeed),c_notag(1)*mean(C.Uspeed).^c_notag(2),'ko')
-plot(nanmean(T.Uspeed),c_tag(1)*nanmean(T.Uspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255])
-plot(nanmean(T2.Uspeed),c_tag2(1)*nanmean(T2.Uspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255])
-plot(nanmean(T4.Uspeed),c_tag4(1)*nanmean(T4.Uspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255])
-plot(nanmean(T6.Uspeed),c_tag6(1)*nanmean(T6.Uspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255])
-plot(nanmean(T8.Uspeed),c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255])
+plot(mean(C.Uspeed),c_notag(1)*mean(C.Uspeed).^c_notag(2),'ko','markersize',10)
+plot(nanmean(T.Uspeed),c_tag(1)*nanmean(T.Uspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
+plot(nanmean(T2.Uspeed),c_tag2(1)*nanmean(T2.Uspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255],'markersize',10)
+plot(nanmean(T4.Uspeed),c_tag4(1)*nanmean(T4.Uspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255],'markersize',10)
+plot(nanmean(T6.Uspeed),c_tag6(1)*nanmean(T6.Uspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255],'markersize',10)
+plot(nanmean(T8.Uspeed),c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
 %% lines in between
 % t8 - t6 - t4 - t2 - t - c
 Upath(:,1) = [nanmean(T8.Uspeed) nanmean(T6.Uspeed) nanmean(T4.Uspeed) nanmean(T2.Uspeed) nanmean(T.Uspeed) mean(C.Uspeed)];
@@ -223,12 +226,12 @@ Upath(:,2) = [c_tag8(1)*nanmean(T8.Uspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Uspe
     c_tag(1)*nanmean(T.Uspeed).^c_tag(2), c_notag(1)*mean(C.Uspeed).^c_notag(2)];
 plot(Upath(:,1),Upath(:,2),'k--')
 %% loading
-plot(mean(C.Lspeed),c_notag(1)*mean(C.Lspeed).^c_notag(2),'ko')
-plot(nanmean(T.Lspeed),c_tag(1)*nanmean(T.Lspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255])
-plot(nanmean(T2.Lspeed),c_tag2(1)*nanmean(T2.Lspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255])
-plot(nanmean(T4.Lspeed),c_tag4(1)*nanmean(T4.Lspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255])
-plot(nanmean(T6.Lspeed),c_tag6(1)*nanmean(T6.Lspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255])
-plot(nanmean(T8.Lspeed),c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255])
+plot(mean(C.Lspeed),c_notag(1)*mean(C.Lspeed).^c_notag(2),'ko','markersize',10)
+plot(nanmean(T.Lspeed),c_tag(1)*nanmean(T.Lspeed).^c_tag(2),'ko','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
+plot(nanmean(T2.Lspeed),c_tag2(1)*nanmean(T2.Lspeed).^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255],'markersize',10)
+plot(nanmean(T4.Lspeed),c_tag4(1)*nanmean(T4.Lspeed).^c_tag4(2),'ko','markerfacecolor',[77/255 175/255 74/255],'markersize',10)
+plot(nanmean(T6.Lspeed),c_tag6(1)*nanmean(T6.Lspeed).^c_tag6(2),'ko','markerfacecolor',[152/255 78/255 163/255],'markersize',10)
+plot(nanmean(T8.Lspeed),c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2),'ko','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
 
 %% lines in between
 % c - t - t2 - t4 - t6 - t8 % i guess the direction of plotting doesn't
@@ -239,4 +242,11 @@ Lpath(:,2) = [c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Lspe
     c_tag(1)*nanmean(T.Lspeed).^c_tag(2), c_notag(1)*mean(C.Lspeed).^c_notag(2)];
 plot(Lpath(:,1),Lpath(:,2),'k-')
 
+text(1.15,925,'A','fontsize',18,'fontweight','bold')
+xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
+adjustfigurefont
+
+
 print -dpng SpeedPersp_UnloadLoadBoth
+
+
