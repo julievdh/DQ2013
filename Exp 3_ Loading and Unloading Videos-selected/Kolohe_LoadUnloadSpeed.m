@@ -39,6 +39,10 @@ C.Uspeed = U.speed(ii); C.Uspeed(C.Uspeed <= 0) = NaN;
 
 % plot to check
 plot(T8.Utrack(:,1),T8.Uspeed,'Color',[228/255 26/255 28/255])
+plot(T6.Utrack(:,1),T6.Uspeed,'Color',[152/255 78/255 163/255])
+plot(T4.Utrack(:,1),T4.Uspeed,'Color',[77/255 175/255 74/255])
+plot(T2.Utrack(:,1),T2.Uspeed,'Color',[255/255 127/255 0/255])
+plot(T.Utrack(:,1),T.Uspeed,'Color',[55/255 126/255 184/255])
 plot(C.Utrack(:,1),C.Uspeed,'k'); 
 
 %% load loading data
@@ -63,7 +67,7 @@ title('Track'); xlabel('x (m)'); ylabel('y (m)')
 
 %% separate into conditions and laps
 % start and stop points of laps
-Llaps = [0 19.3; 58 80.1; 171.4 194.87; 401.4 425; 691.6 716.8; 727 753.2];
+Llaps = [0 19; 58 80; 171 194.8; 401.2 425; 691.3 717; 726.6 753.2];
 ii = find(iswithin(L_track_itp(:,1),Llaps(1,:)) == 1);
 C.Ltrack = L_track_itp(ii,:);
 C.Lspeed = L_speed(ii); C.Lspeed(C.Lspeed <= 0) = NaN;

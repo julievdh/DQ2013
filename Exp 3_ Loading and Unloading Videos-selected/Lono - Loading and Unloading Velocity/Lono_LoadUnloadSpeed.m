@@ -1,5 +1,5 @@
 % kolohe loading and unloading
-clear all; close all
+clear all; close all; warning off
 
 % load unloading data
 U = load('tt13_288_U_vel');
@@ -15,7 +15,7 @@ title('Speed'); xlabel('Time (sample)'); ylabel('Speed (m/s)')
 
 %% separate into conditions and laps
 % start and stop points of laps
-Ulaps = [53.5 82.4; 140 172; 286 316; 425 454; 544 566; 597 615];
+Ulaps = [52 78; 142 170; 290 313; 428 450; 545 564; 599 615];
 % 1 = Tag+8; 2 = Tag+6; 3 = Tag+4; 4 = Tag+2; 5 = Tag; 6 = Control;  
 
 ii = find(iswithin(U.track_itp(:,1),Ulaps(1,:)) == 1);
@@ -92,7 +92,7 @@ title('Track'); xlabel('x (m)'); ylabel('y (m)')
 
 %% separate into conditions and laps
 % start and stop points of laps
-Llaps = [3 22.5; 94 117; 248 267; 271 293; 561 585; 838 866];
+Llaps = [3 23; 94 117; 246 269; 269.5 294; 559 584; 835 866];
 ii = find(iswithin(L_track_itp(:,1),Llaps(1,:)) == 1);
 C.Ltrack = L_track_itp(ii,:);
 C.Lspeed = L_speed(ii); C.Lspeed(C.Lspeed <= 0) = NaN;
