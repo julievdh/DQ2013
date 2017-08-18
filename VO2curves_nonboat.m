@@ -262,7 +262,7 @@ half = find(fitted < max(ydata)/2,1); % find first below half of max recovery VO
 if isempty(half) == 1
     thalf(i) = NaN;
 else
-thalf(i) = times(half) - 15;
+thalf(i) = times(half);
 end
 end
 
@@ -286,6 +286,7 @@ print -dpng InstVO2_nonboat -r300
 
 %% assess halftimes for condition and individual with ANOVA
 % [p,t,stats] = anovan(thalf,{Ind,Cond},'varnames',{'Individual','Condition'});
+% [nanmean(thalf) nanstd(thalf)]
 
 % plot just one trial
 figure(3), clf, hold on
