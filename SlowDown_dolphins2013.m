@@ -4,6 +4,9 @@
 % dolphin (first column) and tag (second column) for tag, tag+2, tag+4
 % conditions
 load('DolphinTagSims_24Feb16')
+% Not using tag+8 from Victor (July 19) because only tag+8 and tag+8 and
+% would need to interpolate tag+6 anyway. Let's keep CFD in the other
+% paper. 
 
 %% calculate what tag+6 and tag+8 would be
 % figure(3); hold on
@@ -13,21 +16,21 @@ load('DolphinTagSims_24Feb16')
 % plot(sum(tag4')'-notag,'color',[77/255 175/255 74/255])
 % xlabel('Speed'); ylabel('Difference in Drag')
 
-% calculate difference between tag4 and tag2, tag2 and tag to determine
+% calculate difference between tag2 and tag to determine
 % amount of drag from elements only
-diff42 = sum(tag4')'-sum(tag2')';
 diff20 = sum(tag2')'-sum(tag')';
-mndiff = mean([diff42,diff20]'); 
 
 % plot(diff42,'k:','linewidth',2) % AMOUNT OF DRAG ADDED BY TWO ELEMENTS
 % plot(diff20,'k:','linewidth',2) % 
 
 % adjustfigurefont
 
+% tag+4
+tag4 = sum(tag')+2*diff20';
 % tag+6
-tag6 = sum(tag4')+mndiff;
+tag6 = sum(tag')+(3*diff20');
 % tag+8 
-tag8 = sum(tag4')+(2*mndiff);
+tag8 = sum(tag')+(4*diff20');
 
 %% calculate new speed to maintain drag force at 3 m/s: 
 % assume that control lap speed = 3 m/s based on boat trial lap time
@@ -37,7 +40,7 @@ tag8 = sum(tag4')+(2*mndiff);
 [c_notag(1), c_notag(2)] = curve_fit(vel',notag);
 [c_tag(1), c_tag(2)] = curve_fit(vel',tag(:,1)+tag(:,2));
 [c_tag2(1), c_tag2(2)] = curve_fit(vel',tag2(:,1)+tag2(:,2));
-[c_tag4(1), c_tag4(2)] = curve_fit(vel',tag4(:,1)+tag4(:,2));
+[c_tag4(1), c_tag4(2)] = curve_fit(vel,tag4);
 [c_tag6(1), c_tag6(2)] = curve_fit(vel,tag6);
 [c_tag8(1), c_tag8(2)] = curve_fit(vel,tag8);
 % plot to the actual curves instead of the interpolated
@@ -85,14 +88,14 @@ p0t8 = (abs(Ured_tag8-4)/4);
 % calculate percent increase if maintain speed
 p0t8_U4 = (tag8(4)-notag(4))/notag(4);
 p0t6_U4 = (tag6(4)-notag(4))/notag(4);
-p0t4_U4 = (sum(tag4(4,:))-notag(4))/notag(4);
+p0t4_U4 = (tag4(4)-notag(4))/notag(4);
 p0t2_U4 = (sum(tag2(4,:))-notag(4))/notag(4);
 p0t_U4 = (sum(tag(4,:))-notag(4))/notag(4);
 
 %% plot alternative - that they can maintain speed but increase drag
 plot(4,tag8(4),'s','markeredgecolor',[228/255 26/255 28/255],'markersize',10,'linewidth',2)
 plot(4,tag6(4),'o','markeredgecolor',[152/255 78/255 163/255],'markersize',10,'linewidth',2)
-plot(4,sum(tag4(4,:)),'d','markeredgecolor',[77/255 175/255 74/255],'markersize',10,'linewidth',2)
+plot(4,tag4(4),'d','markeredgecolor',[77/255 175/255 74/255],'markersize',10,'linewidth',2)
 plot(4,sum(tag2(4,:)),'o','markeredgecolor',[255/255 127/255 0/255],'markersize',10,'linewidth',2)
 plot(4,sum(tag(4,:)),'^','markeredgecolor',[55/255 126/255 184/255],'markersize',10,'linewidth',2)
 % 
