@@ -13,43 +13,44 @@ headers = {'Filename';'Condition';'Rest all';'Rest last 2 min';...
     'Recov 5 min';'Recov 3-5 min'};
 
 % resting VO2 last two minute
-figure(1); clf
-subplot(211); hold on
-for i = 1:length(VO2_table)
-    if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
-    else if strfind(VO2_table{i,2},'A4')
-            h = errorbar(2,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
-        else
-            h =errorbar(1,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
-        end
-    end
-    if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
-    else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','auto')
-        else if strfind(VO2_table{i,1},'Kolohe')
-                set(h,'color','b','MarkerFaceColor','auto')
-            else
-                set(h,'color','r','MarkerFaceColor','auto')
-            end
-        end
-    end
-end
-set(gca,'xtick',[0 1 2]); xlim([-1 3])
-xlabel('Condition'); ylabel('VO_2 L/min')
-title(headers{4})
+figure(1); clf, hold on
+% subplot(211); hold on
+% for i = 1:length(VO2_table)
+%     if strfind(VO2_table{i,2},'C')
+%         h = errorbar(0,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
+%     else if strfind(VO2_table{i,2},'A4')
+%             h = errorbar(2,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
+%         else
+%             h =errorbar(1,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o-');
+%         end
+%     end
+%     if strfind(VO2_table{i,1},'Nainoa')
+%         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+%     else if strfind(VO2_table{i,1},'Lono')
+%             set(h,'color','k','MarkerFaceColor','auto')
+%         else if strfind(VO2_table{i,1},'Kolohe')
+%                 set(h,'color','b','MarkerFaceColor','auto')
+%             else
+%                 set(h,'color','r','MarkerFaceColor','auto')
+%             end
+%         end
+%     end
+% end
+% set(gca,'xtick',[0 1 2]); xlim([-1 3])
+% xlabel('Condition'); ylabel('VO_2 L/min')
+% title(headers{4})
 
 
-%% plot recovery first minute
-subplot(212); hold on
+% plot recovery first minute
+
 for i = 1:length(VO2_table)
+    jit = -.2 + (.2--.2).*rand;
     if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
+        h = errorbar(0+jit,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
     else if strfind(VO2_table{i,2},'A4')
-            h = errorbar(2,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'s');
+            h = errorbar(2+jit,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'s');
         else
-            h = errorbar(1,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'^');
+            h = errorbar(1+jit,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'^');
         end
     end
     if strfind(VO2_table{i,1},'Nainoa')
@@ -67,49 +68,56 @@ end
 set(gca,'xtick',[0 1 2]); xlim([-1 3])
 title(headers{6}); ylabel('VO_2 L/min')
 
+set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
+
+adjustfigurefont
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('SelfSelect_AllRecov','-dpng','-r300')
+
+
 %%
 % plot all animals VO2 rest and recovery
-figure(3);
+figure(3); clf
 
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
-        subplot(221); title('Lono'); hold on; xlim([-0.5 2.5])
+        subplot(221); title('Lono'); hold on; xlim([-0.5 2.5]); ylim([0 6])
         ylabel('VO_2 L/min')
         Ind(i) = 1;
     end
     if strfind(VO2_table{i,1},'Kolohe')
-        subplot(222); title('Kolohe'); hold on; xlim([-0.5 2.5])
+        subplot(222); title('Kolohe'); hold on; xlim([-0.5 2.5]); ylim([0 6])
         Ind(i) = 2;
     end
     if strfind(VO2_table{i,1},'Liko')
-        subplot(223); title('Liko'); hold on; xlim([-0.5 2.5])
+        subplot(223); title('Liko'); hold on; xlim([-0.5 2.5]); ylim([0 6])
         xlabel('Condition'); ylabel('VO_2 L/min')
         Ind(i) = 3;
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot(224); title('Nainoa'); hold on; xlim([-0.5 2.5])
+        subplot(224); title('Nainoa'); hold on; xlim([-0.5 2.5]); ylim([0 6])
         xlabel('Condition')
         Ind(i) = 4;
     end
     if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o-');
+        h = errorbar(0+rand(1)/5,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o-');
         Cond(i) = 0;
     else if strfind(VO2_table{i,2},'A4')
-            h = errorbar(2,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'s');
+            h = errorbar(2+rand(1)/5,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'s');
             Cond(i) = 5;
         else
-            h = errorbar(1,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'^');
+            h = errorbar(1+rand(1)/5,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'^');
             Cond(i) = 1;
         end
     end
     set(h,'color','r')
     
     if strfind(VO2_table{i,2},'C')
-        h = errorbar(0,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o');
+        h = errorbar(0+rand(1)/5,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'o');
     else if strfind(VO2_table{i,2},'A4')
-            h = errorbar(2,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'s');
+            h = errorbar(2+rand(1)/5,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'s');
         else
-            h = errorbar(1,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'^');
+            h = errorbar(1+rand(1)/5,VO2_table{i,4}(1),VO2_table{i,4}(1)-VO2_table{i,4}(2),'^');
         end
     end
     set(h,'color','k')
@@ -118,7 +126,7 @@ end
 adjustfigurefont
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
-print('SelfSelect_RestRecov','-depsc','-r300')
+print('SelfSelect_RestRecov','-dpng','-r300')
 
 %%
 figure(5); clf
@@ -134,12 +142,12 @@ for i = 1:length(VO2_table)
     end
     if strfind(VO2_table{i,1},'Liko')
         subplot(223); title('Liko'); hold on; xlim([-0.5 1.5])
-        xlabel('Condition'); ylabel('VO_2 L/min')
+        xlabel('Before / After'); ylabel('VO_2 L/min')
         Ind(i) = 3;
     end
     if strfind(VO2_table{i,1},'Nainoa')
         subplot(224); title('Nainoa'); hold on; xlim([-0.5 1.5])
-        xlabel('Condition')
+        xlabel('Before / After')
         Ind(i) = 4;
     end
     
@@ -312,9 +320,8 @@ title(headers{7}); ylabel('VO_2 L/kg/min')
 adjustfigurefont
 print('SelfSelect_VO2kg.eps','-depsc','-r300')
 
-return
 
-%% set up ANOVA
+% %% set up ANOVA
 for i = 1:length(VO2_table)
     VO2_2min_rest(:,i) = VO2_table{i,4}(1);
     VO2_min1_recov(:,i) = VO2_table{i,6}(1);
@@ -324,15 +331,14 @@ for i = 1:length(VO2_table)
     VO2_min1_recovkg(:,i) = VO2kg_table{i,6}(1);
     VO2_2min_restkg(:,i) = VO2kg_table{i,4}(1);
 end
+% 
+% 
+% [p,t,stats] = anovan(VO2_min1_recovkg,{Ind,Cond},'varnames',{'Individual','Condition'});
+% % c = multcompare(stats,'Dim',2,'ctype','hsd')
+% [p,t,stats] = anovan(VO2_min1_recov,{Ind,Cond},'varnames',{'Individual','Condition'});
+% [p,t,stats] = anovan(PAR,{Ind,Cond},'varnames',{'Individual','Condition'});
+% [mean(PAR) std(PAR)]; % values for paper
 
-
-[p,t,stats] = anovan(VO2_2min_recovkg,{Ind,Cond},'varnames',{'Individual','Condition'});
-% c = multcompare(stats,'Dim',2,'ctype','hsd')
-[p,t,stats] = anovan(VO2_2min_recov,{Ind,Cond},'varnames',{'Individual','Condition'});
-[p,t,stats] = anovan(PAR,{Ind,Cond},'varnames',{'Individual','Condition'});
-[mean(PAR) std(PAR)]; % values for paper
-
-return
 
 %% figure: VO2 and VO2/kg 
 warning off
@@ -345,15 +351,15 @@ for i = 1:length(VO2_table)
         ylabel('VO_2 (L/min)')
         ylim([0.5 3.75]); box on
         set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
-            'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
+            'ytick',[1 2 3],'yticklabels',{'1.0','2.0','3.0'})
     end
     if strfind(VO2_table{i,1},'Kolohe')
         subplot('position',[0.6 0.55 0.35 0.4]);
         text(-0.4,15,'Kolohe'); box on
         hold on; xlim([-0.5 2.5]); ylim([0.5 3.75])
-        ylabel('VO_2 (L/min)')
-        set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
-            'ytick',[1.5 2 2.5 3 3.5],'yticklabels',{'1.5','2.0','2.5','3.0','3.5'})
+        % ylabel('VO_2 (L/min)')
+       set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
+            'ytick',[1 2 3],'yticklabels',{'1.0','2.0','3.0'})
     end
     if strfind(VO2_table{i,1},'Liko')
         subplot('position',[0.1 0.1 0.35 0.4]); 
@@ -361,28 +367,81 @@ for i = 1:length(VO2_table)
         hold on; xlim([-0.5 2.5]); ylim([0.5 3.75])
         xlabel('Condition'); ylabel('VO_2 (L/min)')
         set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
-            'ytick',[1.4 1.6 1.8 2.0],'yticklabels',{'1.4','1.6','1.8','2.0'})
+            'ytick',[1 2 3],'yticklabels',{'1.0','2.0','3.0'})
     end
     if strfind(VO2_table{i,1},'Nainoa')
         subplot('position',[0.6 0.1 0.35 0.4]); 
         text(-0.4,15,'Nainoa'); box on
         hold on; xlim([-0.5 2.5]); ylim([0.5 3.75])
-        xlabel('Condition'); ylabel('VO_2 (L/min)')
+        xlabel('Condition'); % ylabel('VO_2 (L/min)')
         set(gca,'xtick',[0 1 2],'xticklabels',{'C','T','T+8'},...
-            'ytick',[0.6 0.8 1.0 1.2],'yticklabels',{'0.6','0.8','1.0','1.2'})
+            'ytick',[1 2 3],'yticklabels',{'1.0','2.0','3.0'})
     end
     if strfind(VO2_table{i,2},'C')
-        h = plot(0,VO2_2min_recov(i),'ko','markerfacecolor','k','MarkerSIze',8);
+        h = plot(0,VO2_table{i,6}(1),'ko','markerfacecolor','k','MarkerSIze',8);
     else if strfind(VO2_table{i,2},'A4')
-            h = plot(2,VO2_2min_recov(i),'s','markerfacecolor',[202/255 0 32/255],'markeredgecolor','k','MarkerSIze',8);
+            h = plot(2,VO2_table{i,6}(1),'s','markerfacecolor',[202/255 0 32/255],'markeredgecolor','k','MarkerSIze',8);
         else
-            h = plot(1,VO2_2min_recov(i),'^','markerfacecolor',[5/255 113/255 222/255],'markeredgecolor','k','MarkerSIze',8);
+            h = plot(1,VO2_table{i,6}(1),'^','markerfacecolor',[5/255 113/255 222/255],'markeredgecolor','k','MarkerSIze',8);
         end
     end
 end
 
+% add labels
+subplot('position',[0.1 0.55 0.35 0.4]);
+text(-0.4,3.5,'9FL3','Fontsize',14,'fontweight','bold');
+subplot('position',[0.6 0.55 0.35 0.4]);
+text(-0.4,3.5,'6JK5','Fontsize',14,'fontweight','bold');
+subplot('position',[0.1 0.1 0.35 0.4]);
+text(-0.4,3.5,'99L7','Fontsize',14,'fontweight','bold');
+subplot('position',[0.6 0.1 0.35 0.4]); 
+text(-0.4,3.5,'9ON6','Fontsize',14,'fontweight','bold');
+
 adjustfigurefont
-print('SelfSelect_VO2_only.eps','-depsc','-r300')
+print('SelfSelect_VO2_only','-dsvg','-r300')
+
+
+
+%% plot breathing frequency
+
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/RespData/
+load('breathfreq')
+
+figure(9), clf, hold on
+for i = 1:length(breathfreq)
+    jit = -.2 + (.2--.2).*rand;
+    if strfind(breathfreq{i,4},'C')
+    h = plot(0+jit,breathfreq{i,1},'o');
+    else if strfind(breathfreq{i,4},'A4')
+            h = plot(2+jit,breathfreq{i,1},'s');
+        else
+            h = plot(1+jit,breathfreq{i,1},'^');
+        end
+    end
+    if strfind(breathfreq{i,2},'Nainoa')
+        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255])
+    else if strfind(breathfreq{i,2},'Lono')
+            set(h,'color','k','MarkerFaceColor','k')
+        else if strfind(breathfreq{i,2},'Kolohe')
+                set(h,'color','b','MarkerFaceColor','b')
+            else
+                set(h,'color','r','MarkerFaceColor','r')
+            end
+        end
+    end
+end
+set(gca,'xtick',[0 1 2]); xlim([-1 3])
+ylabel('Breaths/min')
+
+set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
+
+adjustfigurefont
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+print('SelfSelect_Bfreq','-dpng','-r300')
+
+
+
+return
 
 %% plot VO2kg
 %% figure: VO2 and VO2/kg 
