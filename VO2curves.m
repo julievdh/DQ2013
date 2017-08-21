@@ -169,18 +169,23 @@ for i = 1:size(filenames,1)
     %         end
     %     end
     %     % plot recovery instantaneous CO2
-    %     if isempty(strfind(filenames{i},'C')) == 0
-    %         plot(post(:,12)/12000,post(:,21).*post(:,34),'ko-')
-    %         % xlim([0 7]); ylim([0.65 1.1])
-    %         % text(0.2,1.05,'Lono','FontSize',14); box on
-    %     else
-    %         if isempty(strfind(filenames{i},'A2')) == 0
-    %             plot(post(:,12)/12000,post(:,21).*post(:,34),'d-','color',[26/255 150/255 65/255])
-    %             % xlim([0 7]); ylim([0.65 1.1])
-    %         else
-    %             plot(post(:,12)/12000,post(:,21).*post(:,34),'^-','color',[5/255 113/255 222/255])
-    %         end
-    %     end
+        if isempty(strfind(filenames{i},'C')) == 0
+            plot(post(:,12)/12000,post(:,21).*post(:,34),'ko-')
+            xlim([0 7]); ylim([0.65 1.1])
+            text(0.2,1.05,'Lono','FontSize',14); box on
+        else
+            if isempty(strfind(filenames{i},'A2')) == 0
+                plot(post(:,12)/12000,post(:,21).*post(:,34),'d-','color',[26/255 150/255 65/255])
+                xlim([0 7]); ylim([0.65 1.1])
+            else
+                plot(post(:,12)/12000,post(:,21).*post(:,34),'^-','color',[5/255 113/255 222/255])
+            end
+        end
+    
+%     figure(19), hold on
+%     plot(pre(:,12)/12000,pre(:,20).*pre(:,34),'ko-')
+% plot((post(:,12)/12000)+10+(pre(end,12)/12000),post(:,20).*post(:,34),'ko-')
+
 end
 %
 %
