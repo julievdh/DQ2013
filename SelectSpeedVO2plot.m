@@ -81,23 +81,23 @@ figure(3); clf
 
 for i = 1:length(VO2_table)
     if strfind(VO2_table{i,1},'Lono')
-        subplot(221); title('Lono'); hold on; xlim([-0.5 2.5]); ylim([0 6])
-        ylabel('VO_2 L/min')
-        Ind(i) = 1;
+        subplot(221); hold on; xlim([-0.5 2.5]); ylim([0 6]) % title('Lono')
+        ylabel('VO_2 L/min'); box on
+        Ind(i) = 1; set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
     end
     if strfind(VO2_table{i,1},'Kolohe')
-        subplot(222); title('Kolohe'); hold on; xlim([-0.5 2.5]); ylim([0 6])
-        Ind(i) = 2;
+        subplot(222); hold on; xlim([-0.5 2.5]); ylim([0 6]); box on % title('Kolohe'); 
+        Ind(i) = 2; set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
     end
     if strfind(VO2_table{i,1},'Liko')
-        subplot(223); title('Liko'); hold on; xlim([-0.5 2.5]); ylim([0 6])
-        xlabel('Condition'); ylabel('VO_2 L/min')
-        Ind(i) = 3;
+        subplot(223); hold on; xlim([-0.5 2.5]); ylim([0 6]) % title('Liko'); 
+        xlabel('Condition'); ylabel('VO_2 L/min'); box on
+        Ind(i) = 3; set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        subplot(224); title('Nainoa'); hold on; xlim([-0.5 2.5]); ylim([0 6])
-        xlabel('Condition')
-        Ind(i) = 4;
+        subplot(224); hold on; xlim([-0.5 2.5]); ylim([0 6]) % title('Nainoa'); 
+        xlabel('Condition'); box on
+        Ind(i) = 4; set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
     end
     if strfind(VO2_table{i,2},'C')
         h = errorbar(0+rand(1)/5,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o-');
@@ -122,6 +122,16 @@ for i = 1:length(VO2_table)
     end
     set(h,'color','k')
 end
+
+subplot(221);
+text(-0.4,5.5,'9FL3','Fontsize',14,'fontweight','bold');
+subplot(222);
+text(-0.4,5.5,'6JK5','Fontsize',14,'fontweight','bold');
+subplot(223);
+text(-0.4,5.5,'99L7','Fontsize',14,'fontweight','bold');
+subplot(224); 
+text(-0.4,5.5,'9ON6','Fontsize',14,'fontweight','bold');
+
 
 adjustfigurefont
 
@@ -420,12 +430,16 @@ for i = 1:length(breathfreq)
     end
     if strfind(breathfreq{i,2},'Nainoa')
         set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor',[26/255 150/255 65/255])
+        breathfreq{i,5} = 1;
     else if strfind(breathfreq{i,2},'Lono')
             set(h,'color','k','MarkerFaceColor','k')
+            breathfreq{i,5} = 2;
         else if strfind(breathfreq{i,2},'Kolohe')
                 set(h,'color','b','MarkerFaceColor','b')
+                breathfreq{i,5} = 3;
             else
                 set(h,'color','r','MarkerFaceColor','r')
+                breathfreq{i,5} = 4;
             end
         end
     end
@@ -439,6 +453,8 @@ adjustfigurefont
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('SelfSelect_Bfreq','-dpng','-r300')
 
+% stat on breathing frequency
+[p,t,stats] = anovan([breathfreq{:,1}],{[breathfreq{:,3}],[breathfreq{:,5}]},'varnames',{'Individual','Condition'});
 
 
 return

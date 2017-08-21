@@ -152,8 +152,7 @@ for i = 1:size(filenames,1)
             plot((post(2:end,12)/12000)+15,post(2:end,20).*post(2:end,34),'^:','color',[0.5 0.5 1])
             
         end
-    end
-    
+    end    
 end     
 
 %
@@ -191,6 +190,8 @@ end
 
 % cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 % print -dpng -r300 RERcurve_NoBoat
+
+%%
 
 for i = 1:size(filenames,1)
     load(filenames{i});
@@ -242,14 +243,14 @@ x0 = [10,-1];
 
 % plot data
 times = linspace(xdata(1),xdata(end));
-figure(11), hold on
-h1 = plot(xdata,ydata,'ko');
-h2 = plot(times,fun(x,times),'k-','Linewidth',2);
+%figure(11), hold on
+%h1 = plot(xdata,ydata,'ko');
+h2 = plot(times+15,fun(x,times),'k-','Linewidth',1);
 if Cond(i) == 1
-    set(h1,'color','b','marker','^')
+    %set(h1,'color','b','marker','^')
     set(h2,'color','b')
 else if Cond(i) == 5
-        set(h1,'color','r','marker','s')
+        %set(h1,'color','r','marker','s')
         set(h2,'color','r')
     end
 end
@@ -264,10 +265,32 @@ if isempty(half) == 1
 else
 thalf(i) = times(half);
 end
+
+if i == 21
+    % plot just one trial
+figure(3), clf, hold on
+plot(pre(2:end,12)/12000,pre(2:end,20).*pre(2:end,34),'^:','color',[0.5 0.5 1])
+plot(post(2:end,12)/12000+15,post(2:end,20).*post(2:end,34),'^:','color',[0.5 0.5 1])
+plot(0.5:1:8,mn,'b^-')
+plot(times+15,fun(x,times),'b-','Linewidth',1);
+
+set(gcf,'Position',[87   289   852   384],'paperpositionmode','auto')
+xlabel('Time (min)')
+ylabel('Instantaneous VO2 (L/min)') 
+text(0.7,4.25,'Pre-Exercise','FontSize',16)
+text(9.5,4.25,'Swim','FontSize',16)
+text(17,4.25,'Post-Exercise','FontSize',16)
+xlim([0 23]); ylim([0 5])
+adjustfigurefont
+
+end
+
+
 end
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 xlabel('Time in Recovery (min)'), ylabel('Instantaneous VO2 (L/min)')
+figure(11)
 print -dpng InstVO2RecoveryFit_nonboat -r300
 
 
@@ -288,20 +311,5 @@ print -dpng InstVO2_nonboat -r300
 % [p,t,stats] = anovan(thalf,{Ind,Cond},'varnames',{'Individual','Condition'});
 % [nanmean(thalf) nanstd(thalf)]
 
-% plot just one trial
-figure(3), clf, hold on
-plot(pre(2:end,12)/12000,pre(2:end,20).*pre(2:end,34),'s:','color',[1 0.5 0.5])
-plot(post(2:end,12)/12000+15,post(2:end,20).*post(2:end,34),'s:','color',[1 0.5 0.5])
-plot(0.5:1:10,mn,'rs-')
-plot(times+15,fun(x,times),'r-','Linewidth',2);
-
-set(gcf,'Position',[87   289   852   384],'paperpositionmode','auto')
-xlabel('Time (min)')
-ylabel('Instantaneous VO2 (L/min)') 
-text(0.7,4.25,'Pre-Exercise','FontSize',16)
-text(9.5,4.25,'Swim','FontSize',16)
-text(17,4.25,'Post-Exercise','FontSize',16)
-xlim([0 23]); ylim([0 5])
-adjustfigurefont
-
-print -dpng InstVO2_nonboat_Lono_276_A4 -r300 
+figure(3)
+print -dpng InstVO2_nonboat_Liko279_A -r300 
