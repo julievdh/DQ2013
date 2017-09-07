@@ -135,6 +135,27 @@ tag333Fa = 0.001175;
 plot(h1,[tag268Fa tag268Fa],[0.05 10],'k:')
 plot(h1,[tag333Fa tag333Fa],[0.05 10],'k:')
 
+% add other tags on market 
+dualsidemount = 30.8/10000; % Hanson, m^2
+frontmount = 21.6/10000; % Hanson, m^2
+singlesidemount = 17.5/10000; % Hanson, m^2
+crittercam = 8.45E-3; 
+DavisCam = 0.0133; 
+LLEO = 0.00495;
+Acousonde3A = 0.001024;
+Acousonde3B = 0.003319993;
+
+plot(h1,[dualsidemount dualsidemount],[0.05 10],'k:')
+plot(h1,[frontmount frontmount],[0.05 10],'k:')
+plot(h1,[singlesidemount singlesidemount],[0.05 10],'k:')
+plot(h1,[crittercam crittercam],[0.05 10],'k:')
+plot(h1,[DavisCam DavisCam],[0.05 10],'k:')
+plot(h1,[LLEO LLEO],[0.05 10],'k:')
+plot(h1,[Acousonde3A Acousonde3A],[0.05 10],'k:')
+plot(h1,[Acousonde3B Acousonde3B],[0.05 10],'k:')
+
+
+
 % add DTAG2
 plot(h1,0.0038,0.1165,'ko','MarkerFaceColor','w','MarkerSize',8) % 2.29 = average wetted area of Hoku and Liho
 
@@ -174,6 +195,11 @@ plot(DtagWAInc(1:2),GlideVFInc(1:2),'k^','markerfacecolor',[55/255 126/255 184/2
 plot(DtagWAInc(5:6),GlideVFInc(5:6),'kd','markerfacecolor',[77/255 175/255 74/255],'markersize',8) % tag+4
 plot(DtagWAInc(7:8),GlideVFInc(7:8),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',8) % tag+8
 
+% add fake legend
+plot([0.2 0.8],[170 170],'k-'); text(0.9,170,'CFD','FontSize',12)
+plot([0.2 0.8],[160 160],'k--'); text(0.9,160,'Video - Time Varying','FontSize',12)
+plot([0.2 0.8],[150 150],'k:'); text(0.9,150,'Video - Velocity Fit','FontSize',12)
+
 
 xlabel('Tag Wetted Area Contribution (%)')
 ylabel('Increase in Drag Coefficient (%)')
@@ -202,4 +228,4 @@ ylabel('Increase in Drag Coefficient (%)')
 adjustfigurefont
 xlim([0 17]); text(0.6,185,'B','FontSize',20,'FontWeight','bold')
 
-print('Glide_SupplementWaFaCd','-dpng','-r300')
+print('Glide_SupplementWaFaCd','-dsvg','-r300')
