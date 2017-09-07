@@ -286,6 +286,8 @@ std([Kmean; Lmean])
 mean([slowKL; slowKU; slowLU; slowLL])
 std([slowKL; slowKU; slowLU; slowLL])
 
+
+
 %% lines in between
 % c - t - t2 - t4 - t6 - t8 % i guess the direction of plotting doesn't
 % actually matter

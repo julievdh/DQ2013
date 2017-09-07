@@ -152,8 +152,8 @@ for i = 1:size(filenames,1)
             plot((post(2:end,12)/12000)+15,post(2:end,20).*post(2:end,34),'^:','color',[0.5 0.5 1])
             
         end
-    end    
-end     
+    end
+end
 
 %
 % figure(4); title('Recovery RER')
@@ -195,97 +195,109 @@ end
 
 for i = 1:size(filenames,1)
     load(filenames{i});
-%% compute averages per 30 s
-ct = 0; % initial
-tvec = [0 1]; % initial
-clear mn 
-for k = 1:ceil(max(pre(:,12)/12000))*2
-    ii = iswithin(pre(:,12)/12000,tvec);
-    mn(:,k) = mean(pre(find(ii),20).*pre(find(ii),34));
-    tvec = tvec+1;
-end
-
-figure(19), hold on
-% plot(pre(2:end,12)/12000,pre(2:end,20).*pre(2:end,34),'o-','color',[0.5 0.5 0.5])
-h1 = plot(0.5:1:min(tvec),mn,'k^-','markerfacecolor','b');
-
-%%
-ct = 0; % initial
-tvec = [0 1]; % initial
-clear mnpost 
-for k = 1:ceil(max(post(:,12)/12000))*2
-    ii = iswithin(post(:,12)/12000,tvec);
-    mnpost(:,k) = mean(post(find(ii),20).*post(find(ii),34));
-    tvec = tvec+1;
-end
-
-% figure(20), hold on
-% plot(post(2:end,12)/12000+10,post(2:end,20).*post(2:end,34),'o-','color',[0.5 0.5 0.5])
-h2 = plot([0.5:1:min(tvec)]+15,mnpost,'k^-','markerfacecolor','b'); % make this the actual tag blue
- if isempty(strfind(filenames{i},'C')) == 0
-     set(h1,'color','k','marker','o','markerfacecolor','k')
-     set(h2,'color','k','marker','o','markerfacecolor','k')
-      else
+    %% compute averages per 30 s
+    ct = 0; % initial
+    tvec = [0 1]; % initial
+    clear mn
+    for k = 1:ceil(max(pre(:,12)/12000))*2
+        ii = iswithin(pre(:,12)/12000,tvec);
+        mn(:,k) = mean(pre(find(ii),20).*pre(find(ii),34));
+        tvec = tvec+1;
+    end
+    
+    figure(19), hold on
+    % plot(pre(2:end,12)/12000,pre(2:end,20).*pre(2:end,34),'o-','color',[0.5 0.5 0.5])
+    h1 = plot(0.5:1:min(tvec),mn,'k^-','markerfacecolor','b');
+    
+    %%
+    ct = 0; % initial
+    tvec = [0 1]; % initial
+    clear mnpost
+    for k = 1:ceil(max(post(:,12)/12000))*2
+        ii = iswithin(post(:,12)/12000,tvec);
+        mnpost(:,k) = mean(post(find(ii),20).*post(find(ii),34));
+        tvec = tvec+1;
+    end
+    
+    % figure(20), hold on
+    % plot(post(2:end,12)/12000+10,post(2:end,20).*post(2:end,34),'o-','color',[0.5 0.5 0.5])
+    h2 = plot([0.5:1:min(tvec)]+15,mnpost,'k^-','markerfacecolor','b'); % make this the actual tag blue
+    if isempty(strfind(filenames{i},'C')) == 0
+        set(h1,'color','k','marker','o','markerfacecolor','k')
+        set(h2,'color','k','marker','o','markerfacecolor','k')
+    else
         if isempty(strfind(filenames{i},'A4')) == 0
             set(h1,'color','k','marker','s','markerfacecolor','r')
             set(h2,'color','k','marker','s','markerfacecolor','r') % but make this the actual red
         end
- end
- 
- 
- %% fit decay curve?
-xdata = (post(2:end,12)/12000);
-ydata = post(2:end,20).*post(2:end,34);
-
-fun =  @(x,xdata)x(1)*exp(x(2)*xdata);
-x0 = [10,-1];
-[x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
-
-% plot data
-times = linspace(xdata(1),xdata(end));
-%figure(11), hold on
-%h1 = plot(xdata,ydata,'ko');
-h2 = plot(times+15,fun(x,times),'k-','Linewidth',1);
-if Cond(i) == 1
-    %set(h1,'color','b','marker','^')
-    set(h2,'color','b')
-else if Cond(i) == 5
-        %set(h1,'color','r','marker','s')
-        set(h2,'color','r')
     end
-end
-
-
-
-%% t1/2 
-fitted = fun(x,times); % fitted values
-half = find(fitted < max(ydata)/2,1); % find first below half of max recovery VO2
-if isempty(half) == 1
-    thalf(i) = NaN;
-else
-thalf(i) = times(half);
-end
-
-if i == 21
-    % plot just one trial
-figure(3), clf, hold on
-plot(pre(2:end,12)/12000,pre(2:end,20).*pre(2:end,34),'^:','color',[0.5 0.5 1])
-plot(post(2:end,12)/12000+15,post(2:end,20).*post(2:end,34),'^:','color',[0.5 0.5 1])
-plot(0.5:1:8,mn,'b^-')
-plot(times+15,fun(x,times),'b-','Linewidth',1);
-
-set(gcf,'Position',[87   289   852   384],'paperpositionmode','auto')
-xlabel('Time (min)')
-ylabel('Instantaneous VO2 (L/min)') 
-text(0.7,4.25,'Pre-Exercise','FontSize',16)
-text(9.5,4.25,'Swim','FontSize',16)
-text(17,4.25,'Post-Exercise','FontSize',16)
-xlim([0 23]); ylim([0 5])
-adjustfigurefont
-
-end
-
-
+    
+    
+    %% fit decay curve?
+    xdata = (post(2:end,12)/12000);
+    ydata = post(2:end,20).*post(2:end,34);
+    
+    fun =  @(x,xdata)x(1)*exp(x(2)*xdata);
+    x0 = [10,-1];
+    [x,resnorm,residual,exitflag,output,lambda,jacobian] = lsqcurvefit(fun,x0,xdata,ydata);
+    
+    % plot data
+    times = linspace(xdata(1),xdata(end));
+    %figure(11), hold on
+    %h1 = plot(xdata,ydata,'ko');
+    h2 = plot(times+15,fun(x,times),'k-','Linewidth',1);
+    if Cond(i) == 1
+        %set(h1,'color','b','marker','^')
+        set(h2,'color','b')
+    else if Cond(i) == 5
+            %set(h1,'color','r','marker','s')
+            set(h2,'color','r')
+        end
+    end
+    
+    
+    
+    %% t1/2
+    fitted = fun(x,times); % fitted values
+    half = find(fitted < max(ydata)/2,1); % find first below half of max recovery VO2
+    if isempty(half) == 1
+        thalf(i) = NaN;
+    else
+        thalf(i) = times(half);
+    end
+    
+ if  ~isempty(strfind(filename,'Kolohe')) % all Lono Trials
+     % ismember(i,[ 2 9 20 10 17 24 5 11 26]) == 1 % 3 Kolohe Trials
+        % plot just one trial
+        figure(3), hold on
+        h1 = plot(pre(2:end,12)/12000,pre(2:end,20).*pre(2:end,34),'o:','color',[0.5 0.5 0.5]);
+        h2 = plot(post(2:end,12)/12000+15,post(2:end,20).*post(2:end,34),'o:','color',[0.5 0.5 0.5]);
+        h3 = plot(0.5:1:length(mn),mn,'ko-');
+        h4 = plot(times+15,fun(x,times),'k-','Linewidth',1);
+        
+        if Cond(i) == 1
+            set(h1,'color','b','marker','^')
+            set(h2,'color','b','marker','^')
+            set(h3,'color','b','marker','^','linewidth',0.5), set(h4,'color','b')
+        else if Cond(i) == 5
+                set(h1,'color','r','marker','s')
+                set(h2,'color','r','marker','s')
+                set(h3,'color','r','marker','s'), set(h4,'color','r')
+            end
+        end
+        
+        set(gcf,'Position',[87   289   852   384],'paperpositionmode','auto')
+        xlabel('Time (min)')
+        ylabel('Instantaneous VO2 (L/min)')
+        text(0.7,4.25,'Pre-Exercise','FontSize',16)
+        text(9.5,4.25,'Swim','FontSize',16)
+        text(17,4.25,'Post-Exercise','FontSize',16)
+        xlim([0 23]); ylim([0 5])
+        adjustfigurefont
+        
+    end
+%    title(num2str(i))
+%  pause 
 end
 
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
@@ -297,7 +309,7 @@ print -dpng InstVO2RecoveryFit_nonboat -r300
 figure(19)
 set(gcf,'Position',[87   289   852   384],'paperpositionmode','auto')
 xlabel('Time (min)')
-ylabel('Instantaneous VO2 (L/min)') 
+ylabel('Instantaneous VO2 (L/min)')
 text(0.7,7.25,'Pre-Exercise','FontSize',16)
 text(9.5,7.25,'Swim','FontSize',16)
 text(17,7.25,'Post-Exercise','FontSize',16)
@@ -312,4 +324,4 @@ print -dpng InstVO2_nonboat -r300
 % [nanmean(thalf) nanstd(thalf)]
 
 figure(3)
-print -dpng InstVO2_nonboat_Liko279_A -r300 
+print -dpng InstVO2_nonboat_Liko279_A -r300
