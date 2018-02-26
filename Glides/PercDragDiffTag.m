@@ -54,6 +54,7 @@ perc_tag4_CFD_2 = ((Cd_tag4_CFD - Cd_animal_CFD)./Cd_animal_CFD)*100
 [min(sum(tag')'-notag) max(sum(tag')'-notag)];
 [mean(CFD_Cd_tag) std(CFD_Cd_tag)];
 [min(sum(tag4')) max(sum(tag4'))];
+[mean(CFD_Cd_tag2) std(CFD_Cd_tag2)];
 [min(sum(tag4')'-notag) max(sum(tag4')'-notag)];
 [mean(CFD_Cd_tag4) std(CFD_Cd_tag4)];
 
@@ -64,4 +65,3 @@ condition = condition(1,:)';
 speed = repmat(vel,3); speed = speed(1,:)';
 [p,t,stats] = anovan(allCFDCd,{condition speed},'varnames',{'Condition';'Speed'});
 
-%% compare CFD to 

@@ -84,7 +84,16 @@ A8p3 = 1.304;
 A8a = 4.501;
 A8b = 2.06;
 
+%% Create the model data
+SA = 2.3; % (m^2)
+Cd = 0.01; % from CFD simulations 
+rho = 1029;  % (kg/m^3)
+v_fit = linspace(0,10,200)';
 
+fd = 0.5*rho*(v_fit.^2)*SA*Cd; % fitted velocities
+fd_sim = 0.5*rho*(V_A.^2)*SA*Cd; % individual simulated velocities
+
+return 
   
 %% Create the polynomial fits
   
@@ -104,13 +113,7 @@ A8b = 2.06;
   A6_drag_fit_2 = A6a*v_fit.^A6b;; %R^2 = 0.99
   A8_drag_fit_2 = A8a*v_fit.^A8b;; %R^2 = 0.99 
   
-%% Create the model data
-SA = 2.3; % (m^2)
-cd = 0.01; % from CFD simulations 
-rho = 1029;  % (kg/m^3)
-fd = 0.5*rho*(v_fit.^2)*SA*cd;
 
-fd_sim = 0.5*rho*(V_A.^2)*SA*cd;
 %% Polynomial Plots
     figure
      
@@ -182,4 +185,4 @@ fd_sim = 0.5*rho*(V_A.^2)*SA*cd;
     axis([0 6 0 1000])
     title('CFD Simulation Results - Drag (Power)')
 
-%% 
+%% create power fit on tagged animal body 

@@ -39,7 +39,7 @@ save('LonoNoBoatVid','Lono')
 %% Now with Liko
 load('LikoNoBoatVid')
 
-% correct all Lono files
+% correct all Liko files
 [Liko.A.d279,Kolohe.A.d271] = aligntrainers(Liko.A.d279,Kolohe.A.d271);
 [Liko.C.d273,Kolohe.A.d271] = aligntrainers(Liko.C.d273,Kolohe.A.d271);
 
@@ -49,7 +49,7 @@ save('LikoNoBoatVid','Liko')
 %% Now with Nainoa
 load('NainoaNoBoatVid')
 
-% correct all Lono files
+% correct all Nainoa files
 [Nainoa.A.d273,Kolohe.A.d271] = aligntrainers(Nainoa.A.d273,Kolohe.A.d271);
 [Nainoa.C.d276,Kolohe.A.d271] = aligntrainers(Nainoa.C.d276,Kolohe.A.d271);
 

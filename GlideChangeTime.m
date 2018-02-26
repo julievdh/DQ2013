@@ -1,5 +1,5 @@
 % Compare time 1 and time 2 of glides to see if learn within an animal or
-% trial. 
+% trial.
 
 % example
 figure(1); hold on
@@ -28,16 +28,29 @@ plot([0 .1],[0 .1],'k')
 
 %% or: through time
 for i = 1:45
-Cd_mn(i) = nanmean(glide(i).Cd_mn);
+    Cd_mn(i) = nanmean(glide(i).Cd_mn);
+    CDAS(i) = glide(i).CDAS;
 end
-figure(2); hold on
-plot(Cd_mn(1:6))
-plot(Cd_mn(7:11))
-plot(Cd_mn(12:22))
-plot(Cd_mn(23:24))
 
-plot(Cd_mn(25:26),'--')
-plot(Cd_mn(27:31),'--')
-plot(Cd_mn(32:37),'--')
-plot(Cd_mn(38:41),'--')
-plot(Cd_mn(42:45),'--')
+figure(2); clf; hold on
+plot(Cd_mn(1:6),'^-','color','b') % hoku tag
+plot(Cd_mn(7:11),'o-','color','k') % hoku no tag
+plot(Cd_mn(12:22),'d-','color','g') % hoku tag+4
+plot(Cd_mn(23:24),'o-','color','k') % hoku no tag
+
+plot(Cd_mn(25:26),'s--','color','r') % liho tag +4
+plot(Cd_mn(27:31),'^--','color','b') % liho tag
+plot(Cd_mn(32:37),'s--','color','r') % liho tag +4
+plot(Cd_mn(38:41),'d--','color','g') % liho tag +2
+plot(Cd_mn(42:45),'o--','color','k') % liho control
+figure(3); clf; hold on
+plot(CDAS(1:6),'^-','color','b') % hoku tag
+plot(CDAS(7:11),'o-','color','k') % hoku no tag
+plot(CDAS(12:22),'d-','color','g') % hoku tag+4
+plot(CDAS(23:24),'o-','color','k') % hoku no tag
+
+plot(CDAS(25:26),'s--','color','r') % liho tag +4
+plot(CDAS(27:31),'^--','color','b') % liho tag
+plot(CDAS(32:37),'s--','color','r') % liho tag +4
+plot(CDAS(38:41),'d--','color','g') % liho tag +2
+plot(CDAS(42:45),'o--','color','k') % liho no tag

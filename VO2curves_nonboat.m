@@ -193,7 +193,7 @@ end
 
 %%
 
-for i = 1:size(filenames,1)
+for i = 21 %:size(filenames,1)
     load(filenames{i});
     %% compute averages per 30 s
     ct = 0; % initial
@@ -207,7 +207,7 @@ for i = 1:size(filenames,1)
     
     figure(19), hold on
     % plot(pre(2:end,12)/12000,pre(2:end,20).*pre(2:end,34),'o-','color',[0.5 0.5 0.5])
-    h1 = plot(0.5:1:min(tvec),mn,'k^-','markerfacecolor','b');
+    h1 = plot(0.5:1:min(tvec),mn,'b^-','markerfacecolor','b');
     
     %%
     ct = 0; % initial
@@ -309,11 +309,11 @@ print -dpng InstVO2RecoveryFit_nonboat -r300
 figure(19)
 set(gcf,'Position',[87   289   852   384],'paperpositionmode','auto')
 xlabel('Time (min)')
-ylabel('Instantaneous VO2 (L/min)')
-text(0.7,7.25,'Pre-Exercise','FontSize',16)
-text(9.5,7.25,'Swim','FontSize',16)
-text(17,7.25,'Post-Exercise','FontSize',16)
-xlim([0 23])
+ylabel('Instantaneous VO_2 (L min^{-1})')
+text(0.7,4.25,'Pre-Exercise','FontSize',16)
+text(9.5,4.25,'Swim','FontSize',16)
+text(17,4.25,'Post-Exercise','FontSize',16)
+xlim([0 23]), ylim([0 4.5])
 adjustfigurefont
 
 print -dpng InstVO2_nonboat -r300
@@ -324,4 +324,4 @@ print -dpng InstVO2_nonboat -r300
 % [nanmean(thalf) nanstd(thalf)]
 
 figure(3)
-print -dpng InstVO2_nonboat_Liko279_A -r300
+print -dpng C9_4_InstVO2_nonboat_Liko279_A -r300

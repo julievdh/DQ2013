@@ -1,3 +1,4 @@
+% Compare lap speed and VO2, PAR 
 
 close all; clear all; clc
 warning off % cause xticklabels is a bitch
