@@ -176,7 +176,7 @@ for i = 1:4
 end
 xlabel('Speed (m s^{-1})'), ylabel('Pitch Amplitude (m/s^2)')
 xlim([2.7 5.2]), ylim([0.2 0.35])
-text(2.75,0.38,'B','FontSize',18,'FontWeight','Bold')
+text(2.75,0.339,'B','FontSize',18,'FontWeight','Bold')
 
 %% condition vs amplitude
 subplot('position',[0.1 0.08 0.8 0.2]), hold on
@@ -204,10 +204,10 @@ plot(ind(1,1:5),[Summary(1,1:5).flukePitchAmpMean],'k:'),plot(ind(2,1:5),[Summar
 plot(ind(3,1:5),[Summary(3,1:5).flukePitchAmpMean],'k--'),plot(ind(4,1:5),[Summary(4,1:5).flukePitchAmpMean],'k--')
 
 xlabel('Condition'), ylabel({'Pitch Amplitude','(m/s^2)'})
-xlim([0 11])
+xlim([0 11]), ylim([0.2 0.35])
 set(gca,'xtick',1:10,'xticklabels',{'T+8','T+6','T+4','T+2','T',...
         'T','T+2','T+4','T+6','T+8'})
-text(0.2,0.38,'D','FontSize',18,'FontWeight','Bold')
+text(0.2,0.325,'D','FontSize',18,'FontWeight','Bold')
     
 print('LoadUnloadKinematics','-dsvg')
 
