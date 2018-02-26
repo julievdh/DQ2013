@@ -1,48 +1,51 @@
-% how much to slow down based on 2013 CFD? 
+% % how much to slow down based on 2013 CFD? -- Updated for 2017
+% Simulations
+% 
+% % load CFD data: across velocities (vel) 1-6 m/s, drag forces only on
+% % dolphin (first column) and tag (second column) for tag, tag+2, tag+4
+% % conditions
+% load('DolphinTagSims_24Feb16')
+% % Not using tag+8 from Victor (July 19) because only tag+8 and tag+8 and
+% % would need to interpolate tag+6 anyway. Let's keep CFD in the other
+% % paper. 
+% 
+% %% calculate what tag+6 and tag+8 would be
+% % figure(3); hold on
+% % % plot difference in drag between conditions
+% % plot(sum(tag')'-notag,'color',[55/255 126/255 184/255])
+% % plot(sum(tag2')'-notag,'color',[255/255 127/255 0/255])
+% % plot(sum(tag4')'-notag,'color',[77/255 175/255 74/255])
+% % xlabel('Speed'); ylabel('Difference in Drag')
+% 
+% % calculate difference between tag2 and tag to determine
+% % amount of drag from elements only
+% diff20 = sum(tag2')'-sum(tag')';
+% 
+% % plot(diff42,'k:','linewidth',2) % AMOUNT OF DRAG ADDED BY TWO ELEMENTS
+% % plot(diff20,'k:','linewidth',2) % 
+% 
+% % adjustfigurefont
+% 
+% % tag+4
+% tag4 = sum(tag')+2*diff20';
+% % tag+6
+% tag6 = sum(tag')+(3*diff20');
+% % tag+8 
+% tag8 = sum(tag')+(4*diff20');
 
-% load CFD data: across velocities (vel) 1-6 m/s, drag forces only on
-% dolphin (first column) and tag (second column) for tag, tag+2, tag+4
-% conditions
-load('DolphinTagSims_24Feb16')
-% Not using tag+8 from Victor (July 19) because only tag+8 and tag+8 and
-% would need to interpolate tag+6 anyway. Let's keep CFD in the other
-% paper. 
-
-%% calculate what tag+6 and tag+8 would be
-% figure(3); hold on
-% % plot difference in drag between conditions
-% plot(sum(tag')'-notag,'color',[55/255 126/255 184/255])
-% plot(sum(tag2')'-notag,'color',[255/255 127/255 0/255])
-% plot(sum(tag4')'-notag,'color',[77/255 175/255 74/255])
-% xlabel('Speed'); ylabel('Difference in Drag')
-
-% calculate difference between tag2 and tag to determine
-% amount of drag from elements only
-diff20 = sum(tag2')'-sum(tag')';
-
-% plot(diff42,'k:','linewidth',2) % AMOUNT OF DRAG ADDED BY TWO ELEMENTS
-% plot(diff20,'k:','linewidth',2) % 
-
-% adjustfigurefont
-
-% tag+4
-tag4 = sum(tag')+2*diff20';
-% tag+6
-tag6 = sum(tag')+(3*diff20');
-% tag+8 
-tag8 = sum(tag')+(4*diff20');
+DataCFDResults_DragElements_V2
 
 %% calculate new speed to maintain drag force at 3 m/s: 
 % assume that control lap speed = 3 m/s based on boat trial lap time
 % comparison
 
 % fit curves to CFD data
-[c_notag(1), c_notag(2)] = curve_fit(vel',notag);
-[c_tag(1), c_tag(2)] = curve_fit(vel',tag(:,1)+tag(:,2));
-[c_tag2(1), c_tag2(2)] = curve_fit(vel',tag2(:,1)+tag2(:,2));
-[c_tag4(1), c_tag4(2)] = curve_fit(vel,tag4);
-[c_tag6(1), c_tag6(2)] = curve_fit(vel,tag6);
-[c_tag8(1), c_tag8(2)] = curve_fit(vel,tag8);
+[c_notag(1), c_notag(2)] = curve_fit(V_A,fd_sim);
+[c_tag(1), c_tag(2)] = curve_fit(V_A,fd_sim+A_drag);
+[c_tag2(1), c_tag2(2)] = curve_fit(V_A,fd_sim+A2_drag);
+[c_tag4(1), c_tag4(2)] = curve_fit(V_A,fd_sim+A4_drag);
+[c_tag6(1), c_tag6(2)] = curve_fit(V_A,fd_sim+A6_drag);
+[c_tag8(1), c_tag8(2)] = curve_fit(V_A,fd_sim+A8_drag);
 % plot to the actual curves instead of the interpolated
 velHD = 0:0.1:6;
 % plot drag vs speed for all conditions
@@ -63,11 +66,11 @@ adjustfigurefont
 % Find reduced speeds
 % INSTEAD OF NOTAG3, DO MEAN CONTROL SPEED = 
 % MN = mean([mean(Kolohe_C),mean(Liko_C),mean(Lono_C),mean(Nainoa_C)]); = almost 4 m/s. 
-Ured_tag = (notag(4)/c_tag(1)).^(1/c_tag(2));
-Ured_tag2 = (notag(4)/c_tag2(1)).^(1/c_tag2(2));
-Ured_tag4 = (notag(4)/c_tag4(1)).^(1/c_tag4(2));
-Ured_tag6 = (notag(4)/c_tag6(1)).^(1/c_tag6(2));
-Ured_tag8 = (notag(4)/c_tag8(1)).^(1/c_tag8(2));
+Ured_tag = (fd_sim(4)/c_tag(1)).^(1/c_tag(2));
+Ured_tag2 = (fd_sim(4)/c_tag2(1)).^(1/c_tag2(2));
+Ured_tag4 = (fd_sim(4)/c_tag4(1)).^(1/c_tag4(2));
+Ured_tag6 = (fd_sim(4)/c_tag6(1)).^(1/c_tag6(2));
+Ured_tag8 = (fd_sim(4)/c_tag8(1)).^(1/c_tag8(2));
 
 % plot to check
 plot(Ured_tag8,c_tag8(1)*Ured_tag8.^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
@@ -75,7 +78,7 @@ plot(Ured_tag6,c_tag6(1)*Ured_tag6.^c_tag6(2),'ko','markerfacecolor',[152/255 78
 plot(Ured_tag4,c_tag4(1)*Ured_tag4.^c_tag4(2),'kd','markerfacecolor',[77/255 175/255 74/255],'markersize',10)
 plot(Ured_tag2,c_tag2(1)*Ured_tag2.^c_tag2(2),'ko','markerfacecolor',[255/255 127/255 0/255],'markersize',10)
 plot(Ured_tag,c_tag(1)*Ured_tag.^c_tag(2),'k^','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
-plot(vel(4),notag(4),'ko','markerfacecolor','k','markersize',10)
+plot(V_A(4),fd_sim(4),'ko','markerfacecolor','k','markersize',10)
 box on
 
 % calculate percent decrease
@@ -86,20 +89,22 @@ p0t6 = (abs(Ured_tag6-4)/4);
 p0t8 = (abs(Ured_tag8-4)/4);
 
 % calculate percent increase if maintain speed
-p0t8_U4 = (tag8(4)-notag(4))/notag(4);
-p0t6_U4 = (tag6(4)-notag(4))/notag(4);
-p0t4_U4 = (tag4(4)-notag(4))/notag(4);
-p0t2_U4 = (sum(tag2(4,:))-notag(4))/notag(4);
-p0t_U4 = (sum(tag(4,:))-notag(4))/notag(4);
+p0t8_U4 = (A8_drag(4))/fd_sim(4);
+p0t6_U4 = (A6_drag(4))/fd_sim(4);
+p0t4_U4 = (A4_drag(4))/fd_sim(4);
+p0t2_U4 = (A2_drag(4))/fd_sim(4);
+p0t_U4 = (A_drag(4))/fd_sim(4);
 
 %% plot alternative - that they can maintain speed but increase drag
-plot(4,tag8(4),'s','markeredgecolor',[228/255 26/255 28/255],'markersize',10,'linewidth',2)
-plot(4,tag6(4),'o','markeredgecolor',[152/255 78/255 163/255],'markersize',10,'linewidth',2)
-plot(4,tag4(4),'d','markeredgecolor',[77/255 175/255 74/255],'markersize',10,'linewidth',2)
-plot(4,sum(tag2(4,:)),'o','markeredgecolor',[255/255 127/255 0/255],'markersize',10,'linewidth',2)
-plot(4,sum(tag(4,:)),'^','markeredgecolor',[55/255 126/255 184/255],'markersize',10,'linewidth',2)
+plot(4,A8_drag(4)+fd_sim(4),'s','markeredgecolor',[228/255 26/255 28/255],'markersize',10,'linewidth',2)
+plot(4,A6_drag(4)+fd_sim(4),'o','markeredgecolor',[152/255 78/255 163/255],'markersize',10,'linewidth',2)
+plot(4,A4_drag(4)+fd_sim(4),'d','markeredgecolor',[77/255 175/255 74/255],'markersize',10,'linewidth',2)
+plot(4,A2_drag(4)+fd_sim(4),'o','markeredgecolor',[255/255 127/255 0/255],'markersize',10,'linewidth',2)
+plot(4,A_drag(4)+fd_sim(4),'^','markeredgecolor',[55/255 126/255 184/255],'markersize',10,'linewidth',2)
 % 
+ylim([0 600])
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
+adjustfigurefont
 print('CFDresults','-dsvg','-r300')
 
 %% for Introduction
@@ -124,14 +129,20 @@ print('CFDresults','-dsvg','-r300')
 load('all_vel_vec.mat')
 
 % plot on figure
-figure(1); %subplot('position',[0.58 0.1 0.4 0.8]); 
-hold on
+figure(1); clf; hold on %set(gcf,'position',[23   290   850   380])
+%subplot('position',[0.1 0.1 0.4 0.8]); hold on
+plot(velHD,c_notag(1)*velHD.^c_notag(2),'k','LineWidth',2)
+plot(velHD,c_tag(1)*velHD.^c_tag(2),'color',[55/255 126/255 184/255],'linewidth',2)
+plot(velHD,c_tag8(1)*velHD.^c_tag8(2),'color',[228/255 26/255 28/255],'linewidth',2)
+
+xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
+xlim([1 6])
+adjustfigurefont
+
 plot(velHD,c_notag(1)*velHD.^c_notag(2),'k','LineWidth',2); box on
 plot(velHD,c_tag(1)*velHD.^c_tag(2),'color',[55/255 126/255 184/255],'linewidth',2)
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),'color',[228/255 26/255 28/255],'linewidth',2)
 
-xlabel('Velocity (m/s)'); xlim([1 6])
-adjustfigurefont
 
 plot(mean(Lono_C),c_notag(1)*mean(Lono_C).^c_notag(2),'ko','markerfacecolor','k','markersize',10)
 plot(mean(Lono_A),c_tag(1)*mean(Lono_A).^c_tag(2),'k^','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
@@ -148,7 +159,7 @@ plot(mean(Liko_A4),c_tag8(1)*mean(Liko_A4).^c_tag8(2),'ks','markerfacecolor',[22
 plot(mean(Nainoa_C),c_notag(1)*mean(Nainoa_C).^c_notag(2),'ko','markerfacecolor','k','markersize',10)
 plot(mean(Nainoa_A),c_tag(1)*mean(Nainoa_A).^c_tag(2),'k^','markerfacecolor',[55/255 126/255 184/255],'markersize',10)
 plot(mean(Nainoa_A4),c_tag8(1)*mean(Nainoa_A4).^c_tag8(2),'ks','markerfacecolor',[228/255 26/255 28/255],'markersize',10)
-
+ylim([0 600]), adjustfigurefont
 % save
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print -dsvg SpeedPerspFilt
@@ -163,7 +174,7 @@ plot(velHD,c_tag2(1)*velHD.^c_tag2(2),'color',[255/255 127/255 0/255],'linewidth
 plot(velHD,c_tag4(1)*velHD.^c_tag4(2),'color',[77/255 175/255 74/255],'linewidth',2)
 plot(velHD,c_tag6(1)*velHD.^c_tag6(2),'color',[152/255 78/255 163/255],'linewidth',2)
 plot(velHD,c_tag8(1)*velHD.^c_tag8(2),'color',[228/255 26/255 28/255],'linewidth',2)
-xlim([1 6])
+xlim([1 6]), ylim([0 600])
 
 
 load('KoloheLoadUnloadSpeed') 
@@ -198,7 +209,7 @@ Lpath(:,2) = [c_tag8(1)*nanmean(T8.Lspeed).^c_tag8(2), c_tag6(1)*nanmean(T6.Lspe
     c_tag(1)*nanmean(T.Lspeed).^c_tag(2), c_notag(1)*mean(C.Lspeed).^c_notag(2)];
 plot(Lpath(:,1),Lpath(:,2),'k-')
 
-text(1.15,925,'B','fontsize',18,'fontweight','bold')
+text(1.15,925,'B','fontsize',18,'fontweight','bold'), ylim([0 600])
 xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
 
 %% Store Average change in velocity
@@ -301,7 +312,7 @@ text(1.15,925,'A','fontsize',18,'fontweight','bold')
 xlabel('Velocity (m/s)'); ylabel('Drag Force (N)')
 adjustfigurefont
 
-set(gcf,'paperpositionmode','auto')
+set(gcf,'paperpositionmode','auto'), ylim([0 600])
 print -dsvg SpeedPersp_UnloadLoadBoth
 
 
