@@ -33,7 +33,7 @@ for i = 1:length(Summary)
         set(h,'marker','s')
     end
 end
-ylabel('Fluke Stroke Amplitude (m/s^2)')
+ylabel('Fluke Stroke Amplitude (m s^{-2})')
 
 subplot(234), hold on
 for i = 1:length(Summary)
@@ -156,7 +156,7 @@ text(0.2,2.3,'C','FontSize',18,'FontWeight','Bold')
 subplot('position',[0.55 0.58 0.35 0.4]), hold on
 for i = 1:4
     for j = 1:5
-        h = plot(Summary(i,j).averageSpeed,Summary(i,j).flukePitchAmpMean,'ko');
+        h = errorbar(Summary(i,j).averageSpeed,Summary(i,j).flukePitchAmpMean,Summary(i,j).flukePitchAmpStd/2,'ko');
          if Summary(i,j).cond == 1
             set(h,'markerfaceColor',[55/255 126/255 184/255],'marker','^')  % blue triangle
         else if Summary(i,j).cond == 2
@@ -174,15 +174,15 @@ for i = 1:4
         end
     end
 end
-xlabel('Speed (m s^{-1})'), ylabel('Pitch Amplitude (m/s^2)')
-xlim([2.7 5.2]), ylim([0.2 0.35])
+xlabel('Speed (m s^{-1})'), ylabel('Pitch Amplitude (m s^{-2})')
+xlim([2.7 5.2]), ylim([0.16 0.36])
 text(2.75,0.339,'B','FontSize',18,'FontWeight','Bold')
 
 %% condition vs amplitude
 subplot('position',[0.1 0.08 0.8 0.2]), hold on
 for i = 1:4
     for j = 1:5
-        h = plot(ind(i,j),Summary(i,j).flukePitchAmpMean,'ko');
+        h = errorbar(ind(i,j),Summary(i,j).flukePitchAmpMean,Summary(i,j).flukePitchAmpStd/2,'ko');
          if Summary(i,j).cond == 1
             set(h,'markerfaceColor',[55/255 126/255 184/255],'marker','^')  % blue triangle
         else if Summary(i,j).cond == 2
@@ -203,8 +203,8 @@ end
 plot(ind(1,1:5),[Summary(1,1:5).flukePitchAmpMean],'k:'),plot(ind(2,1:5),[Summary(2,1:5).flukePitchAmpMean],'k:')
 plot(ind(3,1:5),[Summary(3,1:5).flukePitchAmpMean],'k--'),plot(ind(4,1:5),[Summary(4,1:5).flukePitchAmpMean],'k--')
 
-xlabel('Condition'), ylabel({'Pitch Amplitude','(m/s^2)'})
-xlim([0 11]), ylim([0.2 0.35])
+xlabel('Condition'), ylabel({'Pitch Amplitude','(m s^{-2})'})
+xlim([0 11]), ylim([0.16 0.36])
 set(gca,'xtick',1:10,'xticklabels',{'T+8','T+6','T+4','T+2','T',...
         'T','T+2','T+4','T+6','T+8'})
 text(0.2,0.325,'D','FontSize',18,'FontWeight','Bold')
@@ -298,7 +298,7 @@ for i = 1:4
     end
 end
 
-xlabel('Speed (m/s)'), ylabel('Fluke Stroke Amplitude (m/s^2)')
+xlabel('Speed (m s^{-1})'), ylabel('Fluke Stroke Amplitude (m s^{-2})')
 %%
 figure(13), clf, hold on
 for i = 1:4
@@ -321,7 +321,7 @@ for i = 1:4
         end
     end
 end
-xlabel('Speed (m/s)'), ylabel('Strouhal Number')
+xlabel('Speed (m s^{-1})'), ylabel('Strouhal Number')
 adjustfigurefont
 xlim([2.5 5.5])
 %%
