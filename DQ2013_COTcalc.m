@@ -29,8 +29,8 @@ idx = [19 3 12 15 4 13 18 9]; % need other files
 for i = 1:length(idx)
 all{i,1} = VO2_table{idx(i),1}; % filename
 all{i,2} = VO2_table{idx(i),2}; % condition
-all{i,3} = VO2kg_table{idx(i),4}; % rest last minute
-all{i,4} = VO2kg_table{idx(i),7}; % rest first 2 min of recovery
+all{i,3} = VO2kg_table{idx(i),4}(1); % rest last minute
+all{i,4} = VO2kg_table{idx(i),7}(1); % rest first 2 min of recovery
 end
 % add speeds
 all{1,5} = mean(Lono_C); % mean speed from Alex
@@ -39,8 +39,8 @@ all{3,5} = mean(Liko_C);
 all{4,5} = mean(Lono_A); 
 all{5,5} = mean(Kolohe_A); 
 all{6,5} = mean(Liko_A); 
-all{7,5} = mean(Lono_A4); % -- these are the same
-all{8,5} = mean(Kolohe_A4); % -- these are the same
+all{7,5} = mean(Lono_A4); % same mean and median but different files
+all{8,5} = mean(Kolohe_A4); % same mean and median but different files
 
 %% calculate COT: recovery VO2/speed 
 %Mass-specific cost of transport (COT; J m?1 kg?1) describes the energetic
@@ -60,11 +60,9 @@ all{8,5} = mean(Kolohe_A4); % -- these are the same
 
 % COT = VO2 [mL O2/min/kg]*(20.1 J/mL O2)/(swim speed [m/s] * 60 [s/min]) 
 % COT = [J/min/kg]
-COT_tot_swim = (VO2_swim_kg*20.1)./(speed'*60);
 
-mnCOTtot_swim = (VO2_swim_indv*20.1)./(speed_indv*60);
-mnCOTtot_swimr02 = (VO2_swimr02_indv*20.1)./(speed_indv*60);
-mnCOTnet_swim = ((VO2_swim_indv-VO2_rest_indv)*20.1)./(speed_indv*60);
-mnCOTnet_swimr02 = ((VO2_swimr02_indv-VO2_rest_indv)*20.1)./(speed_indv*60);
-mnLC_swim = mnCOTnet_swim./mnCOTtot_swim;
-mnLC_swimr02 = mnCOTnet_swimr02./mnCOTtot_swimr02;
+COT_tot = ([all{:,4}]*20.1)./([all{:,5}]*60);
+COT_net = (([all{:,4}]-[all{:,3}])*20.1)./([all{:,5}]*60);
+
+% locomotor costs
+LC = COT_net./COT_tot;
