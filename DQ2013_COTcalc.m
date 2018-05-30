@@ -1,15 +1,12 @@
 % DQ2013 COT
 % calculate COT based on swim speed and metabolic rate
+% 30 May 2018
+
+%% load VO2 table and VO2_kg 
+SelectSpeedVO2plot
 
 %% load speed data from Alex 
 load('all_vel_vec.mat')
-
-%% load VO2 table
-load('VO2_table')
-headers = {'Filename';'Condition';'Rest all';'Rest last 2 min';...
-    'Recov all';'Recov min 1';'Recov 0-2 min';'Recov min 2';...
-    'Recov 5 min';'Recov 3-5 min'};
-
 
 %% these are the matching video and metabolic files: 
 %280	C	Lono
@@ -26,6 +23,7 @@ headers = {'Filename';'Condition';'Rest all';'Rest last 2 min';...
 %tt13_277a	A4	Liko
 
 %% put the VO2 data in the same structure
+
 
 %% calculate COT: recovery VO2/speed 
 %Mass-specific cost of transport (COT; J m?1 kg?1) describes the energetic
