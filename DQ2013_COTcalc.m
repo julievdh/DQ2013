@@ -9,21 +9,38 @@ SelectSpeedVO2plot
 load('all_vel_vec.mat')
 
 %% these are the matching video and metabolic files: 
-%280	C	Lono
-%269	C	Kolohe
-%282	C	Nainoa
-%273	C	Liko
-%tt13_269b	A	Lono
-%tt13_271b	A	Kolohe
-%tt13_279a	A	Nainoa
-%tt13_279b	A	Liko
-%tt13_276a	A4	Lono
-%tt13_288a	A4	Kolohe
-%tt13_277b	A4	Nainoa
-%tt13_277a	A4	Liko
+%280	C	Lono - 19
+%269	C	Kolohe - 3
+%282	C	Nainoa --- not a good metabolic trial
+%273	C	Liko - 12
+%tt13_269b	A	Lono - 15
+%tt13_271b	A	Kolohe - 4
+%tt13_279a	A	Nainoa -- not a good metabolic trial
+%tt13_279b	A	Liko - 13
+%tt13_276a	A4	Lono - 18
+%tt13_288a	A4	Kolohe - 9 
+%tt13_277b	A4	Nainoa -- not a good metabolic trial
+%tt13_277a	A4	Liko -- not a good metabolic trial
 
 %% put the VO2 data in the same structure
-
+% animal, day, condition, mean speed, VO2kg rest, VO2kg recov0-2
+% see indices and filenames above from "Trainer Files.xlsx"
+idx = [19 3 12 15 4 13 18 9]; % need other files 
+for i = 1:length(idx)
+all{i,1} = VO2_table{idx(i),1}; % filename
+all{i,2} = VO2_table{idx(i),2}; % condition
+all{i,3} = VO2kg_table{idx(i),4}; % rest last minute
+all{i,4} = VO2kg_table{idx(i),7}; % rest first 2 min of recovery
+end
+% add speeds
+all{1,5} = mean(Lono_C); % mean speed from Alex
+all{2,5} = mean(Kolohe_C); 
+all{3,5} = mean(Liko_C); 
+all{4,5} = mean(Lono_A); 
+all{5,5} = mean(Kolohe_A); 
+all{6,5} = mean(Liko_A); 
+all{7,5} = mean(Lono_A4); % -- these are the same
+all{8,5} = mean(Kolohe_A4); % -- these are the same
 
 %% calculate COT: recovery VO2/speed 
 %Mass-specific cost of transport (COT; J m?1 kg?1) describes the energetic
