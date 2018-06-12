@@ -8,7 +8,7 @@ SelectSpeedVO2plot
 %% load speed data from Alex 
 load('all_vel_vec.mat')
 
-%% these are the matching video and metabolic files: 
+%% these are the matching video and metabolic files: * new from Joaquin
 %280	C	Lono - 19
 %269	C	Kolohe - 3
 %282	C	Nainoa --- not a good metabolic trial
@@ -29,8 +29,8 @@ idx = [19 3 12 15 4 13 18 9]; % need other files
 for i = 1:length(idx)
 all{i,1} = VO2_table{idx(i),1}; % filename
 all{i,2} = VO2_table{idx(i),2}; % condition
-all{i,3} = VO2kg_table{idx(i),4}(1); % rest last minute
-all{i,4} = VO2kg_table{idx(i),7}(1); % rest first 2 min of recovery
+all{i,3} = VO2kg_table{idx(i),4}(1)*1000; % rest last minute (convert to mL)
+all{i,4} = VO2kg_table{idx(i),7}(1)*1000; % rest first 2 min of recovery (convert to mL)
 end
 % add speeds
 all{1,5} = mean(Lono_C); % mean speed from Alex
@@ -63,6 +63,19 @@ all{8,5} = mean(Kolohe_A4); % same mean and median but different files
 
 COT_tot = ([all{:,4}]*20.1)./([all{:,5}]*60);
 COT_net = (([all{:,4}]-[all{:,3}])*20.1)./([all{:,5}]*60);
+
+figure(99), clf, hold on
+for i = 1:length(all)
+h = plot([all{i,5}],COT_tot(i),'bd'); 
+if strfind(all{i,2},'C')
+    set(h,'color','k','marker','o');
+else if strfind(all{i,2},'A4')
+        set(h,'color','r','marker','s');
+end
+end
+end
+xlabel('Speed (m/s)'), ylabel('COT (J/m/kg)')
+adjustfigurefont
 
 % locomotor costs
 LC = COT_net./COT_tot;
