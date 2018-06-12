@@ -76,6 +76,8 @@ end
 end
 xlabel('Speed (m/s)'), ylabel('COT (J/m/kg)')
 adjustfigurefont
+xlim([2 4.5])
+print('DQ2013_TrainerToTrainer_COT','-dpng','-r300')
 
 % locomotor costs
 LC = COT_net./COT_tot;
