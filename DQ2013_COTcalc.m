@@ -23,11 +23,22 @@ load('all_vel_vec.mat')
 %tt13_277a	A4	Liko -- not a good metabolic trial
 
 % new videos from Joaquin 
+% tt13_273b_NainoaA -- 23
+% tt13_276_C Nainoa -- 24
+% tt13_281a_LonoA4 -- 26 
 
+%% load new files from Joaquin 
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/TrainertoTrainer_velocity/
+Nainoa_A_2 = newTrainerFiles('tt13_273b_NainoaA_vel.mat');
+Nainoa_C_2 = newTrainerFiles('tt13_276_C_Nainoa_vel.mat');
+Lono_A4_2 = newTrainerFiles('tt13_281a_LonoA4_vel.mat');
+
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/
 %% put the VO2 data in the same structure
 % animal, day, condition, mean speed, VO2kg rest, VO2kg recov0-2
 % see indices and filenames above from "Trainer Files.xlsx"
-idx = [19 3 12 15 4 13 18 9]; % need other files 
+idx = [19 3 12 15 4 13 18 9 23 24 26]; % need other files 
+
 for i = 1:length(idx)
 all{i,1} = VO2_table{idx(i),1}; % filename
 all{i,2} = VO2_table{idx(i),2}; % condition
@@ -43,6 +54,10 @@ all{5,5} = mean(Kolohe_A);
 all{6,5} = mean(Liko_A); 
 all{7,5} = mean(Lono_A4); % same mean and median but different files
 all{8,5} = mean(Kolohe_A4); % same mean and median but different files
+all{9,5} = nanmean(Nainoa_A_2); 
+all{10,5} = nanmean(Nainoa_C_2);
+all{11,5} = nanmean(Lono_A4_2); 
+
 
 %% calculate COT: recovery VO2/speed 
 %Mass-specific cost of transport (COT; J m?1 kg?1) describes the energetic
