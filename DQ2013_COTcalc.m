@@ -22,6 +22,8 @@ load('all_vel_vec.mat')
 %tt13_277b	A4	Nainoa -- not a good metabolic trial
 %tt13_277a	A4	Liko -- not a good metabolic trial
 
+% new videos from Joaquin 
+
 %% put the VO2 data in the same structure
 % animal, day, condition, mean speed, VO2kg rest, VO2kg recov0-2
 % see indices and filenames above from "Trainer Files.xlsx"
