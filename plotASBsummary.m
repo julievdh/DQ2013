@@ -33,7 +33,7 @@ for i = 1:length(Summary)
         set(h,'marker','s')
     end
 end
-ylabel('Fluke Stroke Amplitude (m s^{-2})')
+ylabel('Fluke Stroke Amplitude (radians)')
 
 subplot(234), hold on
 for i = 1:length(Summary)
@@ -174,7 +174,7 @@ for i = 1:4
         end
     end
 end
-xlabel('Speed (m s^{-1})'), ylabel('Pitch Amplitude (m s^{-2})')
+xlabel('Speed (m s^{-1})'), ylabel('Pitch Amplitude (radians)')
 xlim([2.7 5.2]), ylim([0.16 0.36])
 text(2.75,0.339,'B','FontSize',18,'FontWeight','Bold')
 
@@ -203,7 +203,7 @@ end
 plot(ind(1,1:5),[Summary(1,1:5).flukePitchAmpMean],'k:'),plot(ind(2,1:5),[Summary(2,1:5).flukePitchAmpMean],'k:')
 plot(ind(3,1:5),[Summary(3,1:5).flukePitchAmpMean],'k--'),plot(ind(4,1:5),[Summary(4,1:5).flukePitchAmpMean],'k--')
 
-xlabel('Condition'), ylabel({'Pitch Amplitude','(m s^{-2})'})
+xlabel('Condition'), ylabel({'Pitch Amplitude','(radians)'})
 xlim([0 11]), ylim([0.16 0.36])
 set(gca,'xtick',1:10,'xticklabels',{'T+8','T+6','T+4','T+2','T',...
         'T','T+2','T+4','T+6','T+8'})
@@ -298,7 +298,7 @@ for i = 1:4
     end
 end
 
-xlabel('Speed (m s^{-1})'), ylabel('Fluke Stroke Amplitude (m s^{-2})')
+xlabel('Speed (m s^{-1})'), ylabel('Fluke Stroke Amplitude (radians)')
 %%
 figure(13), clf, hold on
 for i = 1:4
