@@ -126,10 +126,32 @@ print('CFDresults','-dsvg','-r300')
 % print('DragTradeoff','-dsvg','-r300')
 
 %% Plot actual dolphin speeds from Alex's Analysis
-load('all_vel_vec.mat')
+% load('all_vel_vec.mat')
 
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/Trainer_linsm/
+Nainoa_A = newTrainerFiles('tt13_273b_vel.mat'); %
+Nainoa_C = newTrainerFiles('tt13_276_NaC_vel.mat'); % 
+Lono_A4_2 = newTrainerFiles('tt13_281a_vel.mat'); %
+
+Lono_A4 = newTrainerFiles('tt13_276a01_vel.mat'); %
+Lono_A = newTrainerFiles('tt13_269b01_vel.mat');%
+Lono_C = newTrainerFiles('tt13_280_C_vel.mat');%
+
+Kolohe_A4 = newTrainerFiles('tt13_288a01_vel.mat');%
+Kolohe_A = newTrainerFiles('tt13_271b01_vel.mat');%
+Kolohe_C = newTrainerFiles('tt13_269_C_vel.mat'); %
+
+Liko_A = newTrainerFiles('tt13_279b01_vel.mat'); %
+Liko_C = newTrainerFiles('tt13_273_C_vel.mat');%
+
+Liko_A4 = newTrainerFiles('tt13_277a01_vel.mat');
+Nainoa_A4 = newTrainerFiles('tt13_277b01_vel.mat');
+
+
+cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/
+%% 
 % plot on figure
-figure(1); clf; hold on %set(gcf,'position',[23   290   850   380])
+figure(10); clf; hold on %set(gcf,'position',[23   290   850   380])
 %subplot('position',[0.1 0.1 0.4 0.8]); hold on
 plot(velHD,c_notag(1)*velHD.^c_notag(2),'k','LineWidth',2)
 plot(velHD,c_tag(1)*velHD.^c_tag(2),'color',[55/255 126/255 184/255],'linewidth',2)
@@ -163,6 +185,12 @@ ylim([0 600]), adjustfigurefont
 % save
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print -dsvg SpeedPerspFilt
+
+% comparison of drag in different experimental conditions
+mean([c_notag(1)*mean(Kolohe_C).^c_notag(2); c_notag(1)*mean(Lono_C).^c_notag(2); c_notag(1)*mean(Nainoa_C).^c_notag(2); c_notag(1)*mean(Liko_C).^c_notag(2)])
+mean([c_tag8(1)*mean(Kolohe_A4).^c_tag8(2); c_tag8(1)*mean(Lono_A4).^c_tag8(2); c_tag8(1)*mean(Nainoa_A4).^c_tag8(2); c_tag8(1)*mean(Liko_A4).^c_tag8(2)])
+mean([c_tag(1)*mean(Kolohe_A).^c_tag(2); c_tag(1)*mean(Lono_A).^c_tag(2); c_tag(1)*mean(Nainoa_A).^c_tag(2); c_tag(1)*mean(Liko_A).^c_tag(2)])
+
 
 %% add velocities from loading/unloading trials
 % plot on figure
