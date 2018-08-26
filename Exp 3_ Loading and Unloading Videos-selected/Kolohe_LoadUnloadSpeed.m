@@ -151,5 +151,46 @@ plot(T6.Uspeed,'Color',[152/255 78/255 163/255]);
 plot(T8.Lspeed,'Color',[228/255 26/255 28/255]);
 plot(T8.Uspeed,'Color',[228/255 26/255 28/255]);
 
+% distance traveled
+T8.UDist = nanmean(T8.Uspeed)*(T8.Utrack(end,1)-T8.Utrack(1,1)); 
+T6.UDist = nanmean(T6.Uspeed)*(T6.Utrack(end,1)-T6.Utrack(1,1));
+T4.UDist = nanmean(T4.Uspeed)*(T4.Utrack(end,1)-T4.Utrack(1,1));
+T2.UDist = nanmean(T2.Uspeed)*(T2.Utrack(end,1)-T2.Utrack(1,1));
+T.UDist = nanmean(T.Uspeed)*(T.Utrack(end,1)-T.Utrack(1,1));
+C.UDist = nanmean(C.Uspeed)*(C.Utrack(end,1)-C.Utrack(1,1));
+
+T8.LDist = nanmean(T8.Lspeed)*(T8.Ltrack(end,1)-T8.Ltrack(1,1)); 
+T6.LDist = nanmean(T6.Lspeed)*(T6.Ltrack(end,1)-T6.Ltrack(1,1));
+T4.LDist = nanmean(T4.Lspeed)*(T4.Ltrack(end,1)-T4.Ltrack(1,1));
+T2.LDist = nanmean(T2.Lspeed)*(T2.Ltrack(end,1)-T2.Ltrack(1,1));
+T.LDist = nanmean(T.Lspeed)*(T.Ltrack(end,1)-T.Ltrack(1,1));
+C.LDist = nanmean(C.Lspeed)*(C.Ltrack(end,1)-C.Ltrack(1,1));
+
+figure(6); clf; hold on
+set(gcf,'position',[427   289   845   384],'paperpositionmode','auto')
+
+plot(-8,T8.UDist,'ks','markerfaceColor',[228/255 26/255 28/255],'markersize',10)
+plot(-6,T6.UDist,'kh','markerfaceColor',[152/255 78/255 163/255],'markersize',10)
+plot(-4,T4.UDist,'kd','markerfaceColor',[77/255 175/255 74/255],'markersize',10)
+plot(-2,T2.UDist,'kv','markerfaceColor',[255/255 127/255 0/255],'markersize',10)
+plot(-1,T.UDist,'k^','markerfaceColor',[55/255 126/255 184/255],'markersize',10)
+plot(-0.25,C.UDist,'ko','markerfacecolor',[0 0 0],'markersize',10)
+
+plot(0.25,C.LDist,'ko','markerfacecolor',[0 0 0],'markersize',10)
+plot(1,T.LDist,'k^','markerfaceColor',[55/255 126/255 184/255],'markersize',10)
+plot(2,T2.LDist,'kv','markerfaceColor',[255/255 127/255 0/255],'markersize',10)
+plot(4,T4.LDist,'kd','markerfaceColor',[77/255 175/255 74/255],'markersize',10)
+plot(6,T6.LDist,'kh','markerfaceColor',[152/255 78/255 163/255],'markersize',10)
+plot(8,T8.LDist,'ks','markerfaceColor',[228/255 26/255 28/255],'markersize',10)
+
+set(gca,'xtick',[-8 -6 -4 -2 -1 0 1 2 4 6 8],'xticklabels',{'Tag+8','Tag+6'...
+    'Tag+4','Tag+2','Tag','Control','Tag','Tag+2','Tag+4','Tag+6','Tag+8'})
+ylabel('Total Distance (m)')
+
+% lines in between 
+plot([-8 -6 -4 -2 -1 -0.25 0.25 1 2:2:8],[T8.UDist T6.UDist T4.UDist T2.UDist T.UDist C.UDist C.LDist T.LDist T2.LDist T4.LDist T6.LDist T8.LDist],'k--')
+
+
+
 % save these parameters
 save('KoloheLoadUnloadSpeed','C','T','T2','T4','T6','T8')

@@ -43,6 +43,7 @@
         /><glyph unicode="n" horiz-adv-x="55.615234" d="M6.4453 52.2949 L14.7949 52.2949 L14.7949 44.873 Q18.5059 49.4629 22.6562 51.4648 Q26.8066 53.4668 31.8848 53.4668 Q43.0176 53.4668 46.9238 45.7031 Q49.0723 41.4551 49.0723 33.5449 L49.0723 0 L40.1367 0 L40.1367 32.959 Q40.1367 37.7441 38.7207 40.6738 Q36.377 45.5566 30.2246 45.5566 Q27.0996 45.5566 25.0977 44.9219 Q21.4844 43.8477 18.75 40.625 Q16.5527 38.0371 15.8936 35.2783 Q15.2344 32.5195 15.2344 27.3926 L15.2344 0 L6.4453 0 Z"
         /><glyph unicode="q" horiz-adv-x="55.615234" d="M14.0137 14.0625 Q17.3828 5.9082 26.0742 5.9082 Q35.2539 5.9082 38.7207 14.502 Q40.625 19.2383 40.625 26.6113 Q40.625 33.3984 38.5254 37.9395 Q34.9609 45.7031 25.9766 45.7031 Q20.2637 45.7031 16.1865 40.7471 Q12.1094 35.791 12.1094 25.4395 Q12.1094 18.6523 14.0137 14.0625 ZM36.0352 50.1953 Q38.4766 48.4375 40.7227 45.0195 L40.7227 52.2949 L49.0723 52.2949 L49.0723 -20.8496 L40.2344 -20.8496 L40.2344 6.0059 Q38.0371 2.4902 34.1553 0.415 Q30.2734 -1.6602 24.4629 -1.6602 Q16.1133 -1.6602 9.5215 4.8828 Q2.9297 11.4258 2.9297 24.8047 Q2.9297 37.3535 9.1064 45.4102 Q15.2832 53.4668 25.0977 53.4668 Q31.5918 53.4668 36.0352 50.1953 Z"
         /><glyph unicode="0" horiz-adv-x="55.615234" d="M46.6797 58.7402 Q51.3672 50.0977 51.3672 35.0586 Q51.3672 20.8008 47.1191 11.4746 Q40.9668 -1.9043 27.002 -1.9043 Q14.4043 -1.9043 8.252 9.0332 Q3.125 18.1641 3.125 33.5449 Q3.125 45.459 6.2012 54.0039 Q11.9629 69.9219 27.0508 69.9219 Q40.625 69.9219 46.6797 58.7402 ZM37.8418 12.1582 Q41.8945 18.2129 41.8945 34.7168 Q41.8945 46.6309 38.9648 54.3213 Q36.0352 62.0117 27.5879 62.0117 Q19.8242 62.0117 16.2354 54.7119 Q12.6465 47.4121 12.6465 33.2031 Q12.6465 22.5098 14.9414 16.0156 Q18.457 6.1035 26.9531 6.1035 Q33.7891 6.1035 37.8418 12.1582 Z"
+        /><glyph unicode="a" horiz-adv-x="55.615234" d="M15.9668 7.9102 Q18.75 5.7129 22.5586 5.7129 Q27.1973 5.7129 31.543 7.8613 Q38.8672 11.4258 38.8672 19.5312 L38.8672 26.6113 Q37.2559 25.5859 34.7168 24.9023 Q32.1777 24.2188 29.7363 23.9258 L24.4141 23.2422 Q19.6289 22.6074 17.2363 21.2402 Q13.1836 18.9453 13.1836 13.916 Q13.1836 10.1074 15.9668 7.9102 ZM34.4727 31.6895 Q37.5 32.0801 38.5254 34.2285 Q39.1113 35.4004 39.1113 37.5977 Q39.1113 42.0898 35.9131 44.1162 Q32.7148 46.1426 26.7578 46.1426 Q19.873 46.1426 16.9922 42.4316 Q15.3809 40.3809 14.8926 36.3281 L6.6895 36.3281 Q6.9336 45.9961 12.9639 49.7803 Q18.9941 53.5645 26.9531 53.5645 Q36.1816 53.5645 41.9434 50.0488 Q47.6562 46.5332 47.6562 39.1113 L47.6562 8.9844 Q47.6562 7.6172 48.2178 6.7871 Q48.7793 5.957 50.5859 5.957 Q51.1719 5.957 51.9043 6.0303 Q52.6367 6.1035 53.4668 6.25 L53.4668 -0.2441 Q51.416 -0.8301 50.3418 -0.9766 Q49.2676 -1.123 47.4121 -1.123 Q42.8711 -1.123 40.8203 2.0996 Q39.7461 3.8086 39.3066 6.9336 Q36.6211 3.418 31.5918 0.8301 Q26.5625 -1.7578 20.5078 -1.7578 Q13.2324 -1.7578 8.6182 2.6611 Q4.0039 7.0801 4.0039 13.7207 Q4.0039 20.9961 8.5449 25 Q13.0859 29.0039 20.459 29.9316 Z"
         /><glyph unicode="A" horiz-adv-x="66.69922" d="M44.4336 29.3945 L33.5449 61.084 L21.9727 29.3945 ZM28.4668 71.7285 L39.4531 71.7285 L65.4785 0 L54.834 0 L47.5586 21.4844 L19.1895 21.4844 L11.4258 0 L1.4648 0 Z"
         /><glyph unicode="h" horiz-adv-x="55.615234" d="M6.4453 71.9727 L15.2344 71.9727 L15.2344 45.2148 Q18.3594 49.1699 20.8496 50.7812 Q25.0977 53.5645 31.4453 53.5645 Q42.8223 53.5645 46.875 45.6055 Q49.0723 41.2598 49.0723 33.5449 L49.0723 0 L40.0391 0 L40.0391 32.959 Q40.0391 38.7207 38.5742 41.4062 Q36.1816 45.7031 29.5898 45.7031 Q24.1211 45.7031 19.6777 41.9434 Q15.2344 38.1836 15.2344 27.7344 L15.2344 0 L6.4453 0 Z"
         /><glyph unicode="i" horiz-adv-x="22.216797" d="M6.4453 52.0508 L15.3809 52.0508 L15.3809 0 L6.4453 0 ZM6.4453 71.7285 L15.3809 71.7285 L15.3809 61.7676 L6.4453 61.7676 Z"
@@ -638,17 +639,9 @@
     ><text x="-20" xml:space="preserve" y="2.5" style="stroke:none;"
       >0.35</text
     ></g
-    ><g transform="translate(252,141) rotate(-90)" style="font-size:11px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
-    ><text x="0" xml:space="preserve" y="0" style="stroke:none;"
-      >Pitch Amplitude (m s</text
-    ></g
-    ><g transform="translate(247,40) rotate(-90)" style="font-size:8px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
-    ><text x="0" xml:space="preserve" y="0" style="stroke:none;"
-      >-2</text
-    ></g
-    ><g transform="translate(252,32) rotate(-90)" style="font-size:11px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
-    ><text x="0" xml:space="preserve" y="0" style="stroke:none;"
-      >)</text
+    ><g transform="translate(255,84.4999) rotate(-90)" style="font-size:11px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
+    ><text x="-61.5" xml:space="preserve" y="-3" style="stroke:none;"
+      >Pitch Amplitude (radians)</text
     ></g
     ><g style="stroke-linecap:butt; text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; stroke-linejoin:round; color-interpolation:linearRGB; stroke-width:0.5;"
     ><line y2="42.4271" style="fill:none;" x1="338.9591" x2="338.9591" y1="107.4231"
@@ -919,21 +912,11 @@
     ><text x="-20" xml:space="preserve" y="2.5" style="stroke:none;"
       >0.35</text
     ></g
-    ><g transform="translate(6,353) rotate(-90)" style="font-size:11px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
-    ><text x="0" xml:space="preserve" y="0" style="stroke:none;"
+    ><g transform="translate(24,314.5) rotate(-90)" style="font-size:11px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
+    ><text x="-38.5" xml:space="preserve" y="-15" style="stroke:none;"
       >Pitch Amplitude</text
-    ></g
-    ><g transform="translate(21,331) rotate(-90)" style="font-size:11px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
-    ><text x="0" xml:space="preserve" y="0" style="stroke:none;"
-      >(m s</text
-    ></g
-    ><g transform="translate(16,309) rotate(-90)" style="font-size:8px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
-    ><text x="0" xml:space="preserve" y="0" style="stroke:none;"
-      >-2</text
-    ></g
-    ><g transform="translate(21,301) rotate(-90)" style="font-size:11px; fill:rgb(38,38,38); text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; font-family:'Helvetica'; color-interpolation:linearRGB; stroke:rgb(38,38,38);"
-    ><text x="0" xml:space="preserve" y="0" style="stroke:none;"
-      >)</text
+      ><text x="-22" xml:space="preserve" y="-3" style="stroke:none;"
+      >(radians)</text
     ></g
     ><g style="stroke-linecap:butt; text-rendering:geometricPrecision; color-rendering:optimizeQuality; image-rendering:optimizeQuality; stroke-linejoin:round; color-interpolation:linearRGB; stroke-width:0.5;"
     ><line y2="293.3261" style="fill:none;" x1="88.2727" x2="88.2727" y1="326.0365"

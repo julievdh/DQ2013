@@ -128,6 +128,6 @@ for i=1:n1
 
    x(i)=xx;
    y(i)=yy;
-   utmzone(i,:)=sprintf('%02d %c',Huso,Letra);
+   % utmzone(i,:)=sprintf('%02d %c',Huso,Letra);
 end
 

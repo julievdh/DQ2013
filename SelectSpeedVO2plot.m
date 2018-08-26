@@ -448,8 +448,8 @@ for i = 1:length(breathfreq)
         end
     end
 end
-set(gca,'xtick',[0 1 2]); xlim([-1 3]); box on
-ylabel('Ventilations per minute')
+set(gca,'xtick',[0 1 2]); xlim([-1 3]); box on; ylim([1.25 5.75])
+ylabel('Breaths per minute')
 
 set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
 
