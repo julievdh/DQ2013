@@ -193,7 +193,7 @@ end
 
 %%
 
-for i = 21 %:size(filenames,1)
+for i = 1:size(filenames,1)
     load(filenames{i});
     %% compute averages per 30 s
     ct = 0; % initial
@@ -320,8 +320,8 @@ print -dpng InstVO2_nonboat -r300
 
 
 %% assess halftimes for condition and individual with ANOVA
-% [p,t,stats] = anovan(thalf,{Ind,Cond},'varnames',{'Individual','Condition'});
-% [nanmean(thalf) nanstd(thalf)]
+[p,t,stats] = anovan(thalf,{Ind,Cond},'varnames',{'Individual','Condition'});
+% [nanmean(thalf(Cond == 0)) nanstd(thalf(Cond == 0))]
 
 figure(3)
 print -dpng C9_4_InstVO2_nonboat_Liko279_A -r300
