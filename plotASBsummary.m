@@ -4,7 +4,7 @@ cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/TagDatafromAlex
 load('ASB_Data_Summary')
 load('all_vel_vec.mat') % load speed data from Annika used in paper
 Condition = [1 5 1 5 1 5 1 5];
-
+Ind = [1 1 2 2 3 3 4 4]; 
 
 figure(1), clf
 subplot(231), hold on
@@ -62,12 +62,15 @@ for i = 1:length(Summary)
 end
 ylabel('Fluke Stroke Amplitude'), xlabel('Fluke Stroke Frequency (Hz)')
 
-% paired T on fluke stroke amplitude
-[h,p,ci,stats] = ttest([Summary(Condition == 1).flukePitchAmpMean],[Summary(Condition == 5).flukePitchAmpMean], 0.05);
+% ANOVA on fluke stroke amplitude
+[p,t,stats] = anovan([Summary.flukePitchAmpMean],{Ind',Condition'},'varnames',{'Ind','Cond'});
+% [mean([Summary(Condition == 1).flukePitchAmpMean]) mean([Summary(Condition == 5).flukePitchAmpMean])]
+% [std([Summary(Condition == 1).flukePitchAmpMean]) std([Summary(Condition == 5).flukePitchAmpMean])]
 
-% paired T on fluke stroke frequency
-[h,p,ci,stats] = ttest([Summary(Condition == 1).flukePitchFreqMean],[Summary(Condition == 5).flukePitchFreqMean], 0.05);
-
+% ANOVA on fluke stroke frequency
+[p,t,stats] = anovan([Summary.flukePitchFreqMean],{Ind',Condition'},'varnames',{'Ind','Cond'});
+% [mean([Summary(Condition == 1).flukePitchFreqMean]) mean([Summary(Condition == 5).flukePitchFreqMean])]
+% [std([Summary(Condition == 1).flukePitchFreqMean]) std([Summary(Condition == 5).flukePitchFreqMean])]
 
 %% plot Strouhal - RELATIVE STROUHAL -- NOT CORRECTED FOR AMPLITUDE 
 % St(=fA/U)
