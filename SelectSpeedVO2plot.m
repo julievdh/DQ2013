@@ -458,8 +458,13 @@ cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('SelfSelect_Bfreq','-dpng','-r300')
 
 % stat on breathing frequency
-[p,t,stats] = anovan([breathfreq{:,1}],{[breathfreq{:,3}],[breathfreq{:,5}]},'varnames',{'Individual','Condition'});
+[p,t,stats] = anovan([breathfreq{:,1}],{[breathfreq{:,5}],[breathfreq{:,3}]},'varnames',{'Individual','Condition'});
 
+bs = [breathfreq{:,1}]; 
+c = [breathfreq{:,3}]; 
+i = [breathfreq{:,5}]; 
+
+mean(bs(c == 0)); % etc to get means of each condition for table 3
 
 return
 
