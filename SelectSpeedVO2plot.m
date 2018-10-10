@@ -46,32 +46,32 @@ figure(1); clf, hold on
 for i = 1:length(VO2_table)
     jit = -.2 + (.2--.2).*rand;
     if strfind(VO2_table{i,2},'C')
-        h = errorbar(0+jit,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'o');
+        h = plot(0+jit,VO2_table{i,6}(1),'ko');
     else if strfind(VO2_table{i,2},'A4')
-            h = errorbar(2+jit,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'s');
+            h = plot(2+jit,VO2_table{i,6}(1),'ks');
         else
-            h = errorbar(1+jit,VO2_table{i,6}(1),VO2_table{i,6}(1)-VO2_table{i,6}(2),'^');
+            h = plot(1+jit,VO2_table{i,6}(1),'k^');
         end
     end
     if strfind(VO2_table{i,1},'Nainoa')
-        set(h,'color',[26/255 150/255 65/255],'MarkerFaceColor','auto')
+        set(h,'MarkerFaceColor',[26/255 150/255 65/255],'MarkerSize',8)
     else if strfind(VO2_table{i,1},'Lono')
-            set(h,'color','k','MarkerFaceColor','auto')
+            set(h,'color','k','MarkerFaceColor','k','MarkerSize',8)
         else if strfind(VO2_table{i,1},'Kolohe')
-                set(h,'color','b','MarkerFaceColor','auto')
+                set(h,'MarkerFaceColor','b','MarkerSize',8)
             else
-                set(h,'color','r','MarkerFaceColor','auto')
+                set(h,'MarkerFaceColor','r','MarkerSize',8)
             end
         end
     end
 end
 set(gca,'xtick',[0 1 2]); xlim([-1 3]); box on
 % title(headers{6}); 
-ylabel('VO_2 L min^{-1}')
+ylabel('Post-exercise VO_2 (L min^{-1})')
 
 set(gca,'xtick',[0 1 2],'xticklabels',{'Control','Tag','Tag+8'})
-
-adjustfigurefont
+ylim([0 4])
+adjustfigurefont('Helvetica',14)
 cd /Users/julievanderhoop/Documents/MATLAB/DQ/DQ2013/AnalysisFigs
 print('SelfSelect_AllRecov','-dpng','-r300')
 
